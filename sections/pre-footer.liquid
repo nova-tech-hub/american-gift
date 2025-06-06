@@ -137,9 +137,9 @@
     </div>
   </footer>
 {% endif %}
-{% assign 'special' in collection_title.lower() %}
+{% assign collection_title = 'special' %}
 {% for collection in collections %}
-  {% if collection.title == collection_title %}
+  {% if collection_title in collection.title.lower() %}
     {% assign current_collection = collection %}
   {% endif %}
 {% endfor %}

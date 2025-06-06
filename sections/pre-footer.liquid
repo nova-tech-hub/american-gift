@@ -204,6 +204,15 @@
               </div>
             </div>
           </div>
+          {% for product in collection.products %}
+            <div class="product-card">
+              <a href="{{ product.url }}">
+                <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.price | money }}</p>
+              </a>
+            </div>
+          {% endfor %}
           {% render 'specials-product' %}
         {% endif %}
 

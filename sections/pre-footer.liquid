@@ -155,7 +155,6 @@
         {% endfor %} 
         <div class="tody-bg">
           <h2>{{ block.settings.mainheadingleft }}</h2>
-          {% render 'specials-product' %}
           <div class="main-product-box">
             <div class="product-img">
               <a href="{{ product.url | within: collection }}" class="product-grid-item__image {{ image_transition_class }}">
@@ -303,6 +302,7 @@
     {% endif %}
   {% endfor %}
   
+  {% render 'specials-product' %}
   
   {% schema %}
   {

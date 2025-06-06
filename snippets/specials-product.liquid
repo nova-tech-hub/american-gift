@@ -1,0 +1,42 @@
+<script id="all-products-data" type="application/json">
+  [
+    {% for product in collection.products %}
+      {
+        "title": "{{ product.title | escape }}",
+        "url": "{{ product.url }}",
+        "image": "{{ product.featured_image | img_url: 'medium' }}",
+        "price": "{{ product.price | money }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+</script>
+<script>
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const rawData = document.getElementById('all-products-data').textContent;
+    const allProducts = JSON.parse(rawData);
+    const randomProducts = shuffleArray(allProducts).slice(0, 5);
+
+    const container = document.getElementById('main-product-box');
+
+    randomProducts.forEach((product) => {
+      const productHTML = `
+          <div class="product-card">
+            <a href="${product.url}">
+              <img src="${product.image}" alt="${product.title}">
+              <h2>${product.title}</h2>
+              <p>${product.price}</p>
+            </a>
+          </div>
+        `;
+      container.insertAdjacentHTML('beforeend', productHTML);
+    });
+  });
+</script>

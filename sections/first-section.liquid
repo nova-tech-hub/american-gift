@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0652/6982/5751/t/3/assets/swiper.min.css">
+<link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0652/6982/5751/t/3/assets/swiper.min.css"/>
 
 <script src="https://cdn.shopify.com/s/files/1/0652/6982/5751/t/3/assets/swiper.min.js"></script>
 
@@ -6,41 +6,45 @@
 {% assign currentYear = 'now' | date: '%Y' %}
 
 {% comment %}  Valentines Day {% endcomment %}
-{% assign val_date = currentYear | append: '-02' | append: '-14' | date: '%Y-%m-%d' %}
-{% assign val_before_date = currentYear | append: '-01' | append: '-03' | date: '%s' %}
-{% assign val_after_date = currentYear | append: '-02' | append: '-14' | date: '%s' %}
+{% assign val_date = currentYear | append: "-02" | append: "-14" | date: "%Y-%m-%d" %}
+{% assign val_before_date = currentYear | append: "-01" | append: "-03" | date: "%s" %}
+{% assign val_after_date = currentYear | append: "-02" | append: "-14" | date: "%s" %}
+
+
+
 
 {% comment %}  St. Patricks Day  {% endcomment %}
-{% assign st_date = currentYear | append: '-03' | append: '-17' | date: '%Y-%m-%d' %}
-{% assign st_before_date = currentYear | append: '-02' | append: '-16' | date: '%s' %}
-{% assign st_after_date = currentYear | append: '-03' | append: '-11' | date: '%s' %}
+{% assign st_date = currentYear | append: "-03" | append: "-17" | date: "%Y-%m-%d" %}
+{% assign st_before_date = currentYear | append: "-02" | append: "-16" | date: "%s" %}
+{% assign st_after_date = currentYear | append: "-03" | append: "-11" | date: "%s" %}
+
 
 {% comment %}  EASTER  {% endcomment %}
-{% assign eas_date = currentYear | append: '-04' | append: '-20' | date: '%Y-%m-%d' %}
-{% assign eas_before_date = currentYear | append: '-02' | append: '-17' | date: '%s' %}
+{% assign eas_date = currentYear | append: "-04" | append: "-20" | date: "%Y-%m-%d" %}
+{% assign eas_before_date = currentYear | append: "-02" | append: "-17" | date: "%s" %}
 
 {% if currentYear == 2023 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-09' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-09" | date: "%s" %}
 {% elsif currentYear == 2024 %}
-  {% assign eas_after_date = currentYear | append: '-03' | append: '-31' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-03" | append: "-31" | date: "%s" %}
 {% elsif currentYear == 2025 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-15' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-15" | date: "%s" %}
 {% elsif currentYear == 2026 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-05' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-05" | date: "%s" %}
 {% elsif currentYear == 2027 %}
-  {% assign eas_after_date = currentYear | append: '-03' | append: '-28' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-03" | append: "-28" | date: "%s" %}
 {% elsif currentYear == 2028 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-16' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-16" | date: "%s" %}
 {% elsif currentYear == 2029 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-01' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-01" | date: "%s" %}
 {% elsif currentYear == 2030 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-21' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-21" | date: "%s" %}
 {% elsif currentYear == 2031 %}
-  {% assign eas_after_date = currentYear | append: '-04' | append: '-13' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-04" | append: "-13" | date: "%s" %}
 {% elsif currentYear == 2032 %}
-  {% assign eas_after_date = currentYear | append: '-03' | append: '-28' | date: '%s' %}
+    {% assign eas_after_date = currentYear | append: "-03" | append: "-28" | date: "%s" %}
 {% else %}
-  {% assign eas_after_date = eas_date | date: '%s' | plus: 86400 | date: '%s' %}
+    {% assign eas_after_date = eas_date | date: '%s' | plus: 86400 | date: '%s' %}
 {% endif %}
 
 {% comment %}  MOTHERS DAY  {% endcomment %}
@@ -48,12 +52,12 @@
 {% assign day_of_week = 0 %}
 {% assign week_number = 2 %}
 
-{% assign first_day = currentYear | append: '-' | append: month | append: '-01' | date: '%u' %}
+{% assign first_day = currentYear | append: "-" | append: month | append: "-01" | date: "%u" %}
 {% assign date_offset = day_of_week | minus: first_day | plus: 14 %}
 
 {% assign offer = 86400 | times: date_offset %}
-{% assign date = currentYear | append: '-05-' | append: '01' | date: '%Y-%m-%d' %}
-{% assign final_date = date | date: '%s' | plus: offer | date: '%Y-%m-%d' %}
+{% assign date =  currentYear | append: "-05-" | append: "01" | date: "%Y-%m-%d" %}
+{% assign final_date = date | date: '%s'| plus: offer | date: "%Y-%m-%d" %}
 
 {% assign mother_date = final_date | date: '%Y-%m-%d' %}
 {% assign mother_before_date = eas_after_date | date: '%s' | plus: 86400 | date: '%s' %}
@@ -64,36 +68,38 @@
 {% assign day_of_week = 0 %}
 {% assign week_number = 3 %}
 
-{% assign first_day = currentYear | append: '-' | append: month | append: '-01' | date: '%u' %}
+
+{% assign first_day = currentYear | append: "-" | append: month | append: "-01" | date: "%u" %}
 {% assign date_offset = day_of_week | minus: first_day | plus: 21 %}
 
 {% assign offer = 86400 | times: date_offset %}
-{% assign date = currentYear | append: '-06-' | append: '01' | date: '%Y-%m-%d' %}
-{% assign final_date = date | date: '%s' | plus: offer | date: '%Y-%m-%d' %}
+{% assign date =  currentYear | append: "-06-" | append: "01" | date: "%Y-%m-%d" %}
+{% assign final_date = date | date: '%s'| plus: offer | date: "%Y-%m-%d" %}
 
 {% assign father_date = final_date | date: '%Y-%m-%d' %}
 {% assign father_before_date = mother_after_date | date: '%s' | plus: 86400 | date: '%s' %}
 {% assign father_after_date = father_date | date: '%s' | plus: 86400 | date: '%s' %}
 
 {% comment %}  4TH OF JULY  {% endcomment %}
-{% assign ind_date = currentYear | append: '-07' | append: '-04' | date: '%Y-%m-%d' %}
+{% assign ind_date = currentYear | append: "-07" | append: "-04" | date: "%Y-%m-%d" %}
 {% assign ind_before_date = father_after_date | date: '%s' | plus: 86400 | date: '%s' %}
-{% assign ind_after_date = currentYear | append: '-07' | append: '-05' | date: '%s' %}
+{% assign ind_after_date = currentYear | append: "-07" | append: "-05" | date: '%s' %}
 
 {% comment %}  SCHOOL  {% endcomment %}
-{% assign school_date = currentYear | append: '-08' | append: '-01' | date: '%Y-%m-%d' %}
-{% assign school_before_date = currentYear | append: '-08' | append: '-01' | date: '%s' %}
-{% assign school_after_date = currentYear | append: '-08' | append: '-31' | date: '%s' %}
+{% assign school_date = currentYear | append: "-08" | append: "-01" | date: "%Y-%m-%d" %}
+{% assign school_before_date = currentYear | append: "-08" | append: "-01" | date: '%s' %}
+{% assign school_after_date = currentYear | append: "-08" | append: "-31" | date: '%s' %}
 
 {% comment %}  Gourmet   {% endcomment %}
-{% assign gourmet_date = currentYear | append: '-09' | append: '-01' | date: '%Y-%m-%d' %}
-{% assign gourmet_before_date = currentYear | append: '-09' | append: '-01' | date: '%s' %}
-{% assign gourmet_after_date = currentYear | append: '-09' | append: '-30' | date: '%s' %}
+{% assign gourmet_date = currentYear | append: "-09" | append: "-01" | date: "%Y-%m-%d" %}
+{% assign gourmet_before_date = currentYear | append: "-09" | append: "-01" | date: '%s' %}
+{% assign gourmet_after_date = currentYear | append: "-09" | append: "-30" | date: '%s' %}
+
 
 {% comment %}  HALLOWEEN  {% endcomment %}
-{% assign hall_date = currentYear | append: '-10' | append: '-31' | date: '%Y-%m-%d' %}
-{% assign hall_before_date = currentYear | append: '-10' | append: '-01' | date: '%s' %}
-{% assign hall_after_date = currentYear | append: '-10' | append: '-31' | date: '%s' %}
+{% assign hall_date = currentYear | append: "-10" | append: "-31" | date: "%Y-%m-%d" %}
+{% assign hall_before_date = currentYear | append: "-10" | append: "-01" | date: '%s' %}
+{% assign hall_after_date = currentYear | append: "-10" | append: "-31" | date: '%s' %}
 
 {% comment %}  THANKSGIVING   {% endcomment %}
 
@@ -101,512 +107,492 @@
 {% assign day_of_week = 4 %}
 {% assign week_number = 4 %}
 
-{% assign first_day = currentYear | append: '-' | append: month | append: '-01' | date: '%u' %}
+{% assign first_day = currentYear | append: "-" | append: month | append: "-01" | date: "%u" %}
 {% assign date_offset = day_of_week | minus: first_day | plus: 28 %}
 
 {% assign offer = 86400 | times: date_offset %}
-{% assign date = currentYear | append: '-11-' | append: '01' | date: '%Y-%m-%d' %}
-{% assign final_date = date | date: '%s' | plus: offer | date: '%Y-%m-%d' %}
+{% assign date =  currentYear | append: "-11-" | append: "01" | date: "%Y-%m-%d" %}
+{% assign final_date = date | date: '%s'| plus: offer | date: "%Y-%m-%d" %}
 
 {% assign thank_date = final_date | date: '%Y-%m-%d' %}
-{% assign thank_before_date = currentYear | append: '-11' | append: '-01' | date: '%s' %}
-{% assign thank_after_date = currentYear | append: '-11' | append: '-25' | date: '%s' %}
+{% assign thank_before_date = currentYear | append: "-11" | append: "-01" | date: '%s' %}
+{% assign thank_after_date = currentYear | append: "-11" | append: "-25" | date: '%s' %}
 
 {% comment %}  CHRISTMAS   {% endcomment %}
-{% assign chris_date = currentYear | append: '-12' | append: '-23' | date: '%Y-%m-%d' %}
-{% assign chris_before_date = currentYear | append: '-11' | append: '-25' | date: '%s' %}
-{% assign chris_after_date = currentYear | append: '-12' | append: '-23' | date: '%s' %}
+{% assign chris_date = currentYear | append: "-12" | append: "-23" | date: "%Y-%m-%d" %}
+{% assign chris_before_date = currentYear | append: "-11" | append: "-25" | date: '%s' %}
+{% assign chris_after_date = currentYear | append: "-12" | append: "-23" | date: '%s' %}
 
 {% comment %}  NEW YEARS   {% endcomment %}
-{% assign new_date = currentYear | append: '-12' | append: '-25' | date: '%Y-%m-%d' %}
-{% assign new_before_date = currentYear | append: '-12' | append: '-25' | date: '%s' %}
-{% assign new_after_date = currentYear | append: '-12' | append: '-31' | date: '%s' %}
+{% assign new_date = currentYear | append: "-12" | append: "-25" | date: "%Y-%m-%d" %}
+{% assign new_before_date = currentYear | append: "-12" | append: "-25" | date: '%s' %}
+{% assign new_after_date = currentYear | append: "-12" | append: "-31" | date: '%s' %}
 
 {% if currentDate >= val_before_date and currentDate <= val_after_date %}
-  {% assign collection_title = 'Valentines Day' %}
-  {% assign back_color = 'red , pink' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = 'Valentines Day' %}
+    {% assign back_color = 'red , pink' %}
+    {% assign text_color = 'white' %}
 {% elsif currentDate >= st_before_date and currentDate <= st_after_date %}
-  {% assign collection_title = 'St. Patricks Day' %}
-  {% assign back_color = 'green , green' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = "St. Patricks Day" %}
+    {% assign back_color = 'green , green' %}
+    {% assign text_color = 'white' %}
 {% elsif currentDate >= eas_before_date and currentDate <= eas_after_date %}
-  {% assign collection_title = 'Easter' %}
-  {% assign back_color = 'yellow , yellow' %}
-  {% assign text_color = 'green' %}
+    {% assign collection_title = "Easter" %}
+    {% assign back_color = 'yellow , yellow' %}
+    {% assign text_color = 'green' %}
 {% elsif currentDate >= mother_before_date and currentDate <= mother_after_date %}
-  {% assign collection_title = "Mother's Day" %}
-  {% assign back_color = 'yellow , red' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = "Mother's Day" %}
+    {% assign back_color = 'yellow , red' %}
+    {% assign text_color = 'white' %}
 {% elsif currentDate >= father_before_date and currentDate <= father_after_date %}
-  {% assign collection_title = "Father's Day" %}
-  {% assign back_color = 'navy , blue' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = "Father's Day" %}
+    {% assign back_color = 'navy , blue' %}
+    {% assign text_color = 'white' %}
 {% elsif currentDate >= school_before_date and currentDate <= school_after_date %}
-  {% assign collection_title = 'Back to School' %}
-  {% assign back_color = 'brown , brown' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = 'Back to School' %}
+    {% assign back_color = 'brown , brown' %}
+    {% assign text_color = 'white' %}
 {% elsif currentDate >= gourmet_before_date and currentDate <= gourmet_after_date %}
-  {% assign collection_title = 'Gourmet' %}
-  {% assign back_color = 'brown , brown' %}
-  {% assign text_color = 'white' %}
-  {% comment %}
-    {% elsif currentDate >= ind_before_date and currentDate <= ind_after_date %}
-    {% assign collection_title = '4TH OF JULY' %}
-  {% endcomment %}
+    {% assign collection_title = 'Gourmet' %}
+    {% assign back_color = 'brown , brown' %}
+    {% assign text_color = 'white' %}
+{% comment %} {% elsif currentDate >= ind_before_date and currentDate <= ind_after_date %}
+    {% assign collection_title = '4TH OF JULY' %} {% endcomment %}
 {% elsif currentDate >= hall_before_date and currentDate <= hall_after_date %}
-  {% assign collection_title = 'Halloween' %}
-  {% assign back_color = 'black , black' %}
-  {% assign text_color = 'orange' %}
+    {% assign collection_title = 'Halloween' %}
+    {% assign back_color = 'black , black' %}
+    {% assign text_color = 'orange' %}
 {% elsif currentDate >= thank_before_date and currentDate <= thank_after_date %}
-  {% assign collection_title = 'Thanksgiving/Fall' %}
-  {% assign back_color = 'brown , brown' %}
-  {% assign text_color = 'ogange' %}
+    {% assign collection_title = 'Thanksgiving/Fall' %}
+    {% assign back_color = 'brown , brown' %}
+    {% assign text_color = 'ogange' %}
 {% elsif currentDate >= chris_before_date and currentDate <= chris_after_date %}
-  {% assign collection_title = 'Christmas' %}
-  {% assign back_color = 'red , red' %}
-  {% assign text_color = 'green' %}
+    {% assign collection_title = 'Christmas' %}
+    {% assign back_color = 'red , red' %}
+    {% assign text_color = 'green' %}
 {% elsif currentDate >= new_before_date and currentDate <= new_after_date %}
-  {% assign collection_title = 'New Years Gift Baskets' %}
-  {% assign back_color = 'gold , gold' %}
-  {% assign text_color = 'black' %}
+    {% assign collection_title = 'New Years Gift Baskets' %}
+    {% assign back_color = 'gold , gold' %}
+    {% assign text_color = 'black' %}
 {% else %}
-  {% assign collection_title = 'Gourmet' %}
-  {% assign back_color = 'brown , brown' %}
-  {% assign text_color = 'white' %}
+    {% assign collection_title = 'Gourmet' %}
+    {% assign back_color = 'brown , brown' %}
+    {% assign text_color = 'white' %}
 {% endif %}
 
+
 {% for collection in collections %}
-  {% if collection.title == collection_title %}
-    {% assign current_collection = collection %}
-  {% endif %}
+     {% if collection.title == collection_title %}
+       {% assign current_collection = collection %}
+      {% endif %}
 {% endfor %}
 
+
+
 <div class="container">
-  <div class="frst-sctn">
-    <div class="frst-sctn-lft">
-      <div class="trd-in">
-        <h2>{{ section.settings.heading }}</h2>
-        <ul>
-          {% for link in linklists.trending.links %}
-            <li>
-              <a href="{{ link.url }}">{{ link.title }}</a>
-              {% if link.links.size > 0 %}
-                <ul class="menu-child">
-                  {% for child_link in link.links %}
-                    <li class="menu-link">
-                      <a href="{{ child_link.url }}">{{ child_link.title }}</a>
-                      {% if child_link.links.size > 0 %}
-                        <ul class="menu-grandchild">
-                          {% for grandchild_link in child_link.links %}
-                            <li class="menu-link">
-                              <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% endif %}
-                    </li>
-                  {% endfor %}
+    <div class="frst-sctn">
+        <div class="frst-sctn-lft">
+            <div class="trd-in">
+                <h2>{{ section.settings.heading }}</h2>
+                <ul>
+                    {% for link in linklists.trending.links %}
+                        <li><a href="{{ link.url }}">{{ link.title }}</a>
+                        {% if link.links.size > 0 %}
+                            <ul class="menu-child">
+                                {% for child_link in link.links %}
+                                    <li class="menu-link">
+                                        <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                                        {% if child_link.links.size > 0 %}
+                                            <ul class="menu-grandchild">
+                                                {% for grandchild_link in child_link.links %}
+                                                    <li class="menu-link">
+                                                    <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        </li>
+                    {% endfor %} 
                 </ul>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-    <div class="frst-sctn-mid">
-      <a
-        href="{{ current_collection.url }}"
-        class="btn"
-        {% if section.settings.btn_bgc != blank %}
-          style="background-image: linear-gradient(174deg, {{back_color}}) !important; border: none; color:{{text_color}} !important;"
-        {% endif %}
-      >
-        View All {{ current_collection.title | escape }} Baskets
-      </a>
-      <div class="prdct-bg-sec">
-        <div class="more_size">
-          {% if section.settings.title != blank %}
-            <div class="section-header text-center">
-              <h2>{{ section.settings.title | escape }}</h2>
-              <p>{{ section.settings.title1 | escape }}</p>
             </div>
-          {% endif %}
-          {%- assign collection = current_collection -%}
-          {% case section.settings.grid %}
-            {% when 2 %}
-              {%- assign max_height = 530 -%}
-              {%- assign grid_item_width = 'medium-up--one-half' -%}
-            {% when 3 %}
-              {%- assign max_height = 345 -%}
-              {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
-            {% when 4 %}
-              {%- assign max_height = 250 -%}
-              {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
-            {% when 5 %}
-              {%- assign max_height = 195 -%}
-              {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
-          {% endcase %}
-          {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
-          <ul class="grid grid--uniform grid--view-items">
-            <div class="swiper-container product-slider">
-              <div class="swiper-wrapper">
-                {% for product in collection.products limit: product_limit %}
-                  <div class="swiper-slide">
-                    <li class="grid__item grid__item--{{section.id}}">
-                      {% include 'product-grid-item-new', max_height: max_height %}
-                    </li>
-                  </div>
-                {% else %}
-                  {% for i in (1..product_limit) %}
-                    <div class="swiper-slide">
-                      <div class="grid-view-item product-card">
-                        <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="#">
-                          <span class="visually-hidden">{{ 'homepage.onboarding.product_title' | t }}</span>
-                        </a>
-                        <div class="grid-view-item__image-wrapper">
-                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-                          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                        </div>
-                        <div class="h4 grid-view-item__title" aria-hidden="true">
-                          {{ 'homepage.onboarding.product_title' | t }}
-                        </div>
-                        {% include 'product-price' %}
-                      </div>
-                    </div>
-                  {% endfor %}
-                {% endfor %}
-              </div>
-              <!-- Add Pagination -->
-              <div class="u-cwip">
-                <div class="swiper-pagination"></div>
-              </div>
-            </div>
-          </ul>
-          {% if section.settings.show_view_all %}
-            <hr class="hr--invisible" aria-hidden="true">
-            <div class="text-center">
-              <a
-                href="{{ collection.url }}"
-                class="btn"
-                aria-label="{{ 'collections.general.view_all_label' | t: collection_name: collection.title }}"
-              >
-                {{ 'collections.general.view_all' | t }}
-              </a>
-            </div>
-          {% endif %}
         </div>
-      </div>
+    <div class="frst-sctn-mid"> 
+        <a href="{{ current_collection.url }}" class="btn" {% if section.settings.btn_bgc != blank %}style="background-image: linear-gradient(174deg, {{back_color}}) !important; border: none; color:{{text_color}} !important;"{% endif %}>
+            View All {{ current_collection.title | escape }} Baskets
+        </a>
+        <div class="prdct-bg-sec">
+            <div class="more_size">
+                {% if section.settings.title != blank %}
+                    <div class="section-header text-center">
+                        <h2>{{ section.settings.title | escape }}</h2>
+                        <p>{{ section.settings.title1 | escape }}</p>
+                    </div>
+                {% endif %}
+                {%- assign collection = current_collection -%}
+                {% case section.settings.grid %}
+                    {% when 2 %}
+                        {%- assign max_height = 530 -%}
+                        {%- assign grid_item_width = 'medium-up--one-half' -%}
+                    {% when 3 %}
+                        {%- assign max_height = 345 -%}
+                        {%- assign grid_item_width = 'small--one-half medium-up--one-third' -%}
+                    {% when 4 %}
+                        {%- assign max_height = 250 -%}
+                        {%- assign grid_item_width = 'small--one-half medium-up--one-quarter' -%}
+                    {% when 5 %}
+                        {%- assign max_height = 195 -%}
+                        {%- assign grid_item_width = 'small--one-half medium-up--one-fifth' -%}
+                {% endcase %}
+                {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
+                <ul class="grid grid--uniform grid--view-items">
+                    <div class="swiper-container product-slider">
+                        <div class="swiper-wrapper">
+                            {% for product in collection.products limit: product_limit %}
+                                <div class="swiper-slide">
+                                    <li class="grid__item grid__item--{{section.id}}">
+                                        {% include 'product-grid-item-new', max_height: max_height %}
+                                    </li>
+                                </div>
+                                {% else %}
+                                {% for i in (1..product_limit) %}
+                                <div class="swiper-slide">
+                                    <div class="grid-view-item product-card">
+                                        <a class="grid-view-item__link grid-view-item__image-container full-width-link" href="#">
+                                        <span class="visually-hidden">{{ 'homepage.onboarding.product_title' | t }}</span>
+                                        </a>
+                                        <div class="grid-view-item__image-wrapper">
+                                        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                        </div>
+                                        <div class="h4 grid-view-item__title" aria-hidden="true">{{ 'homepage.onboarding.product_title' | t }}</div>
+                                        {% include 'product-price' %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="u-cwip">
+                            <div class="swiper-pagination"></div>   
+                        </div>
+                    </div>
+                </ul>
+                {% if section.settings.show_view_all %}
+                    <hr class="hr--invisible" aria-hidden="true" />
+                    <div class="text-center">
+                        <a href="{{ collection.url }}" class="btn" aria-label="{{ 'collections.general.view_all_label' | t: collection_name: collection.title }}">
+                            {{ 'collections.general.view_all' | t }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
     <div class="frst-sctn-rht">
-        {% assign random_products = collection.products | sample: 5 %}
-
-        {% for product in random_products %}
-          <div class="product-card">
-            <a href="{{ product.url }}">
-              <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-              <h2>{{ product.title }}</h2>
-              <p>{{ product.price | money }}</p>
-            </a>
-          </div>
-        {% endfor %}
-      <div class="frst-rht-in">
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link1 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn1 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading1 }}</h2>
-          </a>
+      
+        <div class="frst-rht-in">
+            <div class="frst-rht-in1">
+                <a href="{{ section.settings.button_link1 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn1 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading1 }}</h2>
+                </a>
+            </div>
+            <div class="frst-rht-in1">
+                <a href="{{ section.settings.button_link2 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn2 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading2 }}</h2>
+                </a>
+            </div>
+            <div class="frst-rht-in1">
+            
+                <a href="{{ section.settings.button_link3 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn3 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading3 }}</h2>
+                </a>
+            </div>
+            <div class="frst-rht-in1">
+                <a href="{{ section.settings.button_link4 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn4 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading4 }}</h2>
+                </a>
+            </div>
+            <div class="frst-rht-in1">
+                <a href="{{ section.settings.button_link5 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn5 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading5 }}</h2>
+                </a>
+            </div>
+            <div class="frst-rht-in1">
+                <a href="{{ section.settings.button_link6 }}">
+                    <span class="circle-product">
+                      <span style="background-image:url({{ section.settings.cltn6 | img_url: 'master' }});"></span>
+                    </span>
+                    <h2>{{ section.settings.heading6 }}</h2>
+                </a>
+            </div>
         </div>
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link2 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn2 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading2 }}</h2>
-          </a>
-        </div>
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link3 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn3 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading3 }}</h2>
-          </a>
-        </div>
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link4 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn4 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading4 }}</h2>
-          </a>
-        </div>
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link5 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn5 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading5 }}</h2>
-          </a>
-        </div>
-        <div class="frst-rht-in1">
-          <a href="{{ section.settings.button_link6 }}">
-            <span class="circle-product">
-              <span style="background-image:url({{ section.settings.cltn6 | img_url: 'master' }});"></span>
-            </span>
-            <h2>{{ section.settings.heading6 }}</h2>
-          </a>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 </div>
 
 <script>
-  var swiper = new Swiper('.product-slider', {
-    slidesPerView: 1,
-    spaceBetween: 0,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-  });
+    var swiper = new Swiper(".product-slider", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
 </script>
 
 {% schema %}
-{
-  "name": {
-    "en": "first-section-slider"
-  },
-  "class": "index-section",
-  "settings": [
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Select Collection"
-    },
-    {
-      "type": "range",
-      "id": "grid",
-      "label": {
-        "de": "Produkte per Reihe",
-        "en": "Products per row",
-        "es": "Productos por fila",
-        "fr": "Produits par rangée",
-        "it": "Prodotti per riga",
-        "ja": "行あたりの商品数",
-        "pt-BR": "Produtos por linha"
-      },
-      "min": 4,
-      "max": 10,
-      "step": 1,
-      "default": 5
-    },
-    {
-      "type": "range",
-      "id": "rows",
-      "label": {
-        "de": "Reihen",
-        "en": "Rows",
-        "es": "Filas",
-        "fr": "Rangées",
-        "it": "Righe",
-        "ja": "行",
-        "pt-BR": "Linhas"
-      },
-      "min": 1,
-      "max": 5,
-      "step": 1,
-      "default": 2
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": {
-        "en": "Button label"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_links",
-      "label": {
-        "en": "Button link"
-      }
-    },
-
-    {
-      "type": "color_background",
-      "id": "btn_bgc",
-      "label": "Button Background"
-    },
-
-    {
-      "type": "url",
-      "id": "button_link1",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn1",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading1",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_link2",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn2",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading2",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_link3",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn3",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading3",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_link4",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn4",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading4",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_link5",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn5",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading5",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    },
-    {
-      "type": "url",
-      "id": "button_link6",
-      "label": {
-        "en": "Button link"
-      }
-    },
-    {
-      "type": "image_picker",
-      "id": "cltn6",
-      "label": {
-        "en": "Image"
-      }
-    },
-    {
-      "type": "text",
-      "id": "heading6",
-      "label": {
-        "en": "Heading"
-      },
-      "default": {
-        "en": "Image with text"
-      }
-    }
-  ],
-
-  "presets": [
-    {
-      "name": {
+    "name": {
         "en": "first-section-slider"
-      },
-      "category": {
-        "en": "first-section-slider"
-      }
+    },
+    "class": "index-section",
+    "settings": [
+        {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+        },
+        {
+        "type": "range",
+        "id": "grid",
+        "label": {
+            "de": "Produkte per Reihe",
+            "en": "Products per row",
+            "es": "Productos por fila",
+            "fr": "Produits par rangée",
+            "it": "Prodotti per riga",
+            "ja": "行あたりの商品数",
+            "pt-BR": "Produtos por linha"
+        },
+        "min": 4,
+        "max": 10,
+        "step": 1,
+        "default": 5
+        },
+        {
+        "type": "range",
+        "id": "rows",
+        "label": {
+            "de": "Reihen",
+            "en": "Rows",
+            "es": "Filas",
+            "fr": "Rangées",
+            "it": "Righe",
+            "ja": "行",
+            "pt-BR": "Linhas"
+        },
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 2
+        },
+        {
+        "type": "text",
+        "id": "heading",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "text",
+        "id": "button_label",
+        "label": {
+            "en": "Button label"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_links",
+        "label": {
+            "en": "Button link"
+        }
+        },
+
+        {
+        "type": "color_background",
+        "id": "btn_bgc",
+        "label": "Button Background"
+        },
+
+    {
+        "type": "url",
+        "id": "button_link1",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn1",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading1",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_link2",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn2",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading2",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_link3",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn3",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading3",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_link4",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn4",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading4",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_link5",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn5",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading5",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        },
+        {
+        "type": "url",
+        "id": "button_link6",
+        "label": {
+            "en": "Button link"
+        }
+        },
+        {
+        "type": "image_picker",
+        "id": "cltn6",
+        "label": {
+            "en": "Image"
+            }
+        },
+        {
+        "type": "text",
+        "id": "heading6",
+        "label": {
+            "en": "Heading"
+        },
+        "default": {
+            "en": "Image with text"
+        }
+        }
+    
+    ],
+
+    "presets": [
+        {
+        "name": {
+            "en": "first-section-slider"
+        },
+        "category": {
+            "en": "first-section-slider"
+        }
+        }
+    ]
     }
-  ]
-}
 {% endschema %}

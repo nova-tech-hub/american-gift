@@ -299,15 +299,17 @@
       </div>
     </div>
     <div class="frst-sctn-rht">
-      {% for product in collection.products %}
-        <div class="product-card">
-          <a href="{{ product.url }}">
-            <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-            <h2>{{ product.title }}</h2>
-            <p>{{ product.price | money }}</p>
-          </a>
-        </div>
-      {% endfor %}
+        {% assign random_products = collection.products | sample: 5 %}
+
+        {% for product in random_products %}
+          <div class="product-card">
+            <a href="{{ product.url }}">
+              <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
+              <h2>{{ product.title }}</h2>
+              <p>{{ product.price | money }}</p>
+            </a>
+          </div>
+        {% endfor %}
       <div class="frst-rht-in">
         <div class="frst-rht-in1">
           <a href="{{ section.settings.button_link1 }}">

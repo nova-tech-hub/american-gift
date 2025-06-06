@@ -137,11 +137,9 @@
     </div>
   </footer>
 {% endif %}
-{% assign collection_title = 'special' | downcase %}
+{% assign collection_title = 'Specials' %}
 {% for collection in collections %}
-  {% assign title_down = collection.title | downcase %}
-  {% if title_down contains collection_title %}
-    <h1>test</h1>
+  {% if collection.title == collection_title %}
     {% assign current_collection = collection %}
   {% endif %}
 {% endfor %}

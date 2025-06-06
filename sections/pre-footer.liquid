@@ -140,6 +140,7 @@
 {% assign collection_title = 'special' %}
 {% for collection in collections %}
   {% if collection_title in collection.title.lower() %}
+    <h1>test</h1>
     {% assign current_collection = collection %}
   {% endif %}
 {% endfor %}

@@ -140,7 +140,6 @@
 {% assign collection_title = 'special' | downcase %}
 {% for collection in collections %}
   {% assign title_down = collection.title | downcase %}
-  {{ title_down }}
   {% if title_down contains collection_title %}
     <h1>test</h1>
     {% assign current_collection = collection %}

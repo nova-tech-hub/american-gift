@@ -148,10 +148,8 @@
     <div class="container">
       <div class="tdybgn">
         <!-- right section -->
-        {{ block.settings.spclproduct }} ------------------------------
         {% if block.settings.spclproduct %}
           {% capture index %}{{ 'now' | date: '%S' | times: current_collection.products.size | divided_by: 60 }}{% endcapture %}
-          {{ current_collection.products.size }} ------------------------ {{ index }}
           {% for cproduct in current_collection.products offset: index limit: 1 %}
             {% assign product = cproduct %}
           {% endfor %}

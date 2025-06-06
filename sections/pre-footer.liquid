@@ -137,7 +137,7 @@
     </div>
   </footer>
 {% endif %}
-{% assign collection_title = 'Specials' %}
+{% assign 'special' in collection_title.lower() %}
 {% for collection in collections %}
   {% if collection.title == collection_title %}
     {% assign current_collection = collection %}
@@ -204,7 +204,6 @@
               </div>
             </div>
           </div>
-          {% render 'specials-product' %}
         {% endif %}
 
         <!-- left section -->

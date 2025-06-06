@@ -1,6 +1,6 @@
 <script id="all-products-data" type="application/json">
   [
-    {% for product in collection.products %}
+    {% for product in collections.products %}
       {
         "title": "{{ product.title | escape }}",
         "url": "{{ product.url }}",

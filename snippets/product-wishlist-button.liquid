@@ -1,0 +1,21 @@
+<div class="product-wishlist tooltip-new js-wishlist-button" style="background-color:gray !important;"
+	 data-product-id="{{ product.id }}">
+
+	<span class="product-wishlist__icon js-wishlist-inactive" style="padding:14px 12px !important;">
+		{% comment %} {% render 'icon-wishlist' %} {% endcomment %}
+		<span class="fa-solid fa-heart fa-2xl" style="color: #ffffff;"></span>
+	</span>
+
+	<span class="product-wishlist__icon product-wishlist__icon--active js-wishlist-active hidden" style="padding:14px 12px !important;">
+		{% comment %} {% render 'icon-wishlist-fill' %} {% endcomment %}
+		<span class="fa-solid fa-heart fa-2xl" style="color: #ff0000;"></span>
+	</span>
+
+	<div class="tooltip-new__text js-wishlist-text"
+		 data-add-to-wishlist-text="{{ 'products.wishlist.add_to_wishlist' | t }}"
+		 data-remove-from-wishlist-text="{{ 'products.wishlist.remove_from_wishlist' | t }}"
+         data-added-to-wishlist-text="{{ 'products.wishlist.added_to_wishlist' | t }}"
+		 data-removed-from-wishlist-text="{{ 'products.wishlist.removed_from_wishlist' | t }}">
+		{{ 'products.wishlist.add_to_wishlist' | t }}
+	</div>
+</div>

@@ -1,0 +1,178 @@
+<div class="footer">
+  <div class="container">
+    <div class="footer-in">
+      <div class="ftr-lft">
+        <h2>{{ section.settings.heading }}</h2>
+        <ul>
+          {% assign cnt =0 %}
+          {% for link in linklists[settings.footer_linklist].links %}
+          <li class="footer__menu-item1">
+            {% assign cnt = cnt | plus: 1 %}
+            {% if cnt == 2 %}
+              <a onclick="toggleshow()" class="footer__menu-link1" id='footer_chat'>
+                {{- link.title -}}
+              </a>
+              {% else %}
+              <a href="{{ link.url }}" class="footer__menu-link1">
+                {{- link.title -}}
+              </a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="ftr-lft">
+        <h2>{{ section.settings.heading1 }}</h2>
+        <ul>
+            {% assign tab_id =0 %}
+          {% for polink in linklists.new-policiess.links %}
+            {% assign tab_id = tab_id | plus: 1 %}
+          <li><a href="{{ polink.url }}#tab{{ tab_id }}">{{ polink.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="ftr-lft">
+        <h2>Services</h2>
+        <ul>
+         <li><a href="https://www.americangiftsandbaskets.com/pages/corporate-services">Corporate Services</a></li>
+          <li><a href="https://www.americangiftsandbaskets.com/pages/wholesale-account-application">Wholesale</a></li>
+          <li><a href="https://www.americangiftsandbaskets.com/pages/partners">Sales Partners</a></li>
+        </ul>
+      </div>
+
+
+      
+      <div class="ftr-lft">
+        <h2>{{ section.settings.heading2 }}</h2>
+        <ul>
+          {% for link in linklists.the-gift-basket-blog.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="ftr-lft imgscctn">
+        <h2>{{ section.settings.heading3 }}</h2>
+        <img src="{{ section.settings.image | img_url: 'master' }}" /><br />
+        <img src="{{ section.settings.image1 | img_url: 'master' }}" /><br />
+        <img src="{{ section.settings.image2 | img_url: 'master' }}" />
+      </div>
+    </div>
+    <div class="bottom-fotr">
+      <div class="container">{{ section.settings.paragraph }}</div>
+    </div>
+  </div>
+</div>
+<script>
+  function toggleshow(canShow = true) {
+      $zoho.salesiq.floatwindow.visible(canShow ? 'show' : 'hide');
+  }
+</script> 
+
+{% schema %}
+      {
+    "name": {
+      "en": "Footer custom"
+    },
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Image with text"
+        }
+      },
+     {
+          "type": "link_list",
+          "id": "footer_linklist",
+          "label": "First menu",
+          "default": "footer"
+        },
+      {
+        "type": "text",
+        "id": "heading1",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Image with text"
+        }
+      },
+       {
+          "type": "link_list",
+          "id": "footer_linklis",
+          "label": "secon menu",
+          "default": "footer"
+        },
+      {
+        "type": "text",
+        "id": "heading2",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Image with text"
+        }
+      },
+       {
+          "type": "link_list",
+          "id": "footer_linklists",
+          "label": "Mainmenu-3 Blogs"
+        },
+      {
+        "type": "text",
+        "id": "heading3",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Image with text"
+        }
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": {
+          "en": "Image"
+           }
+      },
+      {
+        "type": "image_picker",
+        "id": "image1",
+        "label": {
+          "en": "Image"
+           }
+      },
+      {
+        "type": "image_picker",
+        "id": "image2",
+        "label": {
+          "en": "Image"
+           }
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph",
+        "label": {
+           "en": "Text"
+        }
+      }
+
+
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Footer custom"
+        },
+        "category": {
+          "en": "Image"
+        }
+      }
+    ]
+  }
+{% endschema %}

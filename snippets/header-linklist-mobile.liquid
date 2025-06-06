@@ -1,0 +1,41 @@
+{% for link in linklists[header_linklist].links %}
+  {% assign child_list_handle = link.title | handle %}
+  {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+    <li>
+      <span>
+        {{ link.title }}
+      </span>
+      <ul>
+        {% for child_link in linklists[child_list_handle].links %}
+          {% assign grand_child_list_handle = child_link.title | handle %}
+          {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}
+            <li>
+              <a href="{{ child_link.url }}">
+                {{ child_link.title }}
+              </a>
+              <ul>
+                {% for grand_child_link in linklists[grand_child_list_handle].links %}
+                  <li>
+                    <a href="{{ grand_child_link.url }}">
+                      {{ grand_child_link.title }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{ child_link.url }}">
+                {{ child_link.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  {% else %}
+    <li {% if link.active %}class="site-nav--active"{% endif %}>
+      <a href="{{ link.url }}" class="site-nav__linkk">{{ link.title }}</a>
+    </li>
+  {% endif %}
+{% endfor %}

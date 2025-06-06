@@ -1,0 +1,1670 @@
+<style>
+  @media (max-width: 768px){
+      .product-images__container.js-product-images.product-images__container--images-below.product-images__container--hide-thumbs-mobile {
+          margin: 0 auto;
+      }
+  }
+  @media (max-width: 1400px){
+      .product-images__container.js-product-images.product-images__container--images-below.product-images__container--hide-thumbs-mobile.product-images__container--sticky {
+          max-width: 502px !important;
+          width: 100% !important;
+      }
+      .product .product__main .product-images__container, .product .product__main.product__main--slider-large .product-images__container {
+          width: 100% !important;
+          max-width: 508px !important;
+      }
+  }
+  @media (max-width: 1024px){
+      .product-images__container.js-product-images.product-images__container--images-below.product-images__container--hide-thumbs-mobile.product-images__container--sticky {
+          max-width: 430px !important;
+          width: 100% !important;
+      }
+      .product .product__main .product-images__container, .product .product__main.product__main--slider-large .product-images__container {
+          max-width: 410px;
+      }
+  }
+  @media (max-width: 1250px){
+      .product-images__container.js-product-images.product-images__container--images-below.product-images__container--hide-thumbs-mobile.product-images__container--sticky {
+          max-width: 444px !important;
+          width: 100% !important;
+      }   
+      .product .product__main .product-images__container, .product .product__main.product__main--slider-large .product-images__container {
+          max-width: 444px;
+      }
+ 
+  }
+</style>
+<script language="javascript"  data-no-instant>
+  function emailCurrentPage(){
+      var txt1 = "Check out this site!";
+      window.location.href="mailto:?subject="+txt1+"&body="+escape(window.location.href);
+  }
+</script>
+<style>
+.p-tag--buy-div { text-align: center; }
+.progress.progress-striped { margin: 0; }
+{% if settings.stickycartenable %}
+      .cart__footer-icon.in { display: none; }
+{% endif %}
+</style>
+{%- liquid
+  assign checklist = ""
+  assign view_size_chart = false
+  assign personalisation_string = ""
+  assign tab_below_atc = false
+  assign reviews_below_atc = false
+  assign no_tabs = false
+  assign custom_tabs = false
+  assign tabs_position_bottom_by_tag = false
+  assign product_flash_sold_enable = false
+  assign show_quantity_bar = false
+  assign quantity = 1
+  assign qty_sold = 0
+  assign display_limited = false
+  assign display_quantity = 0
+  assign limited_default = 0
+  assign show_order_estimate = true
+  assign multibuy_prompt = false
+  assign amazon_url = ""
+  assign free_shipping_product = false
+  assign display_countdown = false
+  assign expire = 72
+  assign size_chart_page = settings.sizing_chart_page
+  for tag in product.tags
+      assign tag = tag | downcase
+      if tag contains "checklist-"
+          capture checklist
+              if checklist == ""
+                  echo tag | replace: "checklist-", ""
+              else
+                  echo checklist | append: "|||" | append: tag | replace: "checklist-", ""
+              endif
+          endcapture
+
+      endif
+      if tag == "view-size-chart"
+          assign view_size_chart = true
+      endif
+
+      if tag contains "sizechart-"
+          assign size_chart_page = tag | replace: "sizechart-", ""
+      endif
+
+      if tag contains "personalisation-"
+          capture personalisation_string
+              if personalisation_string == ""
+                  echo tag | replace: "personalisation-", ""
+              else
+                  echo personalisation_string | append: "|||" | append: tag | replace: "personalisation-", ""
+              endif
+          endcapture
+      endif
+
+      if tag contains "personalization-"
+          capture personalisation_string
+              if personalisation_string == ""
+                  echo tag | replace: "personalization-", ""
+              else
+                  echo personalisation_string | append: "|||" | append: tag | replace: "personalization-", ""
+              endif
+          endcapture
+      endif
+
+      if tag == "tabs-below-atc"
+          assign tab_below_atc = true
+      endif
+
+      if tag == "reviews-below-atc"
+          assign reviews_below_atc = true
+      endif
+
+      if tag == "no-tabs"
+          assign no_tabs = true
+      endif
+
+      if tag == "tabs-bottom"
+          assign tabs_position_bottom_by_tag = true
+      endif
+
+      if tag == "custom-tabs"
+          assign custom_tabs = true
+      endif
+
+      if tag == "product-flash-sold"
+          assign product_flash_sold_enable = true
+      endif
+
+      if tag == "show_quantity_bar"
+          assign show_quantity_bar = true
+      endif
+
+      if tag contains "quantity-"
+          assign quantity = tag | replace: "quantity-", "" | times: 1
+      endif
+
+      if tag contains "quantitysold-"
+          assign qty_sold = tag | replace: "quantitysold-", "" | times: 1
+      endif
+
+      if tag == "display-limited"
+          assign display_limited = true
+      endif
+
+      if tag contains "displayquantity-"
+          assign display_quantity = tag | replace: "displayquantity-", "" | times: 1
+      endif
+
+      if tag contains "limited-default-"
+          assign limited_default = tag | replace: "limited-default-", ""
+      endif
+
+      if tag contains "display-shipping-countdown"
+          assign show_order_estimate = false
+      endif
+
+      if tag contains "multi-buy-prompt"
+          assign multibuy_prompt = true
+      endif
+
+      if tag contains "https:" or tag contains "http:" or tag contains "www."
+          assign amazon_url = tag
+      endif
+
+      if tag == "free-shipping"
+          assign free_shipping_product = true
+      endif
+
+      if tag == "display-countdown"
+          assign display_countdown = true
+      endif
+
+      if tag contains "expire-"
+          assign expire = tag | replace: "expire-", ""
+      endif
+  endfor
+-%}
+<div class="prdct-row">
+  <section class="section-product-single" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+      {% render "product-meta-tags" with product: product %}
+      <div class="product js-product" data-handle="{{ product.handle }}"  style="margin-top: -3px !important;">
+          <div class="single-product-page__header">
+          {% comment %}       {% render 'breadcrumb' with product: product %}<p>&nbsp;/&nbsp;{{ product.title  | within: collection }}</p> {% endcomment %}
+              {% render 'breadcrumb' with product: product %}<p>&nbsp;/&nbsp;{{ product.title }}</p>
+          </div>
+          <div class="container prdct-rw">
+          <div class="single-product-container">
+          <div class="product__main{% if settings.product_thumbnails == 'Bottom' %} product__main--slider-large{% endif %}{% if settings.scroll_image_feature %} js-product-main{% endif %}">
+          <div class="product-main-left">
+              {% render "product-images-slider" with product: product %}
+          </div>
+          <div class="product-info product-main-right">
+              {% form "product", product, id: form_id, class: "product-form"%}
+                  {%- for block in section.blocks -%}
+                      {%- case block.type -%}
+                          {%- when '@app' -%}
+                              {% render block %}
+                          {%- when 'title' -%}
+                              <h1 class="product-info__title">
+                                  {{ product.title }}
+                              </h1>
+                          {%- when 'rating' -%}
+                              {% if section.settings.display_review_star_product %}
+                                  <div id="goToReview" class="product-reviews-stars product-info__review-stars">
+                                  {% if settings.productreview == "loox" %}
+                                      <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+                                  {% endif %}
+                                  {% if settings.productreview == "shopify_reviews" %}
+                                      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                  {% endif %}
+                                  </div>
+                              {% endif %}
+                          {%- when 'flash_sold' -%}
+                              {%- liquid
+                                  if settings.product_flash_sold_enable and product_flash_sold_enable and product.available
+                                  render "product-flash-sold" with product: product
+                                  endif
+                              -%}
+                          {%- when 'price' -%}
+                              <meta itemprop="priceCurrency" content="{{ shop.currency }}"/>
+                              <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"/>
+                              {% render "product-price" with product: product %}
+                              {% comment %}
+                              {%- when 'sku' -%}
+                              {%- liquid
+                                  if settings.display_sku
+                                  render "product-sku" with product: product
+                                  endif
+                              -%}
+                              {% endcomment %}
+                          {%- when 'checklist' -%}
+                              {%- liquid
+                                  if settings.enable_checklist and checklist != ""
+                                  render "product-checklist" with checklist: checklist
+                                  endif
+                              -%}
+                          {%- when 'variant_picker' -%}
+                              <div class="product-selectors">
+                                  {%- liquid
+                                  if settings.variant_swatch
+                                      render "product-variant-swatch" with product: product, unique_letter: "c", view_size_chart: view_size_chart
+                                  else
+                                      render "product-variant-selects" with product: product
+                                  endif
+                                  -%}
+                              </div>
+                              {%- liquid
+                                  render "product-variants-select" with product: product
+                                  if settings.product_personalisation
+                                  render "product-personalisation-properties" with product: product, personalisation_string: personalisation_string
+                                  endif
+                              -%}
+
+                          {%- when 'scarcity_bar' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.enable_product_progressbar and product.available
+                                      if settings.use_tags_to_display_quantity != true or show_quantity_bar
+                                      render "product-quantity-progress" with product: product, limited_default: limited_default, display_quantity: display_quantity, display_limited: display_limited, qty_sold: qty_sold, quantity: quantity
+                                      endif
+                                  endif
+                                  endif
+                              -%}
+                          {% comment %}
+                          {%- when 'delivery_estimate' -%}
+                          {%- liquid
+                              if product.available
+                              if show_order_estimate
+                                  if section.settings.enable_delivery_option
+                                  render "product-delivery-estimate" with product: product
+                                  endif
+                              endif
+                              endif
+                          -%}
+                          {% endcomment %}
+                          {%- when 'information_alert' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.informations_alert_enable
+                                      render "product-information-alert" with product: product
+                                  endif
+                                  endif
+                              -%}
+                          {%- when 'visitors_counter' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.visitors_counter_enable
+                                      render "product-visitors-counter" with product: product
+                                  endif
+                                  endif
+                              -%}
+                              {% comment %}
+                              {%- when 'orders_counter' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.orders_counter_enable
+                                      render 'product-orders-counter' with product: product
+                                  endif
+                                  endif
+                              -%}
+                              {% endcomment %}
+                          {%- when 'countdown_timer' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.enable_countdown_timer
+                                      if display_countdown
+                                      if settings.timer_model == "timer_model_1"
+                                          render "product-countdown-timer-1" with product: product, expire: expire
+                                      endif
+                                      if settings.timer_model == "timer_model_2"
+                                          render "product-countdown-timer-2" with product: product, expire: expire
+                                      endif
+                                      if settings.timer_model == "timer_model_3"
+                                          render "product-countdown-timer-3" with product: product, expire: expire
+                                      endif
+                                      endif
+                                  endif
+                                  endif
+                              -%}
+                          {%- when 'motivator_text' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.product_show_motivator_text
+                                      render "product-motivator-text" with product: product
+                                  endif
+                                  endif
+                              -%}
+                          {%- when 'motivator_additional_text' -%}
+                              {%- liquid
+                                  if product.available
+                                  if settings.product_we_ship_fast_hide
+                                      render "product-motivator-additional-text" with product: product
+                                  endif
+                                  endif
+                              -%}
+                              <div class="product-info__properties js-product-properties">
+                                  <div class="product-property js-product-property">
+                                          <label for="child's_age" class="product-property__label">
+                                              Add a Gift Message
+                                          </label>
+                                      <textarea  type="text" class="input product-property__input js-product-property-input" id="child's_age" placeholder="Enter your Gift Message" name="properties[Gift Message]" data-error="Please enter Gift Message."  rows="4" cols="50"></textarea>
+                                      <div class="product-property__error js-product-property-error" style="display: none;"></div>
+                                          
+                                  </div>
+                                  {% for c in product.collections %}
+                                      {% if c.handle == "wine-beer" %}
+                                          <div class="line-item-property__field product-property js-product-property Alcohol">
+                                              <label>*Alcohol Delivery State</label><br>
+                                              <select data-charlimit="5" class="required product-property__input js-product-property-input" id="alcohol-delivery-state" name="properties[Alcohol Delivery State]" data-error="Please select State.">
+                                                  <option value="" selected disabled>Confirm Delivery State</option>
+                                              {% comment %}
+                                                  {% if product.metafields.custom.delivery_state != blank %}
+                                                  {{ product.metafields.custom.delivery_state }}
+                                                  {% else %} 
+                                                      <option value="AL *Non Wine State" disabled>AL *Non Wine State</option>
+                                                      <option value="AK *Non Wine State" disabled>AK *Non Wine State</option>
+                                                      <option value="AR">AR</option>
+                                                      <option value="AZ">AZ</option>
+                                                      <option value="CA">CA</option>
+                                                      <option value="CT">CT</option>
+                                                      <option value="DE *Non Wine State_7" disabled>DE *Non Wine State</option>
+                                                      <option value="DC">DC</option>
+                                                      <option value="FL">FL</option>
+                                                      <option value="GA">GA</option>
+                                                      <option value="HI">HI</option>
+                                                      <option value="ID">ID</option>
+                                                      <option value="IL">IL</option>
+                                                      <option value="IN">IN</option>
+                                                      <option value="IA">IA</option>
+                                                      <option value="IL">IL</option>
+                                                      <option value="KS">KS</option>
+                                                      <option value="KY *Non Wine State" disabled>KY *Non Wine State</option>
+                                                      <option value="LA">LA</option>
+                                                      <option value="ME">ME</option>
+                                                      <option value="MD">MD</option>
+                                                      <option value="MA">MA</option>
+                                                      <option value="MI">MI</option>
+                                                      <option value="MN">MN</option>
+                                                      <option value="MS *Non Wine State" disabled>MS *Non Wine State</option>
+                                                      <option value="MO">MO</option>
+                                                      <option value="MT">MT</option>
+                                                      <option value="NE">NE</option>
+                                                      <option value="NV">NV</option>
+                                                      <option value="NH">NH</option>
+                                                      <option value="NJ">NJ</option>
+                                                      <option value="NM">NM</option>
+                                                      <option value="NY">NY</option>
+                                                      <option value="NC">NC</option>
+                                                      <option value="ND *Non Wine State" disabled>ND *Non Wine State</option>
+                                                      <option value="OH">OH</option>
+                                                      <option value="OK *Non Wine State" disabled>OK *Non Wine State</option>
+                                                      <option value="OR">OR</option>
+                                                      <option value="PA *Non Wine State" disabled>PA *Non Wine State</option>
+                                                      <option value="RI">RI</option>
+                                                      <option value="SC">SC</option>
+                                                      <option value="SD *Non Wine State" disabled>SD *Non Wine State</option>
+                                                      <option value="TN">TN</option>
+                                                      <option value="TX">TX</option>
+                                                      <option value="UT *Non Wine State"disabled>UT *Non Wine State</option>
+                                                      <option value="VT">VT</option>
+                                                      <option value="VA">VA</option>
+                                                      <option value="WA">WA</option>
+                                                      <option value="WV">WV</option>
+                                                      <option value="WI">WI</option>
+                                                      <option value="WY">WY</option>
+                                                  {% endif %}
+                                              {% endcomment %}
+                                              {% if product.metafields.custom.delivery_instructions != blank or product.metafields.custom.delivery_state != blank %}
+                                                  {% assign state_string = product.metafields.custom.delivery_state | strip %}
+                                                  {% if state_string contains 'AL' %}
+                                                  <option value="AL *Non Wine State" disabled>AL *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="AL" >AL</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'AK' %}
+                                                  <option value="AK *Non Wine State" disabled>AK *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="AK" >AK</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'AR' %}
+                                                  <option value="AR *Non Wine State" disabled>AR *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="AR" >AR</option>
+                                                  {% endif %}
+                                                  {% if state_string contains 'AZ' %}
+                                                  <option value="AZ *Non Wine State" disabled>AZ *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="AZ" >AZ</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'CA' %}
+                                                  <option value="CA *Non Wine State" disabled>CA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="CA" >CA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'CT' %}
+                                                  <option value="CT *Non Wine State" disabled>CT *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="CT" >CT</option>
+                                                  {% endif %}
+                                                  {% if state_string contains 'DE' %}
+                                                  <option value="DE *Non Wine State" disabled>DE *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="DE" >DE</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'DC' %}
+                                                  <option value="DC *Non Wine State" disabled>DC *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="DC" >DC</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'FL' %}
+                                                  <option value="FL *Non Wine State" disabled>FL *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="FL" >FL</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'GA' %}
+                                                  <option value="GA *Non Wine State" disabled>GA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="GA" >GA</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'HI' %}
+                                                  <option value="HI *Non Wine State" disabled>HI *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="HI" >HI</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'ID' %}
+                                                  <option value="ID *Non Wine State" disabled>ID *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="ID" >ID</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'IL' %}
+                                                  <option value="IL *Non Wine State" disabled>IL *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="IL" >IL</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'IN' %}
+                                                  <option value="IN *Non Wine State" disabled>IN *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="IN" >IN</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'IA' %}
+                                                  <option value="IA *Non Wine State" disabled>IA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="IA" >IA</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'KS' %}
+                                                  <option value="KS *Non Wine State" disabled>KS *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="KS" >KS</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'KY' %}
+                                                  <option value="KY *Non Wine State" disabled>KY *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="KY" >KY</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'LA' %}
+                                                  <option value="LA *Non Wine State" disabled>LA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="LA" >LA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'ME' %}
+                                                  <option value="ME *Non Wine State" disabled>ME *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="ME" >ME</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'MD' %}
+                                                  <option value="MD *Non Wine State" disabled>MD *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MD" >MD</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MA' %}
+                                                  <option value="MA *Non Wine State" disabled>MA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MA" >MA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MI' %}
+                                                  <option value="MI *Non Wine State" disabled>MI *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MI" >MI</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MN' %}
+                                                  <option value="MN *Non Wine State" disabled>MN *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MN" >MN</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MS' %}
+                                                  <option value="MS *Non Wine State" disabled>MS *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MS" >MS</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MO' %}
+                                                  <option value="MO *Non Wine State" disabled>MO *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MO" >MO</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'MT' %}
+                                                  <option value="MT *Non Wine State" disabled>MT *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="MT" >MT</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NE' %}
+                                                  <option value="NE *Non Wine State" disabled>NE *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NE" >NE</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NV' %}
+                                                  <option value="NV *Non Wine State" disabled>NV *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NV" >NV</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NH' %}
+                                                  <option value="NH *Non Wine State" disabled>NH *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NH" >NH</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NJ' %}
+                                                  <option value="NJ *Non Wine State" disabled>NJ *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NJ" >NJ</option>
+                                                  {% endif %}
+                                                  
+                                                  {% if state_string contains 'NM' %}
+                                                  <option value="NM *Non Wine State" disabled>NM *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NM" >NM</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NY' %}
+                                                  <option value="NY *Non Wine State" disabled>NY *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NY" >NY</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'NC' %}
+                                                  <option value="NC *Non Wine State" disabled>NC *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="NC" >NC</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'ND' %}
+                                                  <option value="ND *Non Wine State" disabled>ND *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="ND" >ND</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'OH' %}
+                                                  <option value="OH *Non Wine State" disabled>OH *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="OH" >OH</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'OR' %}
+                                                  <option value="OR *Non Wine State" disabled>OR *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="OR" >OR</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'OK' %}
+                                                  <option value="OK *Non Wine State" disabled>OK *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="OK" >OK</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'PA' %}
+                                                  <option value="PA *Non Wine State" disabled>PA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="PA" >PA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'RI' %}
+                                                  <option value="RI *Non Wine State" disabled>RI *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="RI" >RI</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'SC' %}
+                                                  <option value="SC *Non Wine State" disabled>SC *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="SC" >SC</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'SD' %}
+                                                  <option value="SD *Non Wine State" disabled>SD *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="SD" >SD</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'TN' %}
+                                                  <option value="TN *Non Wine State" disabled>TN *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="TN" >TN</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'TX' %}
+                                                  <option value="TX *Non Wine State" disabled>TX *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="TX" >TX</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'UT' %}
+                                                  <option value="UT *Non Wine State" disabled>UT *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="UT" >UT</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'VT' %}
+                                                  <option value="VT *Non Wine State" disabled>VT *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="VT" >VT</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'VA' %}
+                                                  <option value="VA *Non Wine State" disabled>VA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="VA" >VA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'WA' %}
+                                                  <option value="WA *Non Wine State" disabled>WA *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="WA" >WA</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'WV' %}
+                                                  <option value="WV *Non Wine State" disabled>WV *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="WV" >WV</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'WI' %}
+                                                  <option value="WI *Non Wine State" disabled>WI *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="WI" >WI</option>
+                                                  {% endif %}
+
+                                                  {% if state_string contains 'WY' %}
+                                                  <option value="WY *Non Wine State" disabled>WY *Non Wine State</option>
+                                                  {% else %}
+                                                  <option value="WY" >WY</option>
+                                                  {% endif %}
+                                              {% else %}    
+                                                  <option value="AL *Non Wine State" disabled>AL *Non Wine State</option>
+                                                  <option value="AK *Non Wine State" disabled>AK *Non Wine State</option>
+                                                  <option value="AR">AR</option>
+                                                  <option value="AZ">AZ</option>
+                                                  <option value="CA">CA</option>
+                                                  <option value="CT">CT</option>
+                                                  <option value="DE *Non Wine State_7" disabled>DE *Non Wine State</option>
+                                                  <option value="DC">DC</option>
+                                                  <option value="FL">FL</option>
+                                                  <option value="GA">GA</option>
+                                                  <option value="HI">HI</option>
+                                                  <option value="ID">ID</option>
+                                                  <option value="IL">IL</option>
+                                                  <option value="IN">IN</option>
+                                                  <option value="IA">IA</option>
+                                                  <option value="IL">IL</option>
+                                                  <option value="KS">KS</option>
+                                                  <option value="KY *Non Wine State" disabled>KY *Non Wine State</option>
+                                                  <option value="LA">LA</option>
+                                                  <option value="ME">ME</option>
+                                                  <option value="MD">MD</option>
+                                                  <option value="MA">MA</option>
+                                                  <option value="MI">MI</option>
+                                                  <option value="MN">MN</option>
+                                                  <option value="MS *Non Wine State" disabled>MS *Non Wine State</option>
+                                                  <option value="MO">MO</option>
+                                                  <option value="MT">MT</option>
+                                                  <option value="NE">NE</option>
+                                                  <option value="NV">NV</option>
+                                                  <option value="NH">NH</option>
+                                                  <option value="NJ">NJ</option>
+                                                  <option value="NM">NM</option>
+                                                  <option value="NY">NY</option>
+                                                  <option value="NC">NC</option>
+                                                  <option value="ND *Non Wine State" disabled>ND *Non Wine State</option>
+                                                  <option value="OH">OH</option>
+                                                  <option value="OK *Non Wine State" disabled>OK *Non Wine State</option>
+                                                  <option value="OR">OR</option>
+                                                  <option value="PA *Non Wine State" disabled>PA *Non Wine State</option>
+                                                  <option value="RI">RI</option>
+                                                  <option value="SC">SC</option>
+                                                  <option value="SD *Non Wine State" disabled>SD *Non Wine State</option>
+                                                  <option value="TN">TN</option>
+                                                  <option value="TX">TX</option>
+                                                  <option value="UT *Non Wine State"disabled>UT *Non Wine State</option>
+                                                  <option value="VT">VT</option>
+                                                  <option value="VA">VA</option>
+                                                  <option value="WA">WA</option>
+                                                  <option value="WV">WV</option>
+                                                  <option value="WI">WI</option>
+                                                  <option value="WY">WY</option>
+                                              {% endif %}
+                                          </select>
+                                      <div class="product-property__error js-product-property-error" style="display: none;"></div>
+                                  </div>
+
+                              <span class="statnot">
+                                  {% if product.metafields.custom.delivery_instructions != blank or product.metafields.custom.delivery_state != blank %}
+                                      In order to purchase/receive gifts containing alcohol, all parties must be at least 21. Due to state restrictions, 
+                                      we cannot ship this wine gift to &nbsp;{{ product.metafields.custom.delivery_instructions }}  {{ product.metafields.custom.delivery_state }}* &nbsp; <br>
+                                      ALL GIFTS CONTAINING ALCOHOL ARE SHIPPED VIA COURIER. NO HAND DELIVERY AVAILABLE.      
+                                  {% else %}
+                                  
+                                      In order to purchase/receive gifts containing alcohol, all parties must be at least 21. Due to state restrictions, 
+                                      we cannot ship this wine gift to AL, AK, DE, KY, MS, OK, PA, SD, ND or UT.*<br>
+                                      ALL GIFTS CONTAINING ALCOHOL ARE SHIPPED VIA COURIER. NO HAND DELIVERY AVAILABLE.              
+                                  {% endif %}
+                              </span>
+      
+                          {% endif %}
+                      {% endfor %}
+                  </div>          
+                  <div class="product-details{% if settings.cart_button_fullwidth %} product-details--full-width{% endif %} js-product-details{% unless product.selected_or_first_available_variant.available %} hidden{% endunless %}">
+                      <div class="product-details__row{% unless settings.cart_button_fullwidth %} product-details__row--small{% endunless %}"
+                      >
+                          {% render "product-quantity" with multibuy_prompt: multibuy_prompt,quantity: quantity %}
+                          <div class="product-actions{% if multibuy_prompt and settings.multibuy_enable %} no-padding_top{% endif %}"
+                          >
+                              {% assign hide_atc_on_mobile = settings.disableatc %}
+                                  <div
+                                  class="product-actions__row{% if hide_atc_on_mobile %} product-actions__row--hide-mobile{% endif %}"
+                                  >
+                                      <div
+                                          class="product-actions__add-to-cart-wrapper js-product-add-to-cart-wrapper"
+                                      >
+                                          {% render "product-add-to-cart" with product: product %}
+                                      </div>
+                                      {% if settings.enable_wishlist %}
+                                          <div class="product-actions__wishlist-wrapper">
+                                              {% render "product-wishlist-button" with product: product %}
+                                          </div>
+                                      {% endif %}
+                                  </div>
+                              <div class="product-actions__row">
+                                  {% if settings.enable_checkout_icon %}
+                                  <div
+                                      class="product-actions__checkout-image{% if hide_atc_on_mobile %} product-actions__checkout-image--hide-margin-top-mobile{% endif %}"
+                                  >
+                                      {% if settings.enable_custom_checkout_icon and
+                                      settings.checkout_icon != blank %}
+                                      <picture class="lazy">
+                                      <img
+                                          data-srcset="{{ settings.checkout_icon | img_url: '330x' }} 1x, {{ settings.checkout_icon | img_url: '660x' }} 2x"
+                                          srcset="{{ settings.checkout_icon | img_url: '40x' }}"
+                                          alt="Checkout Secure"
+                                          loading="lazy"
+                                      />
+                                      </picture>
+                                      {% else %}
+                                      <picture class="lazy">
+                                      <img
+                                          data-srcset="{{ 'secure-checkout.png' | asset_img_url: '330x' }} 1x, {{ 'secure-checkout.png' | asset_img_url: '660x' }} 2x"
+                                          srcset="{{ 'secure-checkout.png' | asset_img_url: '40x' }}"
+                                          alt="Checkout Secure"
+                                          loading="lazy"
+                                      />
+                                      </picture>
+                                      {% endif %}
+                                  </div>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="total-price">
+                        <div class="prdct-total-price">
+                          <h4>Total</h4>
+                          <meta itemprop="priceCurrency" content="{{ shop.currency }}"/>
+                          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}"/>
+                          {% render "product-total-price" with product: product, quantity: quantity %}
+                        </div>
+                      </div>
+                      <div class="js-uplift-slider"></div>
+                  </div>
+              <div class="product-sku-code">
+                  {%- when 'sku' -%}
+                      {%- liquid
+                          if settings.display_sku
+                          render "product-sku" with product: product
+                          endif
+                      -%}
+              </div>
+                              
+              {%- endcase -%}
+      {%- endfor -%}
+
+
+          
+      {% comment %}
+          <div class="msg-box">
+              <div class="msg-fld">        
+                  <p class="line-item-property__field">
+                      <label for="add-a-gift-message">Your Custom Gift Message:</label>
+                      <textarea placeholder="Type your custom gift message here" id="add-a-gift-message" name="properties[Add a Gift Message]"></textarea>
+                  </p>
+              </div>
+          </div> 
+      {% endcomment %}
+      {% endform %}
+
+
+
+        
+ {%- liquid
+          render "variant-notify-me-new" with product: product
+          assign form_id = "AddToCartForm--" | append: product.id
+          render "product-notify-me" with product: product
+        -%}
+        <div>
+{% comment %}
+          {%- liquid
+            render "product-reasons" with product: product, position: 'right'
+            unless no_tabs
+              if tab_below_atc and section.settings.tabs_location == "tabs_on_right_side" and tabs_position_bottom_by_tag == false
+                render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc
+              elsif section.settings.tabs_location == "tabs_on_right_side" and tabs_position_bottom_by_tag == false
+                render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc
+              endif
+            endunless
+          -%}
+          {% endcomment %}
+        </div>
+      </div>
+
+
+    </div>
+      <div class="product-main-2">
+        <div class="product-main-2-left">
+          {%- liquid
+            render "product-reasons" with product: product, position: 'right'
+            unless no_tabs
+              if tab_below_atc and section.settings.tabs_location == "tabs_on_right_side" and tabs_position_bottom_by_tag == false
+                render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc
+              elsif section.settings.tabs_location == "tabs_on_right_side" and tabs_position_bottom_by_tag == false
+                render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc
+              endif
+            endunless
+          -%}
+        </div>
+        
+        <div class="product-info product-main-2-right">
+          {% form "product", product, id: form_id, class: "product-form" %}
+            
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'quantity_atc_selector' -%} {% if product.available %}
+            <div
+              class="product-details{% if settings.cart_button_fullwidth %} product-details--full-width{% endif %} js-product-details{% unless product.selected_or_first_available_variant.available %} hidden{% endunless %}"
+            >
+              <div
+                class="product-details__row{% unless settings.cart_button_fullwidth %} product-details__row--small{% endunless %}"
+              >
+                {% render "product-quantity" with multibuy_prompt: multibuy_prompt, quantity:quantiry %}
+                <div
+                  class="product-actions{% if multibuy_prompt and settings.multibuy_enable %} no-padding_top{% endif %}"
+                >
+                  {% assign hide_atc_on_mobile = settings.disableatc %}
+                  <div
+                    class="product-actions__row{% if hide_atc_on_mobile %} product-actions__row--hide-mobile{% endif %}"
+                  >
+                    <div
+                      class="product-actions__add-to-cart-wrapper js-product-add-to-cart-wrapper"
+                    >
+                             
+                      {%  render "product-add-to-cart" with product: product %}
+
+                
+                    </div>
+                    {% if settings.enable_wishlist %}
+                    <div class="product-actions__wishlist-wrapper">
+                      {% render "product-wishlist-button" with product: product %}
+                    </div>
+                    {% endif %}
+                  </div>
+                  <div class="product-actions__row">
+                    {% if settings.enable_checkout_icon %}
+                    <div
+                      class="product-actions__checkout-image{% if hide_atc_on_mobile %} product-actions__checkout-image--hide-margin-top-mobile{% endif %}"
+                    >
+                      {% if settings.enable_custom_checkout_icon and settings.checkout_icon
+                      != blank %}
+                      <picture class="lazy">
+                        <img
+                          data-srcset="{{ settings.checkout_icon | img_url: '330x' }} 1x, {{ settings.checkout_icon | img_url: '660x' }} 2x"
+                          srcset="{{ settings.checkout_icon | img_url: '40x' }}"
+                          alt="Checkout Secure"
+                          loading="lazy"
+                        />
+                      </picture>
+                      {% else %}
+                      <picture class="lazy">
+                        <img
+                          data-srcset="{{ 'secure-checkout.png' | asset_img_url: '330x' }} 1x, {{ 'secure-checkout.png' | asset_img_url: '660x' }} 2x"
+                          srcset="{{ 'secure-checkout.png' | asset_img_url: '40x' }}"
+                          alt="Checkout Secure"
+                          loading="lazy"
+                        />
+                      </picture>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <div class="js-uplift-slider"></div>
+                            
+            </div>
+            {% endif %}
+          {%- when 'orders_counter' -%}
+                {%- liquid
+                  if product.available
+                    if settings.orders_counter_enable
+                      render 'product-orders-counter' with product: product
+                    endif
+                  endif
+                -%}
+                   {% comment %}
+              {%- when 'delivery_estimate' -%}
+                {%- liquid
+                  if product.available
+                    if show_order_estimate
+                      if section.settings.enable_delivery_option
+                        render "product-delivery-estimate" with product: product
+                      endif
+                    endif
+                  endif
+                -%}
+              {% endcomment %}
+
+
+          <div class="product-sku-code">
+          {%- when 'sku' -%}
+                {%- liquid
+                  if settings.display_sku
+                    render "product-sku" with product: product
+                  endif
+                -%}
+            </div>
+          
+                
+          {%- endcase -%}
+            
+          {%- endfor -%}
+
+          
+{% endform %}
+        
+
+        </div>
+      </div>
+<div class="product-related-prdct product-also-like">
+<section id="related-products__section" class="section slider-section{{ arrows_style_class }}{% unless hide_border %} slider-section--show-border{% endunless %}">
+      <div class="section__container">
+          <h2 class="section__title">
+        You Might Also Like
+
+          </h2>
+          <div class="related-products__slider slider-section__slider js-slider-section{% if use_one_and_half_layout %} js-slider-section-half-mobile{% endif %}">
+              {%- liquid
+                  assign count = 0
+                  assign current_product_title = product.title
+                  assign max_products_count = 4
+                  for collection in product.collections
+                      if collection.handle != "all" and collection.handle != "frontpage"
+                          for product in collections[collection.handle].products
+                              if product.title != current_product_title
+                                  if count < max_products_count
+                                      assign count = count | plus: 1
+                                      echo "<div>"
+                                          render "product-grid-item-new" with product: product
+                                      echo "</div>"
+                                  else
+                                      break
+                                  endif
+                              endif
+                          endfor
+                      endif
+                      if count >= max_products_count
+                          break
+                      endif
+                  endfor
+              -%}
+          </div>
+    {% if count <= 0 %}
+            <script>
+              window.addEventListener("load", () => {
+                $(document).ready(function () {
+                  $('#related-products__section').remove();
+                });
+              });
+            </script>
+          {% endif %}
+          <div class="slider-arrow slider-arrow--prev slider-section__slider-arrow slider-section__slider-arrow--prev js-slider-section-prev">
+              {% render 'icon-arrow-down' %}
+          </div>
+
+          <div class="slider-arrow slider-arrow--next slider-section__slider-arrow slider-section__slider-arrow--next js-slider-section-next">
+              {% render 'icon-arrow-down' %}
+          </div>
+      </div>
+  </section>
+</div>
+    </div>
+    <div class="aside-right-products">
+
+
+    </div>
+    {% unless no_tabs %}
+    {% if section.settings.tabs_location == "tabs_below_images" or tabs_position_bottom_by_tag == true %}
+    {% if tab_below_atc %}
+    <div class="product__below">
+      {% render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc %}
+    </div>
+    {% else %}
+    <div class="product__below">
+      {% render "product-tabs-new" with product: product, custom_tabs: custom_tabs, section: section, reviews_below_atc: reviews_below_atc %}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endunless %}
+  </div>
+</div>
+  {% unless product == empty %}
+      <script type="application/json" data-product-json>
+          {{ product | json }}
+      </script>
+  {% endunless %}
+  <script>
+      window.productVariantsInventories = [
+          {%- for variant in product.variants -%}
+              { "id": {{ variant.id }}, "quantity": {{ variant.inventory_quantity | default: 0 }} }
+              {% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+      ]
+  </script>
+</section>
+
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+               
+/*      var selectval =  $( ".Alcohol select option:selected" ).val();
+               
+    $( ".js-product-add-to-cart-button" ).click(function(e) {
+        $(".custome-rere").html('please select');
+
+       if(selectval == ''){
+       //  alert('erre');
+         e.preventDefault();
+         return false;
+          $(".product-form").on("submit", function(e) {
+              e.preventDefault();
+              return false;
+          });
+           
+       }
+
+    }); */
+ </script>        
+
+               
+{% comment %}theme-check-disable NestedSnippet{% endcomment %}
+{%- liquid
+if product.available
+  if settings.stickycartenable
+    render "product-sticky-cart" with product: product, show_reviews: section.settings.display_review_star_product, amazon_url: amazon_url
+  endif
+  unless settings.sticky_atc_mobile == "option_1"
+    render "product-sticky-cart-mobile" with product: product, amazon_url: amazon_url
+  endunless
+endif
+-%}
+{% comment %}theme-check-enable NestedSnippet{% endcomment %}
+{% if settings.display_sizing_chart %}
+  {% if view_size_chart %}
+      <section id="size-chart" class="modal-new modal-new--wide">
+          <div class="modal-new__content">
+              <div class="modal-new__close" data-close>
+                  <span class="fa fa-times"></span>
+              </div>
+
+              <div class="modal-new__body rte">
+                  {{ pages[size_chart_page].content }}
+              </div>
+          </div>
+      </section>
+  {% endif %}
+{% endif %}
+{% if settings.product_thumbnails == 'Right' or settings.product_thumbnails == 'Left' %}
+<style>
+div#shopify-section-product-template .myNewWrap {
+  {% if settings.product_thumbnails == 'Left' %}
+    float:left;
+  {% else %}
+    float:right;
+  {% endif %}
+  max-width:118px; margin-top:20px;
+}
+.bx-wrapper .bx-controls-direction a.bx-next {
+  top: initial;
+  right: initial;
+  left: 35%;
+  bottom: -19px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.bx-wrapper .bx-controls-direction a.bx-prev {
+  margin-top: -12px;
+  top: -6px;
+  left: 33%;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.Thumbnail .shoptimized-086 {
+  position: relative;
+  top: 8px;
+}
+div#shopify-section-product-template .product--images>.bx-wrapper .bx-viewport {
+  margin-top: 20px;
+}
+.product-single__thumbnails  button.PrevArrow.slick-arrow , .product-single__thumbnails  button.NextArrow.slick-arrow {
+  height: 24px;
+  background: #fff; z-index:4;
+  width: 120px !important;
+}
+.product-single__thumbnails .PrevArrow .Thumbnail{
+  background-color: #fff;  top:0; width: 40px !important; height: 40px; border-radius: 50%; border: 1px solid #ebebeb;
+  background-repeat: no-repeat;    z-index:55; position:relative; display:block; margin:0 auto -20px;
+  background-position: center;
+}
+.product-single__thumbnails .NextArrow .Thumbnail {
+  bottom: 0;
+  background-color: #fff;
+  background-repeat: no-repeat;  width: 40px !important; height: 40px; border-radius: 50%; border: 1px solid #ebebeb;
+  background-position: center; transform:rotate(180deg); z-index:55; position:relative; display:block; margin:-35px auto 0;
+}
+div#shopify-section-product-template .product-single__photos {
+  {% if product.images.size > 1 %}
+    width: calc(100% - 125px);
+    float: left;
+  {% endif %}
+}
+@media screen and (max-width:767px) {
+  div#shopify-section-product-template .hideinmobile .product-single__photos{width:100%;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+div#shopify-section-product-template .product-single__thumbnails{
+  width:120px !important;
+  background-color: {{ settings.color_body_bg }};
+}
+.description--tabs .tabs .ui-tabs-nav {
+  background-color: {{ settings.color_body_bg }};
+}
+div#shopify-section-product-template  .bx-wrapper{float:right}
+div#shopify-section-product-template .product--images>.bx-wrapper .bx-viewport{ width:120px !important;}
+.social-sharing{clear:both;}
+.product-single__thumbnails li{margin-bottom:0;}
+div#shopify-section-product-template .thumb-left .product-single__photos { float: right;}
+div#shopify-section-product-template .thumb-left .bx-wrapper{float:none !important;}
+@media screen and (max-width:640px) {
+  div#shopify-section-product-template .myNewWrap .bx-wrapper .bx-viewport {
+    margin-top: 30px;
+  }
+  .bx-wrapper .bx-controls-direction a.bx-prev {
+    left: 20%;
+    margin-top: -22px;
+    top: 0px;
+    position: absolute;
+  }
+  .bx-wrapper .bx-controls-direction a.bx-next {
+    left: 9%;
+    bottom: -12px;
+    position: absolute;
+  }
+  .bx-controls-direction {
+    position: initial;
+  }
+  div#shopify-section-product-template .myNewWrap{
+    {% if settings.product_thumbnails == 'Left' %}
+    float:left;
+    {% else %}
+    float:right;
+    {% endif %}max-width:66px;}
+  div#shopify-section-product-template .product--images>.bx-wrapper .bx-viewport{margin-top: 30px;}
+  {% if product.images.size > 1 %}
+  div#shopify-section-product-template .product-single__photos {
+    width: calc(100% - 66px);
+  }
+  {% endif %}
+  div#shopify-section-product-template .product-single__thumbnails{ width:70px !important;}
+  div#shopify-section-product-template  .bx-wrapper{float:right}
+  div#shopify-section-product-template .product--images>.bx-wrapper .bx-viewport{ width:70px !important;}
+  .product-single__thumbnails  button.PrevArrow.slick-arrow , .product-single__thumbnails  button.NextArrow.slick-arrow {width:70px !important;}
+  .product-single__thumbnails .PrevArrow .Thumbnail, .product-single__thumbnails .NextArrow .Thumbnail{width: 35px !important; height: 35px;}
+  {% if settings.product_thumbnails == 'Right' %}
+  .bx-wrapper .bx-controls-direction a.bx-prev {
+    left: 20%;
+    margin-top: -22px;
+    top: 28px;
+  }
+  {% endif %}
+}
+</style>
+{% endif %}
+{% render 'cross-sell-popup' %}
+{% schema %}
+{
+"name": "Product information",
+"settings": [
+  {
+    "type": "paragraph",
+    "content": "This section is for Description Tabs Settings."
+  },
+  {
+    "type": "header",
+    "content": "General"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_product_tabs",
+    "label": "Enable tabs",
+    "default": true
+  },
+  {
+    "type": "select",
+    "id": "tabs_location",
+    "label": "Tabs location",
+    "options": [
+      {
+        "value": "tabs_below_buttons",
+        "label": "Show tabs below ATC button"
+      },
+      {
+        "value": "tabs_below_images",
+        "label": "Show tabs below images"
+      },
+      {
+        "value": "tabs_on_right_side",
+        "label": "Show tabs on right hand side"
+      }
+    ],
+    "default": "tabs_below_images"
+  },
+  {
+    "type": "select",
+    "id": "default_tab",
+    "label": "Select default tab",
+    "options": [
+      {
+        "value": "0",
+        "label": "Description tab"
+      },
+      {
+        "value": "1",
+        "label": "Tab 1"
+      },
+      {
+        "value": "2",
+        "label": "Tab 2"
+      },
+      {
+        "value": "3",
+        "label": "Tab 3"
+      },
+      {
+        "value": "4",
+        "label": "Tab 4"
+      },
+      {
+        "value": "5",
+        "label": "Tab 5"
+      }
+    ]
+  },
+  {
+    "type": "header",
+    "content": "Description tab settings"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_description_tab",
+    "label": "Enable",
+    "default": true
+  },
+  {
+    "type": "text",
+    "id": "description_tab_heading",
+    "label": "Tab heading",
+    "default": "Description"
+  },
+  {
+    "type": "select",
+    "id": "description_location",
+    "label": "Location",
+    "options": [
+      {
+        "value": "description_below_buttons",
+        "label": "Show description below ATC button"
+      },
+      {
+        "value": "in_tabs",
+        "label": "Show description in tabs"
+      }
+    ],
+    "default": "in_tabs"
+  },
+  {
+    "type": "header",
+    "content": "Shipping tab settings"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_shipping_tab",
+    "label": "Enable",
+    "default": true
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_header",
+    "label": "Tab heading",
+    "default": "Shipping"
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_shipping_label",
+    "label": "Shipping label",
+    "default": "Shipping"
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_shipping_text",
+    "label": "Shipping text",
+    "default": "This item ships to {country}",
+    "info": "'{country}' will be replaced by target country name."
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_country_flag",
+    "label": "Show country flag",
+    "default": true
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_delivery_option",
+    "label": "Show product delivery",
+    "default": true
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_delivery_label",
+    "label": "Delivery label",
+    "default": "Delivery"
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_delivery_estimate_text",
+    "label": "Delivery estimate text",
+    "default": "Estimated between {start_date} and {end_date}.",
+    "info": "'{start_date}' and '{end_date}' will be replaced by actual dates."
+  },
+  {
+    "type": "text",
+    "id": "shipping_tab_delivery_information_text",
+    "label": "Delivery information text",
+    "default": "Will usually ship within 1 business day."
+  },
+  {
+    "type": "text",
+    "id": "delivery_start",
+    "label": "Delivery start date",
+    "info": "Minimum days for delivery from current date",
+    "default": "10"
+  },
+  {
+    "type": "text",
+    "id": "delivery_end",
+    "label": "Delivery end date",
+    "info": "Maximum days for delivery from current date",
+    "default": "15"
+  },
+  {
+    "type": "text",
+    "id": "delivery_cut_off",
+    "label": "Delivery cut off",
+    "info": "Number only (24 hours format - 16:00:00 means 4PM) relative to timezone of seller",
+    "default": "16:00:00"
+  },
+  {
+    "type": "text",
+    "id": "delivery_off_days",
+    "label": "Delivery exclude days",
+    "default": "SAT SUN",
+    "info": "Use the 'MON','TUE','WED','THU','FRI','SAT' and 'SUN'. Separate exclude days with a space."
+  },
+  {
+    "type": "textarea",
+    "id": "shipping_tab_text",
+    "label": "Tab text"
+  },
+  {
+    "type": "header",
+    "content": "Reviews tab settings"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_product_review",
+    "label": "Enable",
+    "info": "Only displays when custom tabs are not enabled & will only work if Shopify or Loox are installed.",
+    "default": true
+  },
+  {
+    "type": "select",
+    "id": "review_location",
+    "label": "Show reviews",
+    "options": [
+      {
+        "value": "show_reviews_separate_below_buttons",
+        "label": "Show reviews below ATC button"
+      },
+      {
+        "value": "show_reviews_separate",
+        "label": "Show reviews as separate section below tabs"
+      },
+      {
+        "value": "in_tabs",
+        "label": "Show reviews in tabs"
+      }
+    ],
+    "default": "in_tabs"
+  },
+  {
+    "type": "text",
+    "id": "product_review_tab_heading",
+    "label": "Review tab heading",
+    "default": "REVIEW"
+  },
+  {
+    "type": "checkbox",
+    "id": "display_review_star_product",
+    "label": "Enable review stars",
+    "default": true
+  }
+],
+"blocks": [
+{
+    "type": "@app"
+  },
+  {
+    "type": "custom_tabs",
+    "name": "Custom Tab",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_tab",
+        "label": "Enable"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "type": "title",
+    "name": "Title",
+    "limit": 1
+  },
+  {
+    "type": "price",
+    "name": "Price",
+    "limit": 1
+  },
+{
+    "type": "sku",
+    "name": "SKU",
+    "limit": 1
+  },
+{
+    "type": "checklist",
+    "name": "Checklist",
+    "limit": 1
+  },
+  {
+    "type": "quantity_atc_selector",
+    "name": "Quantity and Buy buttons",
+    "limit": 1
+  },
+  {
+    "type": "variant_picker",
+    "name": "Variant picker",
+    "limit": 1
+  },
+  {
+    "type": "flash_sold",
+    "name": "Flash sold",
+    "limit": 1
+  },
+  {
+    "type": "rating",
+    "name": "Review Star",
+    "limit": 1
+  },
+  {
+    "type": "scarcity_bar",
+    "name": "Scarcity Bar",
+    "limit": 1
+  },
+  {
+    "type": "delivery_estimate",
+    "name": "Delivery Estimate",
+    "limit": 1
+  },
+{
+    "type": "information_alert",
+    "name": "Information Alert",
+    "limit": 1
+  },
+{
+    "type": "visitors_counter",
+    "name": "Visitors Counter",
+    "limit": 1
+  },
+{
+    "type": "orders_counter",
+    "name": "Orders Counter",
+    "limit": 1
+  },
+{
+    "type": "countdown_timer",
+    "name": "Countdown Timer",
+    "limit": 1
+  },
+{
+    "type": "motivator_text",
+    "name": "Promotion Bar",
+    "limit": 1
+  },
+{
+    "type": "motivator_additional_text",
+    "name": "Text Under Call-To-Action",
+    "limit": 1
+  }
+]
+}
+{% endschema %}
+<script>
+$(document).ready(function() {
+  $('#quantity_add').on('click', function(e){
+    // e.preventDefault();
+    let quantity = $('#quantity_input').val()/1;
+    // quantity += 1/1;
+    let unit_price = {{product.price}}/100;
+    let newPrice = Math.round(quantity * unit_price * 100) / 100;
+    $('.product-total-price__regular').html('$'+newPrice);
+  });
+
+  $('#quantity_remove').on('click', function(e){
+    // e.preventDefault();
+    let quantity = $('#quantity_input').val()/1;
+    // quantity -= 1/1;
+    let unit_price = {{product.price}}/100;
+    console.log(quantity);    
+    let newPrice = Math.round(quantity * unit_price * 100) / 100;
+    $('.product-total-price__regular').html('$'+newPrice);
+  });
+  
+  let image = document.getElementById('product_image');
+  let maxWidth = image.style.maxWidth;
+  console.log(maxWidth);
+  if(maxWidth.length <= 5)
+  {
+    $('figure.mz-figure').css('width', '100%');
+  }
+});
+</script>
+
+
+
+
+
+
+

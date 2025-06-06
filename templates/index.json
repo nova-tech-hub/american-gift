@@ -1,0 +1,190 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1633690128730d060b": {
+      "type": "homepage-mobile-slideshow",
+      "blocks": {
+        "1633690128730d060b-0": {
+          "type": "image",
+          "settings": {
+            "heading": "",
+            "subheading": "",
+            "button_text": "",
+            "link": "",
+            "heading_vertical_pos": "center",
+            "heading_horizontal_pos": "center",
+            "text_overlay_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1633690128730d060b-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "fullwidth": false,
+        "bottom_padding": false,
+        "dots": true,
+        "speed": 2,
+        "heading_color": "#ffffff",
+        "heading_font_size": "30px",
+        "subheading_color": "#ffffff",
+        "subheading_font_size": "18px",
+        "button_font_size": "18px",
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "9209d5f6-9cfc-4c59-acf7-46c4f608e697": {
+      "type": "first-section",
+      "settings": {
+        "collection": "mothers-day-gift-baskets",
+        "grid": 5,
+        "rows": 1,
+        "heading": "Trending",
+        "button_label": "View All Mothers Day Baskets",
+        "button_links": "shopify://collections/valentines-day-gift-baskets",
+        "btn_bgc": "linear-gradient(136deg, rgba(237, 142, 10, 1) 11%, rgba(253, 13, 34, 1) 51%)",
+        "button_link1": "shopify://collections/gourmet",
+        "cltn1": "shopify://shop_images/fp-side-gourmet.webp",
+        "heading1": "Gourmet Gift Baskets",
+        "button_link2": "shopify://collections/chocolate-gift-baskets",
+        "cltn2": "shopify://shop_images/fp-side-chocolate.webp",
+        "heading2": "Chocolate Gift Baskets",
+        "button_link3": "shopify://collections/fresh-fruit-gift-baskets",
+        "cltn3": "shopify://shop_images/fp-side-fruits.webp",
+        "heading3": "Fruit Gift Baskets",
+        "button_link4": "shopify://collections/wine-beer",
+        "cltn4": "shopify://shop_images/fp-side-wine.webp",
+        "heading4": "Wine Gift Baskets",
+        "button_link5": "shopify://collections/towers",
+        "cltn5": "shopify://shop_images/fp-side-towers.webp",
+        "heading5": "Tower Gift Baskets",
+        "button_link6": "shopify://collections/coffee-tea-gift-baskets",
+        "cltn6": "shopify://shop_images/fp-side-coffee.webp",
+        "heading6": "Coffee Gift Baskets"
+      }
+    },
+    "0ca81d1f-bd56-415d-a6f6-fd4f3b072c1e": {
+      "type": "corporate-section",
+      "blocks": {
+        "cb2edb04-d74a-411f-a10d-173aa0a95a3b": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pexels-photo2.jpg"
+          }
+        },
+        "f6310910-5424-49f6-8242-9287d82d9620": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pexels-photo-4.jpg"
+          }
+        },
+        "c5d4ad9c-d350-4b51-90d7-b89d5da90e51": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pexels-photo1.jpg"
+          }
+        },
+        "feddfb67-7dd7-4867-a916-429f5cd98a49": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/pexels-photo3.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "cb2edb04-d74a-411f-a10d-173aa0a95a3b",
+        "f6310910-5424-49f6-8242-9287d82d9620",
+        "c5d4ad9c-d350-4b51-90d7-b89d5da90e51",
+        "feddfb67-7dd7-4867-a916-429f5cd98a49"
+      ],
+      "settings": {
+        "heading": "CORPORATE GIFTING PROGRAM",
+        "button_link1": "shopify://collections/thank-you-gift-baskets",
+        "cltn1": "shopify://shop_images/fp-corp-thankyou.webp",
+        "ctn-ttl1": "Thank You",
+        "button_link2": "shopify://collections/baby-gift-baskets",
+        "cltn2": "shopify://shop_images/fp-corp-baby.webp",
+        "ctn-ttl2": "Baby Shower",
+        "button_link3": "shopify://collections/sympathy-gift-baskets",
+        "cltn3": "shopify://shop_images/fp-corp-condolences_1.webp",
+        "ctn-ttl3": "Condolences",
+        "button_link4": "shopify://collections/congrats-gift-baskets",
+        "cltn4": "shopify://shop_images/fp-corp-congrats.webp",
+        "ctn-ttl4": "Congratulations"
+      }
+    },
+    "96bf9ad0-e837-4de7-9258-e43dc2ff285d": {
+      "type": "todays-special",
+      "disabled": true,
+      "settings": {
+        "button_link": "shopify://products/sweet-holidays-christmas-gift-tower",
+        "heading": "Special Offers",
+        "image-prdt": "shopify://shop_images/GC-5261__78968.jpg",
+        "paragraph": "<h5><a href=\"/products/sweet-holidays-christmas-gift-tower\" title=\"Sweet Holidays: Christmas Gift Tower\">Sweet Holidays: Christmas Gift Tower</a></h5>",
+        "prc": "$99.99",
+        "headings": "Popular Brands",
+        "image1": "shopify://shop_images/burts__logo-150x150.gif",
+        "image2": "shopify://shop_images/900x900_logos-Ghirardelli-5-150x150.png",
+        "image3": "shopify://shop_images/2232-150x150.png",
+        "image4": "shopify://shop_images/brand-150x150.gif",
+        "image5": "shopify://shop_images/26166402_134675360558707_4380285298417220487_n-150x150.jpg"
+      }
+    },
+    "5f4076fd-2c79-4a36-8583-2fde2c6b5816": {
+      "type": "news-letter-section",
+      "disabled": true,
+      "settings": {
+        "heading": "SIGN UP FOR EXCLUSIVE OFFERS<br>\n<i>Be the First to Know About Special Offers!</i>"
+      }
+    },
+    "c390e3cd-f2b4-4ca9-8070-af36e7ddebca": {
+      "type": "footer-custom",
+      "disabled": true,
+      "settings": {
+        "heading": "Customer Care",
+        "footer_linklist": "customer-care",
+        "heading1": "Policies",
+        "footer_linklis": "holidays-collection",
+        "heading2": "The Gift Basket Blog",
+        "footer_linklists": "customer-care",
+        "heading3": "Shop with Confidence",
+        "image": "shopify://shop_images/ssl_logo.png",
+        "image1": "shopify://shop_images/mcafee-secure.png",
+        "image2": "shopify://shop_images/stripesecured_2954e91c-7508-47a5-b6a3-b5d2a1efcb89.png",
+        "paragraph": "<p>© Copyright 2015-2025 AmericanGiftsandBaskets.com. All Rights Reserved.</p>"
+      }
+    },
+    "19495763-9e9f-453a-908a-621dd0a31f3a": {
+      "type": "neww-sectionn",
+      "disabled": true,
+      "settings": {
+        "title": "Featured collection",
+        "title1": "Featured collection",
+        "collection": "holidays-1",
+        "grid": 10,
+        "rows": 1,
+        "show_vendor": false,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "1633690128730d060b",
+    "9209d5f6-9cfc-4c59-acf7-46c4f608e697",
+    "0ca81d1f-bd56-415d-a6f6-fd4f3b072c1e",
+    "96bf9ad0-e837-4de7-9258-e43dc2ff285d",
+    "5f4076fd-2c79-4a36-8583-2fde2c6b5816",
+    "c390e3cd-f2b4-4ca9-8070-af36e7ddebca",
+    "19495763-9e9f-453a-908a-621dd0a31f3a"
+  ]
+}

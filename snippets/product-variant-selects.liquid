@@ -1,0 +1,39 @@
+{% if product.available and product.variants.size > 1 %}
+	{% assign size_chart_on = false %}
+	{% for option in product.options_with_values %}
+    {%- liquid
+        assign is_size = false
+        assign option_index = forloop.index0
+        assign downcased_option = option.name | downcase
+        if downcased_option contains 'size'
+          assign is_size = true
+        endif
+    -%}
+		<div class="product-option-selector js-product-option-selector-{{ option_index | plus: 1 }}">
+          {%- liquid
+            if is_size
+              if settings.display_sizing_chart
+                if view_size_chart
+                  unless size_chart_on
+                      assign size_chart_on = true
+                      echo "<div class='product-sizing'><a href='#' class='product-sizing__link js-modal-link' data-modal-id='size-chart'>"
+                      echo 'products.general.sizing' | t
+                      echo "</a></div>"
+                  endunless
+                endif
+              endif
+            endif
+          -%}
+          <h4 class="product-heading">{{ option.name }}</h4>
+          <select class="select"
+                  data-single-option-selector
+                  data-index="option{{ forloop.index }}">
+            {% for value in option.values %}
+              <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>
+                {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+		</div>
+	{% endfor %}
+{% endif %}

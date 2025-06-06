@@ -1,0 +1,31 @@
+<div class="drawer-overlay"></div>
+<div id="CartDrawer" class="drawer drawer--right">
+  <div class="drawer__header">
+    <div class="drawer__title h3">{{ 'cart.general.drawer_title' | t }}</div>
+    <div class="drawer__close js-drawer-close">
+      <button type="button" class="icon-fallback-text">
+        <i class="fa fa-times"></i>
+        <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
+      </button>
+    </div>
+  </div>
+  <div id="CartContainer">
+    <img src="{{ 'ajax-load.gif' | asset_url }}" alt="cload" class="cload" width="16" height="11" loading="lazy" />
+  </div>
+  {% if settings.footer_checkout_single %}
+    <div class="grid__item large--one-whole checkout--icons-product">
+      {% if settings.enable_custom_checkout_icon and settings.checkout_icon != blank %}
+        <img src="{{ settings.checkout_icon | img_url: '454x' }}" class="no-border checkout-img ratina-img" alt="Checkout Secure" width="454" height="454" loading="lazy" />
+      {% else %}
+      	<img src="{{ 'secure-checkout.png' | asset_img_url: '454x' }}" class="no-border checkout-img ratina-img" alt="Checkout Secure" width="454" height="454" loading="lazy" />
+      {% endif %}
+    </div>
+  {% else %}
+  	{% render "cart-checkout-icons" %}
+  {% endif %}
+  {% if settings.enable_cartstrip_text %}
+    <div class="cart--promo-msg common_shipping_text js-product-motivator-text" data-motivator-text="{{- settings.free_shipping_text_cart_page -}}" data-free-shipping-text="{{- settings.free_shipping_text_free_cart_page -}}">
+      <span class="js-product-motivator-text-main"></span>
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,74 @@
+{%- liquid
+  assign tags = sort | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+  assign other_tags = ''
+  for tag in current_tags
+    unless tags contains tag
+      assign temp_tag = tag | handle
+      assign temp_tag = temp_tag | append: '+'
+      assign other_tags = other_tags | append: temp_tag
+    endunless
+  endfor
+-%}
+<div id="{{ filter_id }}" class="collection-filters__category js-accordion{% if active_tags != blank %} open{% endif %}">
+	<h4 class="collection-filters__category-title js-accordion-toggler">
+		{{ filter_heading }}
+	</h4>
+
+	<ul class="collection-filters__category-list js-accordion-content{% if is_color %} color-swatches{% endif %}"{% if active_tags != blank %} style="display: block;"{% endif %}>
+      	{%- liquid
+          assign clear_url = collection.url | append: '/' | append: other_tags
+          assign filter_hidden = true
+        -%}
+		{% for tag in tags %}
+      		{% if is_color %}
+              {%- liquid
+                assign color_image = tag | handle | append: '.png' | asset_url
+                assign color_name = tag | split: ' ' | last | handle
+              -%}
+      		  {% if current_tags contains tag %}
+      			{% assign filter_hidden = false %}
+                <li class="collection-filters__category-list-item active-color">
+                  {{ tag | link_to_remove_tag: tag | replace: 'title=', 'class="collection-filters__category-list-item-color active" style="background-color: COLOR_NAME; background-image: url(COLOR_IMAGE);" title=' | replace: 'COLOR_NAME', color_name | replace: 'COLOR_IMAGE', color_image }}
+                </li>
+              {% elsif collection.all_tags contains tag %}
+      			{% assign filter_hidden = false %}
+                {%- liquid
+                  assign temp_tag = tag | handle
+                  unless other_tags == ''
+                    assign temp_tag = temp_tag | prepend: ''
+                  endunless
+                  assign add_tag_url = clear_url | append: temp_tag
+                -%}
+                <li class="collection-filters__category-list-item">
+                  {{ tag | link_to: add_tag_url | replace: 'title=', ' class="collection-filters__category-list-item-color" style="background-color: COLOR_NAME; background-image: url(COLOR_IMAGE);" title=' | replace: 'COLOR_NAME', color_name | replace: 'COLOR_IMAGE', color_image }}
+                </li>
+              {% endif %}
+      		{% else %}
+              {% if current_tags contains tag %}
+      			{% assign filter_hidden = false %}
+                <li class="collection-filters__category-list-item">
+                  {{ tag | prepend: '<div class="check">  &check;  </div>' | link_to_remove_tag: tag | replace: 'title=', 'selected class="collection-filters__category-list-item-link" title=' }}
+                </li>
+              {% elsif collection.all_tags contains tag %}
+      			{% assign filter_hidden = false %}
+                {% assign temp_tag = tag | handle %}
+                {% unless other_tags == '' %}
+                  {% assign temp_tag = temp_tag | prepend: '' %}
+                {% endunless %}
+                {% assign add_tag_url = clear_url | append: temp_tag %}
+                <li class="collection-filters__category-list-item">
+                  {{ tag | prepend: '<div class="check">  &nbsp;  </div>' | link_to: add_tag_url | replace: 'title=', ' class="collection-filters__category-list-item-link" title=' }}
+                </li>
+              {% endif %}
+      		{% endif %}
+		{% endfor %}
+	</ul>
+    {% if filter_hidden %}
+  	  <script type="text/javascript">
+        window.addEventListener("DOMContentLoaded", function () {
+          var thisFilter = document.getElementById("{{ filter_id }}");
+          thisFilter.remove();
+        });
+  	  </script>
+  	{% endif %}
+</div>

@@ -1,0 +1,411 @@
+<style>
+		.tabs {
+  display: flex;
+}
+#content{
+  display: flex;
+}
+  .page-header-main .container .page-content-box .rte .page-content {
+    flex: 0 0 78.5% !important;
+    width: 78.5% !important;
+}
+.tabs__list {
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 30%;
+    height: fit-content;
+    border-right: none;
+    flex: 0 0 26%;
+        padding: 0 !important;
+    margin: 0 !important;
+}
+.tabs__list > li a {
+	text-decoration: none;
+	cursor: pointer;
+}
+.tabs__list > li {
+	margin: 0 !important;
+}
+.tabs__list > li label {
+  display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 17px;
+}
+.tabs__list > li:hover label {
+  background-color: #fff;
+    border-right: none;
+    border-left: 3px solid #823964;
+    border-radius: 0;
+    transition: all 170ms ease-in-out;
+}
+.tabs__radio:nth-of-type(1):checked ~ .tabs__list > li:nth-of-type(1) label, .tabs__radio:nth-of-type(2):checked ~ .tabs__list > li:nth-of-type(2) label, .tabs__radio:nth-of-type(3):checked ~ .tabs__list > li:nth-of-type(3) label, .tabs__radio:nth-of-type(4):checked ~ .tabs__list > li:nth-of-type(4) label, .tabs__radio:nth-of-type(5):checked ~ .tabs__list > li:nth-of-type(5) label {
+  background-color: #fff;
+    border-right: none;
+    border-left: 3px solid #823964;
+    border-radius: 0;
+}
+/* IE8 fallback */
+.tabs__list > li .tabs__list--active {
+  background: #FFFFFF;
+  height: 21px;
+  margin-bottom: -1px;
+  margin-top: 0;
+}
+.policies-tab-container {
+  background: #FFF;
+  border: 1px solid #D5D5D5;
+  font-size: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+.policies-tab-container > .tabs__panel {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 12px;
+  height: 0;
+  margin: 0;
+  padding: 0 20px;
+  vertical-align: top;
+  white-space: normal;
+  width: 100%;
+}
+.tabs__radio:nth-of-type(1):checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: 0;
+}
+.tabs__radio:nth-of-type(2):checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -100%;
+}
+.tabs__radio:nth-of-type(3):checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -200%;
+}
+.tabs__radio:nth-of-type(4):checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -300%;
+}
+.tabs__radio:nth-of-type(5):checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -400%;
+}
+/* IE8 fallbacks */
+.tabs__radio--checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: 0;
+}
+.tabs__radio + .tabs__radio--checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -100%;
+}
+.tabs__radio + .tabs__radio + .tabs__radio--checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -200%;
+}
+.tabs__radio + .tabs__radio + .tabs__radio + .tabs__radio--checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -300%;
+}
+.tabs__radio + .tabs__radio + .tabs__radio + .tabs__radio + .tabs__radio--checked ~ .policies-tab-container > .tabs__panel:first-child {
+  margin-left: -400%;
+}
+.tabs__radio:nth-of-type(1):checked ~ .policies-tab-container > .tabs__panel:nth-child(1),
+.tabs__radio:nth-of-type(2):checked ~ .policies-tab-container > .tabs__panel:nth-child(2),
+.tabs__radio:nth-of-type(3):checked ~ .policies-tab-container > .tabs__panel:nth-child(3),
+.tabs__radio:nth-of-type(4):checked ~ .policies-tab-container > .tabs__panel:nth-child(4),
+.tabs__radio:nth-of-type(5):checked ~ .policies-tab-container > .tabs__panel:nth-child(5) {
+  height: auto;
+}
+/* IE8 fallback */
+.policies-tab-container > .tabs__panel--active {
+  height: auto;
+}
+.policies-tab-container .tabs__panel h3 {
+    font-size: 30px;
+    line-height: 35px;
+    color: #282828;
+    font-weight: 700;
+    margin: 35px 0 15px 0;
+}
+.policies-tab-container .tabs__panel div{
+	font-size: 14px;
+    color: #3f3f3f;
+}
+
+@media (max-width: 550px){
+  #policies .page-header-main .container .page-content-box .rte .page-content {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+  }
+  #policies .tabs__list > li label {
+    padding: 10px 7px;
+    text-align: center;
+    font-size: 12px;
+  }
+  #policies .policies-tab-container .tabs__panel h3 {
+    font-size: 18px;
+    line-height: 30px;
+    margin: 10px 0;
+  }
+  #policies .policies-tab-container .tabs__panel div {
+    font-size: 12px;
+    color: #3f3f3f;
+  }
+  #policies .policies-tab-container > .tabs__panel {
+    padding: 0 8px;
+  }
+  #policies main.main-content .page-content-box {
+
+  }
+  #policies main.main-content .container {
+    width: 100%;
+  }
+  #policies .page-header-main .container .page-content-box .rte .aside-menu {
+    padding: 10px;
+    margin-right: 0;
+    
+  }
+  #policies .nws-bg {
+    margin-top: 0;
+  }
+  #policies #content{
+    flex-direction: column;
+  }
+  #policies .tabs__list {
+    display: flex;
+    width: 100%;
+    border-right: 1px solid #ccc;
+    border-bottom: none;
+  }
+  .tabs__radio:nth-of-type(1):checked ~ .tabs__list > li:nth-of-type(1) label, .tabs__radio:nth-of-type(2):checked ~ .tabs__list > li:nth-of-type(2) label, .tabs__radio:nth-of-type(3):checked ~ .tabs__list > li:nth-of-type(3) label, .tabs__radio:nth-of-type(4):checked ~ .tabs__list > li:nth-of-type(4) label, .tabs__radio:nth-of-type(5):checked ~ .tabs__list > li:nth-of-type(5) label {
+    background-color: #fff;
+    border-bottom: none;
+    border-top: 3px solid #823964;
+    border-left: none;
+    border-radius: 0;
+  }
+}
+  
+</style>
+
+
+<div class="page-header-main  header-space"  style="margin-top: -7px !important;">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="page-content-box">
+      <div class="rte content-section">
+        <div class="aside-menu">
+          <div class="collection-page__aside-menu">
+            <h3>
+              <i class="fa fa-list-ul" aria-hidden="true" style="margin-right: 1rem;"></i>
+              {{- section.settings.asidemenu }}
+            </h3>
+            <ul class="menu">
+              {% for link in section.settings.asidemenu.links %}
+                <li class="menu-link">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+
+                  {% if link.links.size > 0 %}
+                    <ul class="menu dropdown-child">
+                      {% for child_link in link.links %}
+                        <li class="menu-link">
+                          <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+
+                          {% if child_link.links.size > 0 %}
+                            <ul class="menu dropdown-grandchild">
+                              {% for grandchild_link in child_link.links %}
+                                <li class="menu-link">
+                                  <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="page-content">
+          {{ page.content }}
+          <div id="content" class="tabs1">
+            <input style="display: none;" class="tabs__radio" name="content" type="radio" id="tab1" hidden checked />
+            <input style="display: none;" class="tabs__radio" name="content" type="radio" id="tab2" hidden />
+            <input style="display: none;" class="tabs__radio" name="content" type="radio" id="tab3" hidden />
+            <input style="display: none;" class="tabs__radio" name="content" type="radio" id="tab4" hidden />
+            <ul class="tabs__list">
+              <li><a href="#tab1"><label for="tab1">{{ section.settings.tab1heading }}</label></a></li>
+              <li><a href="#tab2"><label for="tab2">{{ section.settings.tab2heading }}</label></a></li>
+              <li><a href="#tab3"><label for="tab3">{{ section.settings.tab3heading }}</label></a></li>
+              <li><a href="#tab4"><label for="tab4">{{ section.settings.tab4heading }}</label></a></li>
+            </ul>
+            <div class="policies-tab-container">
+              <article class="tabs__panel" id="content-feature1-panel">
+                <h3>{{ section.settings.tab1heading }}</h3>
+                <div>{{ section.settings.tab1content }}</div>
+              </article>
+              <aside class="tabs__panel" id="content-feature2-panel">
+                <h3>{{ section.settings.tab2heading }}</h3>
+                <div>{{ section.settings.tab2content }}</div>
+              </aside>
+              <aside class="tabs__panel" id="content-feature3-panel">
+                <h3>{{ section.settings.tab3heading }}</h3>
+                <div>{{ section.settings.tab3content }}</div>
+              </aside>
+              <aside class="tabs__panel" id="content-summary-panel">
+                <h3>{{ section.settings.tab4heading }}</h3>
+                <div>{{ section.settings.tab4content }}</div>
+              </aside>
+            </div>
+          </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+            <script type="text/javascript">
+              	(function ($) {
+                var hasHistoryReplaceStateSupport = window.history && window.history.replaceState,
+                    initCounter = 0;
+                $(function () {
+                  $(document).on('click', '.tabs__list label', function (e) {
+                    if(e.ctrlKey) {
+                      return;
+                    }
+                    var $this = $(this),
+                        hash = '#' + $this.attr('for'),
+                        tabContainer;
+                    if (hasHistoryReplaceStateSupport) {
+                      window.history.replaceState('', '', hash);
+                    } else {
+                      /* IE8 fallback */
+                      setTimeout(function () {
+                        document.location.hash = hash;
+                      }, 0);
+                      tabContainer = $(hash).parent();
+                      tabContainer.find('.tabs__radio--checked').removeClass('tabs__radio--checked');
+                      tabContainer.find('.tabs__list--active').removeClass('tabs__list--active');
+                      tabContainer.find('.tabs__panel--active').removeClass('tabs__panel--active');
+                      $(hash).addClass('tabs__radio--checked');
+                      $this.addClass('tabs__list--active');
+                      $('.tabs__container ' + hash + '-panel').addClass('tabs__panel--active');
+                    }
+                  });
+
+                  function hashChange() {
+                    var hash = document.location.hash,
+                        $hash = $(hash),
+                        tabContainer;
+                    if (!$hash.is('input')) {
+                      var $panel = $hash.closest('.tabs__container > .tabs__panel'),
+                          id = $panel.attr('id');
+                      if (id) {
+                        $('.tabs__list label[for="' + id.replace('-panel', '') + '"]').click();
+                        $panel.parent().scrollLeft(0).scrollTop(0);
+                      } else if (initCounter !== false && initCounter < 50) {
+                        initCounter++;
+                        setTimeout(hashChange, 100);
+                      }
+                      return;
+                    }
+                    initCounter = false;
+                    if (hasHistoryReplaceStateSupport) {
+                      $hash.prop('checked', true);
+                    } else {
+                      /* IE8 fallback */
+                      tabContainer = $hash.parent();
+                      tabContainer.find('.tabs__radio--checked').removeClass('tabs__radio--checked');
+                      tabContainer.find('.tabs__list--active').removeClass('tabs__list--active');
+                      tabContainer.find('.tabs__panel--active').removeClass('tabs__panel--active');
+                      $hash.prop('checked', true).addClass('tabs__radio--checked');
+                      $('label[for="' + hash.slice(1) + '"]').addClass('tabs__list--active');
+                      $('.tabs__container ' + hash + '-panel').addClass('tabs__panel--active');
+                    }
+                  }
+                  $(window).on('hashchange', hashChange);
+                  hashChange();
+                  /* IE8 fallback */
+                  if (!hasHistoryReplaceStateSupport) {
+                    $('.tabs__radio').each(function (index, element) {
+                      if ($(element).prop('checked')) {
+                        var hash = '#' + $(element).attr('id');
+                        $(hash).addClass('tabs__radio--checked');
+                        $('label[for="' + hash.slice(1) + '"]').addClass('tabs__list--active');
+                        $('.tabs__container ' + hash + '-panel').addClass('tabs__panel--active');
+                      }
+                    });
+                  }
+                });
+              })(jQuery);
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page-header-policy-tab",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "asidemenu",
+      "label": "Menu"
+    },
+    {
+      "type": "text",
+      "id": "tab1heading",
+      "label": "Tab-1 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab1content",
+      "label": "Tab-1 content"
+    },
+    {
+      "type": "text",
+      "id": "tab2heading",
+      "label": "Tab-2 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab2content",
+      "label": "Tab-2 content"
+    },
+    {
+      "type": "text",
+      "id": "tab3heading",
+      "label": "Tab-3 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab3content",
+      "label": "Tab-3 content"
+    },
+    {
+      "type": "text",
+      "id": "tab4heading",
+      "label": "Tab-4 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab4content",
+      "label": "Tab-4 content"
+    }
+  ],
+  "presets" :[
+    {
+      "name" : "policy-tab"
+    }
+  ]
+}
+{% endschema %}

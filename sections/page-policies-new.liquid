@@ -1,0 +1,154 @@
+<div class="page-header-main  header-space"  style="margin-top: -5px !important;">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="page-content-box">
+      <div class="rte content-section">
+        <div class="aside-menu">
+          <div class="collection-page__aside-menu">
+            <h3>
+              <i class="fa fa-list-ul" aria-hidden="true" style="margin-right: 1rem;"></i>
+              {{- section.settings.asidemenu }}
+            </h3>
+            <ul class="menu">
+              {% for link in section.settings.asidemenu.links %}
+                <li class="menu-link">
+                  <a href="{{ link.url }}">{{ link.title }}</a>
+
+                  {% if link.links.size > 0 %}
+                    <ul class="menu dropdown-child">
+                      {% for child_link in link.links %}
+                        <li class="menu-link">
+                          <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+
+                          {% if child_link.links.size > 0 %}
+                            <ul class="menu dropdown-grandchild">
+                              {% for grandchild_link in child_link.links %}
+                                <li class="menu-link">
+                                  <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="page-content">
+          {{ page.content }}
+          <div id="policies-tab-container" class="policies-tab-container">
+            <div class="tab">
+              <button class="tablinks" onclick="openCity(event, 'tab1')" id="defaultOpen">
+                {{ section.settings.tab1heading }}
+              </button>
+              <button class="tablinks" onclick="openCity(event, 'tab2')">{{ section.settings.tab2heading }}</button>
+              <button class="tablinks" onclick="openCity(event, 'tab3')">{{ section.settings.tab3heading }}</button>
+              <button class="tablinks" onclick="openCity(event, 'tab4')">{{ section.settings.tab4heading }}</button>
+            </div>
+
+            <div id="tab1" class="tabcontent">
+              <h3>{{ section.settings.tab1heading }}</h3>
+              <div>{{ section.settings.tab1content }}</div>
+            </div>
+
+            <div id="tab2" class="tabcontent">
+              <h3>{{ section.settings.tab2heading }}</h3>
+              <div>{{ section.settings.tab2content }}</div>
+            </div>
+
+            <div id="tab3" class="tabcontent">
+              <h3>{{ section.settings.tab3heading }}</h3>
+              <div>{{ section.settings.tab3content }}</div>
+            </div>
+
+            <div id="tab4" class="tabcontent">
+              <h3>{{ section.settings.tab4heading }}</h3>
+              <div>{{ section.settings.tab4content }}</div>
+            </div>
+
+            <script>
+              function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                  tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                  tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+              }
+
+              // Get the element with id="defaultOpen" and click on it
+              document.getElementById("defaultOpen").click();
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "asidemenu",
+      "label": "Menu"
+    },
+    {
+      "type": "text",
+      "id": "tab1heading",
+      "label": "Tab-1 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab1content",
+      "label": "Tab-1 content"
+    },
+    {
+      "type": "text",
+      "id": "tab2heading",
+      "label": "Tab-2 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab2content",
+      "label": "Tab-2 content"
+    },
+    {
+      "type": "text",
+      "id": "tab3heading",
+      "label": "Tab-3 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab3content",
+      "label": "Tab-3 content"
+    },
+    {
+      "type": "text",
+      "id": "tab4heading",
+      "label": "Tab-4 Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "tab4content",
+      "label": "Tab-4 content"
+    }
+  ]
+}
+{% endschema %}

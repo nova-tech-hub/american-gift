@@ -1,0 +1,13 @@
+<div class="collection-filters">
+	{%- liquid
+        if settings.sort-dropdown-a-check
+			render 'collection-filters-item' with filter_id: "filterDropA", tags: tags, collection: collection, current_tags: current_tags, active_tags: active_tags, sort: settings.sort_a, filter_heading: settings.filter1heading, is_color: settings.filter_a_color
+		endif
+		if settings.sort-dropdown-b-check
+			render 'collection-filters-item' with filter_id: "filterDropB", tags: tags, collection: collection, current_tags: current_tags, active_tags: active_tags, sort: settings.sort_b, filter_heading: settings.filter2heading, is_color: settings.filter_b_color
+		endif
+		if settings.sort-dropdown-c-check
+			render 'collection-filters-item' with filter_id: "filterDropC", tags: tags, collection: collection, current_tags: current_tags, active_tags: active_tags, sort: settings.sort_c, filter_heading: settings.filter3heading, is_color: settings.filter_c_color
+		endif
+    -%}
+</div>

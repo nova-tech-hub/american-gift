@@ -1,0 +1,287 @@
+<div class="page-header-main  header-space">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+      
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+  <div class="page-content-box">
+      <div class="rte content-section">
+        <div class="aside-menu">
+          <div class="collection-page__aside-menu">
+                          <h3><i class="fa fa-list-ul" aria-hidden="true" style="margin-right: 1rem;"></i>{{ section.settings.asidemenu }}</h3>
+                          <ul class="menu">
+                            {% for link in section.settings.asidemenu.links %}
+                              <li class="menu-link">
+                                <a href="{{ link.url }}">{{ link.title }}</a>
+                          
+                                {% if link.links.size > 0 %}
+                                  <ul class="menu dropdown-child">
+                                    {% for child_link in link.links %}
+                                      <li class="menu-link">
+                                        <a href="{{ link.url }}{{ child_link.url }}">{{ child_link.title }}</a>
+                          
+                                        {% if child_link.links.size > 0 %}
+                                          <ul class="menu dropdown-grandchild">
+                                            {% for grandchild_link in child_link.links %}
+                                              <li class="menu-link">
+                                                <a href="{{ link.url }}{{ child_link.url }}{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                              </li>
+                                            {% endfor %}
+                                          </ul>
+                                        {% endif %}
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+  
+                          </div>
+        </div>
+        <div class="page-content">
+            {{ page.content }}
+            <div class="main-faq-text">{{ section.settings.main-heading }}</div>
+          <div class="faq-container">
+            {% for block in section.blocks %}
+            <div class="accordion-container1">
+              <div class="faq-new-heading">{{ block.settings.heading1 }}</div>
+              <div class="accordion-items accordion-items1">
+                {% if block.settings.question1 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question1 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer1 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question1 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer1 }}</div>
+                {% endif %}
+
+                {% if block.settings.question2 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question2 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer2 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question2 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer2 }}</div>
+                {% endif %}
+
+                {% if block.settings.question3 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question3 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer3 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question3 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer3 }}</div>
+                {% endif %}
+
+                {% if block.settings.question4 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question4 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer4 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question4 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer4 }}</div>
+                {% endif %}
+
+                {% if block.settings.question5 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question5 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer5 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question5 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer5 }}</div>
+                {% endif %}
+
+                {% if block.settings.question6 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question6 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer6 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question6 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer6 }}</div>
+                {% endif %}
+
+                {% if block.settings.question7 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question7 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer7 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question7 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer7 }}</div>
+                {% endif %}
+                
+                {% if block.settings.question8 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question8 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer8 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question8 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer8 }}</div>
+                {% endif %}
+
+                {% if block.settings.question9 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question9 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer9 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question9 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer9 }}</div>
+                {% endif %}
+
+                {% if block.settings.question10 == empty %}
+                  <div class="accordion-heading" style="display: none;">{{ block.settings.question10 }}</div>
+                  <div class="accordion-content" style="display: none;">{{ block.settings.answer10 }}</div>
+                {% else %} 
+                  <div class="accordion-heading">{{ block.settings.question10 }}</div>
+                  <div class="accordion-content">{{ block.settings.answer10 }}</div>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+
+            
+
+            
+
+            <script>
+              $(document).ready(function () {
+              $(".accordion-items1").on("click", ".accordion-heading", function () {
+                $(this).toggleClass("active").next().slideToggle();
+            
+                $(".accordion-content").not($(this).next()).slideUp(300);
+            
+                $(this).siblings().removeClass("active");
+              });
+            });
+            </script>
+          </div>
+        </div>
+    </div>
+  
+</div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Page-header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "asidemenu",
+        "label": "Menu"
+      },
+      {
+        "type":"richtext",
+        "id":"main-heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks":[
+      {
+        "name": "accordion",
+        "type": "accordion",
+        "settings":[
+          {
+            "type":"text",
+            "id":"heading1",
+            "label": "Heading"
+          },
+          {
+            "type":"text",
+            "id":"question1",
+            "label": "Question-1"
+          },
+          {
+            "type":"richtext",
+            "id":"answer1",
+            "label": "Answer-1"
+          },
+          {
+            "type":"text",
+            "id":"question2",
+            "label": "Question-2"
+          },
+          {
+            "type":"richtext",
+            "id":"answer2",
+            "label": "Answer-2"
+          },
+          {
+            "type":"text",
+            "id":"question3",
+            "label": "Question-3"
+          },
+          {
+            "type":"richtext",
+            "id":"answer3",
+            "label": "Answer-3"
+          },
+          {
+            "type":"text",
+            "id":"question4",
+            "label": "Question-4"
+          },
+          {
+            "type":"richtext",
+            "id":"answer4",
+            "label": "Answer-4"
+          },
+          {
+            "type":"text",
+            "id":"question5",
+            "label": "Question-5"
+          },
+          {
+            "type":"richtext",
+            "id":"answer5",
+            "label": "Answer-5"
+          },
+          {
+            "type":"text",
+            "id":"question6",
+            "label": "Question-6"
+          },
+          {
+            "type":"richtext",
+            "id":"answer6",
+            "label": "Answer-6"
+          },
+          {
+            "type":"text",
+            "id":"question7",
+            "label": "Question-7"
+          },
+          {
+            "type":"richtext",
+            "id":"answer7",
+            "label": "Answer-7"
+          },
+          {
+            "type":"text",
+            "id":"question8",
+            "label": "Question-8"
+          },
+          {
+            "type":"richtext",
+            "id":"answer8",
+            "label": "Answer-8"
+          },
+          {
+            "type":"text",
+            "id":"question9",
+            "label": "Question-9"
+          },
+          {
+            "type":"richtext",
+            "id":"answer9",
+            "label": "Answer-9"
+          },
+          {
+            "type":"text",
+            "id":"question10",
+            "label": "Question-10"
+          },
+          {
+            "type":"richtext",
+            "id":"answer10",
+            "label": "Answer-10"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,112 @@
+{%- liquid
+  unless type
+    assign type = "a"
+  endunless
+  unless product_list_class
+    assign product_list_class = "large--one-quarter medium--one-half small--one-whole"
+  endunless
+-%}
+<div class="category_inner">
+  <div class="grid__product-image text-center">
+    <a href="{{ product.url | within: collection }}" class="grid__image">
+      {%- liquid
+        if settings.badges_enable
+          render 'badges' with product: product
+        endif
+      -%}
+      {% if settings.product_layout_option != "product_none" and settings.badges_enable %}
+      	{% if product.compare_at_price > product.price %}
+      	  {% if settings.show_saved_amount %}
+      		{% if settings.sale_button_option == "sale_button_option_one" %}
+              <div class="save-badge">
+                SAVE<br><span class='money'>{{ product.compare_at_price | minus: product.price | money }}</span>
+              </div>
+            {% endif %}
+            {% if settings.sale_button_option == "sale_button_option_two" %}
+              <div class="save-badge2">
+                SAVE<br><span class='money'>{{ product.compare_at_price | minus: product.price | money }}</span>
+              </div>
+            {% endif %}
+            {% if settings.sale_button_option == "sale_button_option_three" %}
+              <div class="save-badge3">
+                On Sale
+              </div>
+            {% endif %}
+            {% if settings.sale_button_option == "sale_button_option_four" %}
+              <div class="save-badge4">
+                On Sale
+              </div>
+            {% endif %}
+            {% if settings.sale_button_option == "sale_button_option_five" %}
+              <div class="save-badge5">
+                Sale
+              </div>
+            {% endif %}
+      	  {% endif %}
+      	{% endif %}
+      {% endif %}
+      {% assign img_url = product.images.first | img_url: '600x' %}
+      <img src="{{ img_url }}" class="fade-in" width="300" height="300" alt="{{ product.images.first.alt | escape }}" loading="lazy" />
+      {% if product.compare_at_price > product.price %}
+        {% if settings.show_saved_amount %}
+          {% if settings.product_layout_option == "product_one" %}
+          	<div class="save_amount_one">SAVE <span class='money'>{{ product.compare_at_price | minus: product.price | money }}</span></div>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    </a>
+  </div>
+  <div class="grid__product-content text-center category_detail" {% unless settings.display_product_price or section.settings.display_product_price %} {% endunless %}>
+    <h4>
+      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+    </h4>
+    <div class="price-section {% if settings.product_layout_option == "product_two" %}price-section-two{% endif %}{% if settings.product_layout_option == "product_three" %}price-section-three{% endif %}{% if settings.product_layout_option == "product_four" %}price-section-four{% endif %}">
+      <h5>
+        {% assign price_class = "no-compare-price" %}
+        <span class="price {{ price_class }}">
+          {% unless product.available %}
+          	{{ 'products.product.unavailable' | t }}
+          {% else %}
+          	<span class='money'>{{ product.price | money }}</span>
+          {% endunless %}
+        </span>
+        {% if settings.product_layout_option != "product_none" %}
+          {% if product.compare_at_price > product.price %}
+        	{% assign price_class = "" %}
+        	<strike><span class='money compare-price'>{{ product.compare_at_price | money }}</span></strike>
+          {% endif %}
+        {% endif %}
+        {% if settings.show_saved_amount %}
+          {% if product.compare_at_price > product.price %}
+            {% if settings.product_layout_option == "product_two" %}
+              <div class="save_amount_two">SAVE <span class='money'>{{ product.compare_at_price | minus: product.price | round | money }}</span></div>
+            {% endif %}
+            {% if settings.product_layout_option == "product_three" %}
+              <div class="save_amount_three">
+                -{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}
+                %
+              </div>
+            {% endif %}
+            {% if settings.product_layout_option == "product_four" %}
+              <div class="save_amount_four">
+                SAVE {{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}
+                %
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      </h5>
+    </div>
+    {% if settings.display_review_star_collection %}
+      <div class="product-navigation-review">
+        {% if settings.productreview == 'loox' %}
+          <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+        {% endif %}
+        {% if settings.productreview == 'shopify_reviews' %}
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+

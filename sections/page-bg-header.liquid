@@ -1,0 +1,221 @@
+<div class="page-header-main  header-space">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+      
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+  <div class="page-content-box">
+      <div class="rte content-section">
+        <div class="aside-menu">
+          <div class="collection-page__aside-menu">
+                          <h3><i class="fa fa-list-ul" aria-hidden="true" style="margin-right: 1rem;"></i>{{ section.settings.asidemenu }}</h3>
+                          <ul class="menu">
+                            {% for link in section.settings.asidemenu.links %}
+                              <li class="menu-link">
+                                <a href="{{ link.url }}">{{ link.title }}</a>
+                          
+                                {% if link.links.size > 0 %}
+                                  <ul class="menu dropdown-child">
+                                    {% for child_link in link.links %}
+                                      <li class="menu-link">
+                                        <a href="{{ link.url }}{{ child_link.url }}">{{ child_link.title }}</a>
+                          
+                                        {% if child_link.links.size > 0 %}
+                                          <ul class="menu dropdown-grandchild">
+                                            {% for grandchild_link in child_link.links %}
+                                              <li class="menu-link">
+                                                <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                              </li>
+                                            {% endfor %}
+                                          </ul>
+                                        {% endif %}
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+  
+                          </div>
+        </div>
+        <div class="page-content">
+            {{ page.content }}
+          <div class="contact-form">
+            <div class="contact-form-header">
+              <div class="icon">
+                <img src="https://cdn.shopify.com/s/files/1/0652/6982/5751/files/hea.png?v=1667279794">
+              </div>
+              <div class="header-text">{{ section.settings.headertext }}</div>
+            </div>
+            {% comment %}
+            {% if settings.help_text_contact != "" %}
+      	<div class="help-text-contact">{{ settings.help_text_contact }}</div>
+      {% endif %}
+      {% endcomment %}
+      <div class="grid">
+        {% if settings.display_contact_form %}
+          <div class="grid__item large--two-thirds">
+          {% comment %}
+            <div class="inner-header">
+              <h3>{{ 'contact.form.title' | t }}</h3>
+            </div>
+          {% endcomment %}
+            <div class="form-vertical">
+              {% form 'contact' %}
+                {% if form.posted_successfully? %}
+                  <p class="note form-success">
+                    {{ 'contact.form.post_success' | t }}
+                  </p>
+                {% endif %}
+                {{ form.errors | default_errors }}
+                <div>
+                  <div class="large--one-half left margin--textbox-right">
+                  <label class="form-label"  for="ContactFormFirstName">Full Name<span class="colored-star">*</span></label>
+                    <input type="text" id="ContactFormFirstName" class="input-full form-control" name="contact[first_name]"  autocapitalize="words" value="{% if form.first_name %}{{ form.first_name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                  </div>
+                  <div class="large--one-half left margin--textbox-left">
+                    <label class="form-label"  for="ContactFormLastName">&nbsp;</label>
+                    <input type="text" id="ContactFormLastName" class="input-full form-control" name="contact[last_name]" autocapitalize="words" value="{% if form.last_name %}{{ form.last_name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                  </div>
+                </div>
+                <label class="form-label"  for="ContactFormEmail">Email<span class="colored-star">*</span></label>
+                <input type="email" id="ContactFormEmail" class="input-full form-control" name="contact[email]"  autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+              
+                <label class="form-label"  for="ContactFormPhone">Phone<span class="colored-star">*</span></label>
+                <input type="tel" id="ContactFormPhone" class="input-full form-control" name="contact[telephone]"  pattern="[0-9\-\+]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+
+                <label class="form-label"  for="ContactFormInquiryType">Inquiry Type<span class="colored-star">*</span></label>
+                <select class="input-full form-control" id="ContactFormInquiryType" type="text" name="contact[inquirytype]" value="{% if form.inquirytype %}{{ form.inquirytype }}{% elsif customer %}{{ customer.inquirytype }}{% endif %}">
+                  <option value="general">General</option>
+                  <option value="sales">Sales</option>
+                  <option value="orders">Orders</option>
+                  <option value="issues">Issues</option>
+                </select>
+
+                <label class="form-label"  for="ContactFormInquirySubject">Inquiry Subject<span class="colored-star">*</span></label>
+                <input type="text" id="ContactFormInquirySubject" class="input-full form-control" name="contact[inquirysubject]"  autocapitalize="words" value="{% if form.inquirysubject %}{{ form.inquirysubject }}{% elsif customer %}{{ customer.inquirysubject }}{% endif %}">
+                
+                <label class="form-label"  for="ContactFormMessage">Inquiry Description<span class="colored-star">*</span></label>
+                <textarea rows="4" id="ContactFormMessage" class="input-full form-control" name="contact[body]" >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                <input type="submit" name="ftc" id="conagree" class="form-control form-control-btn left mnba" value="Submit ticket">
+             
+                   {% if settings.termscheck %}
+    <br style="clear:both"> 
+              <p class="checktext">
+                <label class="form-label" >
+                  <input type="checkbox" id="footercheckcontact"> <span>{{ settings.termstext }} {% if settings.termslinktext != "" %}<a href="{{ settings.termstextlink }}">{{ settings.termslinktext }}</a>{% endif %}</span>
+                </label>
+              </p>
+                        <script>
+$('body').on('click', '[name="ftc"]', function() {
+   
+  if ($('#footercheckcontact').is(':checked')) {
+    $(this).submit();
+   
+  }
+  else {
+    alert("{{ settings.termstext_warning }}");
+    return false;
+  }
+});
+</script>
+              
+                      {% endif %}
+              {% endform %}
+            </div>
+          </div>
+        {% endif %}
+        <div class="contact-page__sidebar grid__item large--one-third page--item">
+          {% comment %}
+          <div class="inner-header">
+            <h3>{{ 'contact.form.details_title' | t }}</h3>
+          </div>
+          <div class="contact-box">
+            <p><strong>{{ 'contact.form.availability' | t }}:</strong></p>
+            {% if settings.contact_availability != "" %}
+              <p>{{ settings.contact_availability }}</p>
+            {% endif %}
+            {% if settings.contact_phone_1 != "" %}<p class="bold-text"><i class="fa fa-phone"></i> <a style="padding-left: 3px;"href="tel:{{ settings.contact_phone_1 }}">{{ settings.contact_phone_1 }}</a></p>{% endif %}
+            {% if settings.contact_phone_2 != "" %}<p class="bold-text"><i class="fa fa-phone"></i> <a href="tel:{{ settings.contact_phone_2 }}">{{ settings.contact_phone_2 }}</a></p>{% endif %}
+            {% if settings.contact_phone_3 != "" %}<p class="bold-text"><i class="fa fa-phone"></i> <a href="tel:{{ settings.contact_phone_3 }}">{{ settings.contact_phone_3 }}</a></p>{% endif %}
+            {% if settings.contact_email != "" %}
+              <p class="bold-text"><i class="fa fa-envelope"></i> <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
+            {% endif %}
+            {% if settings.display_live_chat %}
+              <p class="bold-text"><i class="fa fa-comments"></i> <a href="{{ settings.live_chat_url }}">{{ 'contact.form.live_chat' | t }}</a></p>
+            {% endif %}
+            {% if settings.physical_mailing_address != "" %}	
+              <p class="address-contact">{% if settings.physical_mailing_address_lable != "" %} {{ settings.physical_mailing_address_lable }} {% else %}{{ 'contact.form.mailing_address' | t }}{% endif %}</p>
+              <p>{{ settings.physical_mailing_address }}</p>
+            {% endif %}
+          </div>
+          {% endcomment %}
+          <div class="contact-aside-btn">
+            <a onclick="toggleshow()" class="chat">
+              {{ section.settings.btntext }}
+            </a>
+          </div>
+          <div class="contact-right-aside"> 
+            <h3>{{ section.settings.rightheading }}</h3>
+            <div>{{ section.settings.righttext }}</div>
+          </div>
+          {% comment %}
+          {% if settings.display_faqs_link %}
+            <a href="{{settings.faq_page}}" class="faq_link">{{ 'contact.form.faqs_link' | t }}</a>
+          {% endif %}
+          {% endcomment %}
+        </div>
+      </div>
+          </div>
+        </div>
+    </div>
+  
+</div>
+    </div>
+</div>
+<script>
+  function toggleshow(canShow = true) {
+      $zoho.salesiq.floatwindow.visible(canShow ? 'show' : 'hide');
+  }
+</script> 
+{% schema %}
+  {
+    "name": "Page-header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "asidemenu",
+        "label": "Menu"
+      },
+      {
+        "type": "textarea",
+        "id": "headertext",
+        "label": "Header Text"
+      },
+      {
+        "type": "url",
+        "id": "btnlink",
+        "label": "Button Link"
+      },
+      {
+        "type": "text",
+        "id": "btntext",
+        "label": "Button"
+      },
+      {
+        "type": "text",
+        "id": "rightheading",
+        "label": "Aside Section Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "righttext",
+        "label": "Some text"
+      }
+    ]
+  }
+{% endschema %}

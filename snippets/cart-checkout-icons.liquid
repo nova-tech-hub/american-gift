@@ -1,0 +1,53 @@
+<ul class="social-media-cc display_cart_property">
+  {% if settings.footer_checkout_display %}
+    {% if settings.ff-checkout-visa-enable %}
+      <li style="margin-left:0px;">
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-visa.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.ff-checkout-mastercard-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-mastercard.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.ff-checkout-americanexp-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-americanexp.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.ff-checkout-discover-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-discover.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.ff-checkout-paypal-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-paypal.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.ff-checkout-shopify-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-shopify.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+  	{% if settings.ff-checkout-7-enable %}
+      <li>
+        <a href="javascript:void(0);">
+          <img src="{{ 'ff-checkout-7.png' | asset_url }}" class="img-responsive no-border ratina-img" width="150" height="87" loading="lazy" />
+        </a>
+      </li>
+    {% endif %}
+  {% endif %}
+</ul>

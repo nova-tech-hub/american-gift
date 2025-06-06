@@ -1,0 +1,99 @@
+<script data-no-instant>
+    document.addEventListener("DOMContentLoaded", function () {
+        Currency.cookie.name = 'my_awesome_cookie_name';
+
+        {% if settings.currency_format %}
+        Currency.format = '{{ settings.currency_format }}';
+        {% endif %}
+        var shopCurrency = '{{ shop.currency }}';
+        Currency.shopCurrency = shopCurrency;
+        /* Sometimes merchants change their shop currency, let's tell our JavaScript file */
+        Currency.moneyFormats[shopCurrency].money_with_currency_format = {{ shop.money_with_currency_format | strip_html | json }};
+        Currency.moneyFormats[shopCurrency].money_format = {{ shop.money_format | strip_html | json }};
+        {% if settings.currency_type == 'default' %}
+        /* Default currency */
+        var defaultCurrency = '{{ settings.default_currency }}' || shopCurrency;
+        Currency.defaultCurrency = defaultCurrency;
+        var allCurrencies = '{{ settings.supported_currencies }}';
+
+        /* Cookie currency */
+        var cookieCurrency = Currency.cookie.read();
+        if (allCurrencies.search(cookieCurrency) == -1) {
+            cookieCurrency = null;
+        }
+
+        if (allCurrencies.search(shopCurrency) == -1) {
+            //shopCurrency = defaultCurrency;
+        }
+
+        /* Fix for customer account pages */
+        $('span.money span.money').each(function () {
+            $(this).parents('span.money').removeClass('money');
+        });
+
+        /* Saving the current price */
+        Currency.convertAll(shopCurrency, shopCurrency, "span.money, strike.money");
+
+        // If there's no cookie.
+        if (cookieCurrency == null || cookieCurrency === "") {
+          if (shopCurrency !== defaultCurrency) {
+            Currency.convertAll(shopCurrency, defaultCurrency);
+            $(".selected--currency-flag .country--flag").hide();
+            $(".selected--currency-flag .country--flag." + defaultCurrency).show();
+            $('.selectedvalue').text(defaultCurrency);
+            $(".currencymsg").show();
+            $(".cangecurrency").html(defaultCurrency);
+            $(".cangecurrencymobile").html(defaultCurrency);
+          } else {
+            $(".currencymsg").hide();
+            Currency.currentCurrency = defaultCurrency;
+            $(".selected--currency-flag .country--flag." + defaultCurrency).show();
+            $('.selectedvalue').text(Currency.currentCurrency);
+          }
+        } else if ($('[name=currencies]').length && $('[name=currencies] option[value=' + cookieCurrency + ']').length === 0) {
+          $(".currencymsg").hide();
+          Currency.currentCurrency = shopCurrency;
+          Currency.cookie.write(shopCurrency);
+        } else if (cookieCurrency === shopCurrency) {
+          $(".currencymsg").hide();
+          Currency.currentCurrency = shopCurrency;
+          $(".selected--currency-flag .country--flag." + cookieCurrency).show();
+        } else {
+          Currency.convertAll(shopCurrency, cookieCurrency);
+          $(".selected--currency-flag .country--flag").hide();
+          $(".selected--currency-flag .country--flag." + cookieCurrency).show();
+          $(".currencymsg").show();
+          $(".cangecurrency").html(cookieCurrency);
+          $(".cangecurrencymobile").html(cookieCurrency);
+        }
+
+        $('[name=currencies]').val(Currency.currentCurrency).change(function () {
+          var newCurrency = $(this).val();
+          if(newCurrency === shopCurrency) {
+            $(".currencymsg").hide();
+          } else {
+			$(".currencymsg").show();
+            $(".cangecurrency").html(newCurrency);
+            $(".cangecurrencymobile").html(newCurrency);
+          }
+          Currency.convertAll(Currency.currentCurrency, newCurrency);
+          $(".selected--currency-flag .country--flag").hide();
+          $(".selected--currency-flag .country--flag." + newCurrency).show();
+          $('.selected-currency').text(Currency.currentCurrency);
+
+          document.dispatchEvent(new CustomEvent("initProductSavings"));
+        });
+
+        var original_selectCallback = window.selectCallback;
+        var selectCallback = function (variant, selector) {
+            original_selectCallback(variant, selector);
+            Currency.convertAll(shopCurrency, $('[name=currencies]').val());
+            $('.selected-currency').text(Currency.currentCurrency);
+            $('.selectedvalue').text(Currency.currentCurrency);
+        };
+
+        $('.selected-currency').text(Currency.currentCurrency);
+        $('.selectedvalue').text(Currency.currentCurrency);
+        {% endif %}
+    });
+</script>

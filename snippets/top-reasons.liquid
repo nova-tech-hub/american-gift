@@ -1,0 +1,41 @@
+<div class="product-reasons great_reason">
+  {%- liquid
+    if settings.display_top_reasons_counter
+      assign countreasons = 0
+      for i in (1..7)
+        assign reason-image-display = 'top_reasons_' | append: i | append: '_display'
+        if settings[reason-image-display]
+            assign countreasons = countreasons | plus: 1
+        endif
+      endfor
+    endif
+  -%}
+  <p>
+    {%- liquid
+      if settings.display_top_reasons_counter
+        echo countreasons
+      endif
+      echo settings.top_reasons_text
+    -%}
+  </p>
+  <ul class="clearfix">
+    {% for i in (1..7) %}
+      {%- liquid
+        assign reason = 'top_reasons_' | append: i
+        assign reason-image-display = 'top_reasons_' | append: i | append: '_display'
+        assign reason-image = 'top_reasons_' | append: i | append: '_image.png'
+      -%}
+      {% if settings[reason-image-display] %}
+        <li class="total-{{ countreasons }}-reasons">
+          <img src="{{ reason-image | asset_img_url: '150x' }}" class="ratina-img" alt="Image of {{ settings[reason] | escape }}" width="150" height="150" loading="lazy" />
+          {% if settings.display_top_reasons_text %}
+            <br />
+          <span> {{ settings[reason] }}
+          </span>
+            <span id="badage_shipping_msg" style="display:none;">{{ settings[reason] }}</span>
+          {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>

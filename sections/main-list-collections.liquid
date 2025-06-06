@@ -1,0 +1,72 @@
+<div class="container-fluid header-space">
+  <div class="row">
+    <div class="container"></div>
+  </div>
+</div>
+<div class="container collection_page">
+  {% render 'breadcrumb' %}
+  {% unless settings.collections_products %}
+    <div class="section-header">
+      <p class="h1 section-header__left">{{ 'collections.general.title' | t }}</p>
+    </div>
+  {% endunless %}
+  <div class="display-flex-collections">
+    {% for collection in collections %}
+      {% if settings.collections_products %}
+        {% unless collection.handle == 'frontpage' %}
+          {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+          <div class="section-header">
+            <p class="h1 section-header__left">{{ collection_title }}</p>
+            <div class="section-header__right">
+              <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">More {{ collection_title }} &rsaquo;</a>
+            </div>
+          </div>
+          <div class="category_wrap ffa cearfix">
+            <div class="grid-uniform">
+              {% if settings.show_in_carousel %} 
+                <div class="category_wrap homaa">
+              {% endif %}
+                  {%- liquid
+                    for product in collection.products limit: settings.collectionlistingcount
+                      unless settings.show_in_carousel
+                        assign product_list_class = 'large--one-fifth medium--one-half'
+                      endunless
+                      if settings.mobile_products_per_row == '2'
+                        assign mobile_product_list_class = 'small--one-half'
+                      endif
+                      render 'product-grid-item' with product: product, product_list_class: product_list_class, mobile_product_list_class: mobile_product_list_class
+                    endfor
+                  -%}
+              {% if settings.show_in_carousel %} 
+                </div>
+              {% endif %} 
+            </div>
+          </div>
+        {% endunless %}
+      {% else %}
+        <div class="grid__item large--one-quarter medium--one-half custom--width-one-half collection-list col-md-3">
+          <div class="grid__product-image text-center">
+            <a href="{{ collection.url }}" class="grid__image">
+              {% if collection.image %}
+              {{ collection.image.src | img_url: 'grande' | img_tag: collection_title }}
+              {% else %}
+              {{ collection.products.first.featured_image | img_url: 'grande' | img_tag: collection_title }}
+              {% endif %}
+            </a>
+          </div>
+          <div class="grid__product-content text-center">
+            <p class="h5">
+              <a href="{{ collection.url }}">{{ collection.title }} <p>{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</p></a>
+            </p>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Collections List",
+    "settings": []
+  }
+{% endschema %}

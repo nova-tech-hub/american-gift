@@ -1,0 +1,180 @@
+<div class="page-header-main  header-space" style="margin-top:-3px !important">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+      
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+        
+  <div class="page-content-box">
+    
+      <div class="rte content-section">
+        {% if section.settings.mainheading != blank %}
+        <div class="form-cont-heading">
+          <h2>{{ section.settings.mainheading }}</h2>
+        </div>
+          {% endif %}
+        <div class="container-header">
+          <div class="box-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) -->
+              <path d="M507.31 72.57L439.43 4.69c-6.25-6.25-16.38-6.25-22.63 0l-22.63 22.63c-6.25 6.25-6.25 16.38 0 22.63l-76.67 76.67c-46.58-19.7-102.4-10.73-140.37 27.23L18.75 312.23c-24.99 24.99-24.99 65.52 0 90.51l90.51 90.51c24.99 24.99 65.52 24.99 90.51 0l158.39-158.39c37.96-37.96 46.93-93.79 27.23-140.37l76.67-76.67c6.25 6.25 16.38 6.25 22.63 0l22.63-22.63c6.24-6.24 6.24-16.37-.01-22.62zM179.22 423.29l-90.51-90.51 122.04-122.04 90.51 90.51-122.04 122.04z"/>
+            </svg>
+          </div>
+          <div class="gift-img-box">
+                <img class="gift-img" src="{{ section.settings.giftimg | image_url }}" alt="" width="229" height="190">
+          </div>
+          <div class="text">
+            {{ section.settings.gifttext }}
+           </div>
+        </div>
+        <div class="cgb-form">
+          
+          {% form 'contact' %}
+                {% if form.posted_successfully? %}
+                  <p class="note form-success">
+                    {{ 'contact.form.post_success' | t }}
+                  </p>
+                {% endif %}
+                {{ form.errors | default_errors }}
+                <div class="large--one-half left margin--textbox-right">
+                  <label class="cgb-label" for="custom_giftbasketFormContactPerson">Contact Person <span class="colored-star">*</span></label>
+                  <input type="text" id="custom_giftbasketFormContactPerson" class="input-full form-control" name="contact[contact_person]" autocapitalize="words" value="{% if form.contact_person %}{{ form.contact_person }}{% elsif customer %}{{ customer.contact_person }}{% endif %}" required>
+                </div>
+          
+                <div class="large--one-half left margin--textbox-left">
+                  <label class="cgb-label" for="custom_giftbasketFormCompanyName">Company Name <span class="colored-star">*</span></label>
+                  <input type="text" id="custom_giftbasketFormCompanyName" class="input-full form-control" name="contact[company_name]" autocapitalize="words" value="{% if form.company_name %}{{ form.company_name }}{% elsif customer %}{{ customer.company_name }}{% endif %}" required>
+                </div>
+
+                <div class="large--one-half left margin--textbox-right">
+                  <label class="cgb-label" for="custom_giftbasketFormPhone">Phone Number <span class="colored-star">*</span></label>
+                  <input type="tel" id="custom_giftbasketFormPhone" class="input-full form-control" name="contact[phone]" pattern="[0-9\-\+]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+                </div>
+          
+                <div class="large--one-half left margin--textbox-left">
+                  <label class="cgb-label" for="custom_giftbasketFormEmail">Email <span class="colored-star">*</span></label>
+                  <input type="email" id="custom_giftbasketFormEmail" class="input-full form-control" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required>
+                </div>
+
+                <div class="large--one-third left margin--textbox-right">
+                  <label class="cgb-label" for="custom_giftbasketFormProjectOcassion">Project Ocassion <span class="colored-star">*</span></label>
+                  <select id="custom_giftbasketFormProjectOcassion" class="input-full form-control" name="contact[project_occasion]" required>
+                    <option value="VIP Client(s)">VIP Client(s)</option>
+    				<option value="Corporate Event">Corporate Event</option>
+    				<option value="Corporate Marketing">Corporate Marketing</option>
+    				<option value="Tradeshow">Tradeshow</option>
+    				<option value="Hotel Event">Hotel Event</option>
+    				<option value="Birthday">Birthday</option>
+    				<option value="Wedding">Wedding</option>
+    				<option value="Engagement">Engagement</option>
+    				<option value="Other">(Other)</option>
+                  </select>
+                </div>
+
+                <div class="large--one-third left margin--textbox-right margin--textbox-left">
+                  <label class="cgb-label" for="custom_giftbasketQuantity">Quantity Needed (min 25) <span class="colored-star">*</span></label>
+                  <input type="number" id="custom_giftbasketQuantity" class="input-full form-control" name="contact[quantity]" pattern="[0-9\-\+]*" value="{% if form.quantity %}{{ form.quantity }}{% elsif customer %}{{ customer.quantity }}{% endif %}" required>
+                </div>
+
+                <div class="large--one-third left margin--textbox-left">
+                  <label class="cgb-label" for="custom_giftbasketFormDelivery">Delivery Needed By: <span class="colored-star">*</span></label>
+                  <input type="number" id="custom_giftbasketFormDelivery" class="input-full form-control" name="contact[delivery]" pattern="[0-9\-\+]*" value="{% if form.delivery %}{{ form.delivery }}{% elsif customer %}{{ customer.delivery }}{% endif %}" required>
+                </div>
+
+                <div class="large--one-half left margin--textbox-right">
+                  <label class="cgb-label" for="custom_giftbasketFormCustomizationType">Customization Type <span class="colored-star">*</span></label>
+                  <select id="custom_giftbasketFormCustomizationType" class="input-full form-control" name="contact[custom_type]" required>
+                    <option value="Customize an Existing Basket">Customize an Existing Basket</option>
+    				<option value="Create a New Basket">Create a New Basket</option>
+                  </select>
+                </div>
+
+                <div class="large--one-half left margin--textbox-left">
+                  <label class="cgb-label" for="custom_giftbasketFormBasketSku">If use Existing Basket <em>(Enter SKU)</em></label>
+                  <input type="text" id="custom_giftbasketFormBasketSku" class="input-full form-control" name="contact[basket_sku]" autocorrect="off" autocapitalize="off" value="{% if form.basket_sku %}{{ form.basket_sku }}{% elsif customer %}{{ customer.basket_sku }}{% endif %}">
+                </div>
+
+          <div class="question-box input-full ">
+                <label class="cgb-label" class="label-title">Customization Add-Ins Needed <em>(select all that apply)</em> <span class="colored-star">*</span></label><br><br>
+            <input class="input-full" type="hidden" name="contact[Customization Add-Ins below]" value="&nbsp;" />
+                <input class="input-full" type="checkbox" id="1" name="contact[add_ins1]" value="Standard Card" /><span>Standard Card w/ Message (FREE max 240 characters)</span><br>
+                <input class="input-full" type="checkbox" id="2" name="contact[add_ins2]" value="Special Greeting Card" /><span>Special Greeting Card w/ Message</span><br>
+                <input class="input-full" type="checkbox" id="3" name="contact[add_ins3]" value="Hand Tags" /><span>Hand Tags</span><br>
+                <input class="input-full" type="checkbox" id="4" name="contact[add_ins4]" value="Merchandise" /><span>Add Merchandise (supplied by you) (ex: coffee mugs, company logo t-shirts, baseball caps)</span><br>
+                <input class="input-full" type="checkbox" id="5" name="contact[add_ins5]" value="Other Inserts" /><span>Add Other Inserts (Supplied by you)</span><br>
+                <input class="input-full" type="checkbox" id="6" name="contact[add_ins6]" value="Folding/Inserting Service" /><span>Folding/Inserting Service ($45/hr)</span><br>
+                <input class="input-full" type="checkbox" id="7" name="contact[add_ins7]" value="Outside Label" /><span>Outside Label ($0.75 per label)</span>
+            </div><br>
+          
+          <label class="cgb-label" for="custom_giftbasketFormDetail">Describe Your Customization Requirements in Detail <span class="colored-star">*</span></label>
+          <textarea rows="4" id="custom_giftbasketFormDetail" class="input-full form-control" name="contact[detail]" required>{% if form.detail %}{{ form.detail }}{% endif %}</textarea>
+          
+                <input type="submit" name="ftc" id="conagree" class="btn left mnba" value="Submit">
+             
+                   {% if settings.termscheck %}
+                  <br style="clear:both"> 
+                  <p class="checktext">
+                    <label class="cgb-label">
+                      <input type="checkbox" id="footercheckcustom_giftbasket"> <span>{{ settings.termstext }} {% if settings.termslinktext != "" %}<a href="{{ settings.termstextlink }}">{{ settings.termslinktext }}</a>{% endif %}</span>
+                    </label>
+                  </p>
+                  <script>
+                    $('body').on('click', '[name="ftc"]', function() {
+                       
+                      if ($('#footercheckcustom_giftbasket').is(':checked')) {
+                        $(this).submit();
+                       
+                      }
+                      else {
+                        alert("{{ settings.termstext_warning }}");
+                        return false;
+                      }
+                    });
+                  </script>
+              
+                      {% endif %}
+              {% endform %}
+        </div>
+        
+      </div>
+
+                
+        <div class="right-aside">
+          <div class="list">
+            {{ section.settings.rightlist }}
+          </div>
+        </div>
+    
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Page-Custom GiftBasket",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mainheading",
+        "label": "Main Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "giftimg",
+        "label": "Form-Header Image"
+      },
+      {
+        "type": "textarea",
+        "id": "gifttext",
+        "label": "Form-Header Text"
+      },
+      {
+        "type": "textarea",
+        "id": "rightlist",
+        "label": "Instruction"
+      }
+    ]
+  }
+{% endschema %}

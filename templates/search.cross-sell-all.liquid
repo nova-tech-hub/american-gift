@@ -1,0 +1,51 @@
+{%- liquid
+  layout none
+  assign totalresults = 0 | plus: 0
+  paginate search.results by 48
+    capture results
+      for item in search.results		
+        capture incollections
+          for coll in item.collections
+            echo "{"
+              echo '"id":' | append: coll.id | json | append: ","
+              echo '"handle":' | append: coll.handle | json | append: ","
+              echo '"title":' | append: coll.title | json
+            echo "}"
+            unless forloop.last
+              echo ","
+            endunless
+          endfor
+        endcapture
+        echo item | json
+        unless forloop.last
+          echo ","
+        endunless
+        assign totalresults = 0 | plus: 1
+      endfor
+    endcapture
+
+    capture allsearchterms
+      assign searchterms = search.terms | split: ' '
+      for terms in searchterms
+        assign term = terms | split: ':'
+        echo "{"
+          echo '"term": {'    
+            echo '"key":' | append: term[0] | json | append: ","
+            echo '"value":' | append: term[1] | json
+          echo "}"
+        echo "}"
+        unless forloop.last
+          echo ","
+        endunless
+      endfor
+    endcapture
+    echo "{"
+      echo '"total_results":' | append: search.results_count | append: ","
+      echo '"total_results_per_page":' | append: "250" | append: ","
+      echo '"matches_on_page":' | append: totalresults | append: ","
+      echo '"search_performed":' | append: search.performed | append: ","
+      echo '"search_terms":' | append: allsearchterms | append: ","
+      echo '"results":' | append: results
+    echo "}"
+  endpaginate
+-%}

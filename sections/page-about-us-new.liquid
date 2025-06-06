@@ -1,0 +1,101 @@
+
+<div class="page-header-main  header-space">
+  <div class="page-header-container">
+    <div>
+      <h1 class="page-heading">{{ page.title }}</h1>
+      
+      {% render 'breadcrumb' %}
+    </div>
+  </div>
+  <div class="container">
+  <div class="page-content-box">
+      <div class="rte content-section">
+        <div class="aside-menu">
+          <div class="collection-page__aside-menu">
+                          <h3><i class="fa fa-list-ul" aria-hidden="true" style="margin-right: 1rem;"></i>{{ section.settings.asidemenu }}</h3>
+                          <ul class="menu">
+                            {% for link in section.settings.asidemenu.links %}
+                              <li class="menu-link">
+                                <a href="{{ link.url }}">{{ link.title }}</a>
+                          
+                                {% if link.links.size > 0 %}
+                                  <ul class="menu dropdown-child">
+                                    {% for child_link in link.links %}
+                                      <li class="menu-link">
+                                        <a href="{{ link.url }}{{ child_link.url }}">{{ child_link.title }}</a>
+                          
+                                        {% if child_link.links.size > 0 %}
+                                          <ul class="menu dropdown-grandchild">
+                                            {% for grandchild_link in child_link.links %}
+                                              <li class="menu-link">
+                                                <a href="{{ link.url }}{{ child_link.url }}{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                                              </li>
+                                            {% endfor %}
+                                          </ul>
+                                        {% endif %}
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </li>
+                            {% endfor %}
+                          </ul>
+  
+                          </div>
+        </div>
+        <div class="page-content">
+            {{ page.content }}
+            <div class="abt-heading">{{ section.settings.abtheading }}</div>
+          <div class="abt-new-box">
+            <div class="abt-left">
+              <div class="abt-left-heading">{{ section.settings.heading2 }}</div>
+              <div class="abt-left-content">{{ section.settings.leftcontent }}</div>
+            </div>
+            <div class="abt-right">
+              <div class="abt-right-textbox">
+                <div>{{ section.settings.righttext }}</div>
+                <div class="quote-icon">
+                  <img src="https://cdn.shopify.com/s/files/1/0652/6982/5751/files/quotes.png?v=1667308777" alt="quotes">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+  
+</div>
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Page-header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "asidemenu",
+        "label": "Menu"
+      },
+      {
+        "type":"textarea",
+        "id":"abtheading",
+        "label": "Heading"
+      },
+      {
+        "type":"text",
+        "id":"heading2",
+        "label": "Heading-2"
+      },
+      {
+        "type":"textarea",
+        "id":"leftcontent",
+        "label": "Content"
+      },
+      {
+        "type":"richtext",
+        "id":"righttext",
+        "label": "Right Content"
+      }
+    ]
+  }
+{% endschema %}

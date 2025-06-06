@@ -1,0 +1,26 @@
+
+.ftr-lft a.footer__menu-link {
+    color: #000 !important;
+}
+.footer-in {
+    display: flex;
+}
+.product-property.js-product-property {
+    text-align: left;
+}
+
+.product-images .product-images__container.product-images__container--sticky {
+    position: initial;
+    top: 0;
+}
+
+.product-images .product-images__container.product-images__container--images-below .product-images__thumbs {
+    width: 100%;
+    max-width: -webkit-fill-available;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: left;
+    align-items: center;
+}

@@ -1,0 +1,176 @@
+{%- liquid
+    assign checklist = ""
+    assign view_size_chart = false
+    assign personalisation_string = ""
+    assign show_quantity_bar = false
+    assign quantity = 0
+    assign qty_sold = 0
+    assign display_limited = false
+    assign display_quantity = 0
+    assign limited_default = 0
+    assign amazon_url = ""
+    assign free_shipping_product = false
+-%}
+{% for tag in product.tags %}
+    {% assign tag = tag | downcase %}
+
+    <!-- checklist -->
+    {% if tag contains "checklist-" %}
+        {% capture checklist %}
+            {% if checklist == "" %}
+                {{ tag | replace: "checklist-", "" }}
+            {% else %}
+                {{ checklist }}|||{{ tag | replace: "checklist-", "" }}
+            {% endif %}
+        {% endcapture %}
+    {% endif %}
+    <!-- END checklist -->
+
+    <!-- view_size_chart -->
+    {% if tag == "view-size-chart" %}
+        {% assign view_size_chart = true %}
+    {% endif %}
+    <!-- END view_size_chart -->
+
+    <!-- personalisation_string -->
+    {%- if tag contains "personalisation-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalisation-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalisation-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+
+    {%- if tag contains "personalization-" -%}
+        {%- capture personalisation_string -%}
+            {%- if personalisation_string == "" -%}
+                {{- tag | replace: "personalization-", "" -}}
+            {%- else -%}
+                {{- personalisation_string -}}|||{{- tag | replace: "personalization-", "" -}}
+            {%- endif -%}
+        {%- endcapture -%}
+    {%- endif -%}
+    <!-- END personalisation_string -->
+
+    <!-- show_quantity_bar -->
+    {% if tag == "show_quantity_bar" %}
+        {% assign show_quantity_bar = true %}
+    {% endif %}
+    <!-- END show_quantity_bar -->
+
+    <!-- quantity -->
+    {% if tag contains "quantity-" %}
+        {% assign quantity = tag | replace: "quantity-", "" | times: 1 %}
+    {% endif %}
+    <!-- END quantity -->
+
+    <!-- qty_sold -->
+    {% if tag contains "quantitysold-" %}
+        {% assign qty_sold = tag | replace: "quantitysold-", "" | times: 1 %}
+    {% endif %}
+    <!-- END qty_sold -->
+
+    <!-- display_limited -->
+    {% if tag == "display-limited" %}
+        {% assign display_limited = true %}
+    {% endif %}
+    <!-- END display_limited -->
+
+    <!-- display_quantity -->
+    {% if tag contains "displayquantity-" %}
+        {% assign display_quantity = tag | replace: "displayquantity-", "" | times: 1 %}
+    {% endif %}
+    <!-- END display_quantity -->
+
+    <!-- limited_default -->
+    {% if tag contains "limited-default-" %}
+        {% assign limited_default = tag | replace: "limited-default-", "" %}
+    {% endif %}
+    <!-- END limited_default -->
+
+    <!-- amazon_url -->
+    {% if tag contains "https:" or tag contains "http:" or tag contains "www." %}
+        {% assign amazon_url = tag %}
+    {% endif %}
+    <!-- END amazon_url -->
+
+    <!-- free_shipping_product -->
+    {% if tag == "free-shipping" %}
+        {% assign free_shipping_product = true %}
+    {% endif %}
+    <!-- END free_shipping_product -->
+{% endfor %}
+{% capture form_id %}AddToCartForm--{{ product.id }}{% endcapture %}
+<div class="quick-view-info product-info">
+    <h2 class="quick-view-info__title">
+        {{ product.title }}
+    </h2>
+  	{%- liquid
+        render "product-notify-me" with product: product
+    -%}
+    {% form "product", product, id: form_id, class: "product-form" %}
+        {%- liquid
+            render "product-price" with product: product
+            if settings.display_sku
+                render "product-sku" with product: product
+            endif
+        -%}
+        <div class="product-selectors">
+            {%- liquid
+                render "product-variants-select" with product: product
+                if settings.variant_swatch
+                    render "product-variant-swatch" with unique_letter: "b", view_size_chart: view_size_chart, product: product
+                else
+                    render "product-variant-selects" with view_size_chart: view_size_chart, product: product
+                endif
+                if settings.product_personalisation
+                    render "product-personalisation-properties" with personalisation_string: personalisation_string
+                endif
+            -%}
+            <div class="product-details{% if settings.cart_button_fullwidth or settings.display_quantity_dropdown != true %} product-details--full-width{% endif %}">
+                <div class="product-details__row">
+                    {% render "product-quantity" %}
+
+                    <div class="product-actions quick-view-info__actions">
+                        <div class="product-actions__row">
+                            <div class="product-actions__add-to-cart-wrapper js-product-add-to-cart-wrapper">
+                                {% if settings.amazonbutton and amazon_url != "" %}
+                                    {% render "product-amazon-button" with product: product, amazon_url: amazon_url %}
+                                {% else %}
+                                    {% render "product-add-to-cart-quick-view" with product: product, free_shipping_product: free_shipping_product %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="product-actions__row">
+                            {% if settings.enable_checkout_icon %}
+                                <div class="product-actions__checkout-image">
+                                    {% if settings.enable_custom_checkout_icon and settings.checkout_icon != blank %}
+                                        <img src="{{ settings.checkout_icon | img_url: '500x' }}" alt="Checkout Secure" width="500" height="500" loading="lazy" />
+                                    {% else %}
+                                        <img src="{{ 'secure-checkout.png' | asset_img_url: '500x' }}" alt="Checkout Secure" width="500" height="500" loading="lazy" />
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endform %}
+    {%- liquid
+    	if product.available
+          if settings.informations_alert_enable
+              render "product-information-alert"
+          endif
+          if settings.enable_product_progressbar and product.available
+              if settings.use_tags_to_display_quantity != true or show_quantity_bar
+                  render "product-quantity-progress" with limited_default: limited_default, display_quantity: display_quantity, display_limited: display_limited, qty_sold: qty_sold, quantity: quantity
+              endif
+          endif
+        endif
+        render "product-reasons"
+    -%}
+</div>

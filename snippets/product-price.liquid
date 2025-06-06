@@ -1,0 +1,31 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{% if product.available %}
+  <div class="product-price">
+    {% if settings.show_price_label %}
+      <div class="product-price__label">
+        {{ "products.general.sale_price" | t }}
+      </div>
+    {% endif %}
+    <div class="product-price__prices">
+      <span id="ProductPrice" class="product-price__regular money" itemprop="price" data-product-price content="{{ current_variant.price| divided_by: 100.00 }}">
+        {{ current_variant.price| money }}
+      </span>
+
+      {% if settings.show_compare_price and current_variant.compare_at_price > current_variant.price %}
+        <span id="ComparePrice" data-compare-price class="product-price__compare money{% unless current_variant.compare_at_price %} hide{% endunless %}">
+          {{ current_variant.compare_at_price | money }}
+        </span>
+      {% endif %}
+    </div>
+    {% if settings.show_compare_price and current_variant.compare_at_price > current_variant.price %}
+      {% if settings.show_saved_amount %}
+        <div class="product-price__you-save" data-product-savings-selector>
+          <span class="product-price__you-save-text">{{ "products.general.you_save" | t }}</span>
+          <span class="product-price__you-save-value js-product-savings-money-value money" data-product-savings-value-selector>{{ current_variant.compare_at_price | minus: current_variant.price | money }}</span>
+          {% assign perSave = current_variant.price | times: 100 | divided_by: current_variant.compare_at_price %}
+          <span class="product-price__you-save-value js-product-savings-percents-value" data-product-savings-percents-selector>{{ 100 | minus: perSave }}%</span>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endif %}

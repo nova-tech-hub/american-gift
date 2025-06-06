@@ -1,0 +1,23 @@
+{%- liquid
+  layout none
+-%}
+<div class="quick-view js-quick-view" data-section-type="quick-view-product">
+  {% render "product-meta-tags" with product: product %}
+  <div class="quick-view__container">
+    {% render "quick-view-images" with product: product %}
+    {% render "quick-view-info" with product: product %}
+  </div>
+  {% unless product == empty %}
+  	<script type="application/json" data-product-json>{{ product | json }}</script>
+  {% endunless %}
+  <script type="application/json" data-product-inventories-json>
+      [
+        {%- for variant in product.variants -%}
+          {
+            "id": {{ variant.id }},
+            "quantity": {{ variant.inventory_quantity | default: 0 }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+  </script>
+</div>

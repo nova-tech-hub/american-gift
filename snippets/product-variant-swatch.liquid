@@ -1,0 +1,10 @@
+{%- liquid
+    assign size_chart_on = false
+	if product.available and product.variants.size > 1
+		assign option_index = 0
+		for option in product.options
+			render "swatch-new" with product: product, swatch: option, swatch_index: forloop.index, unique_letter: unique_letter, size_chart_on: size_chart_on, view_size_chart: view_size_chart
+			assign option_index = option_index | plus: 1
+		endfor
+	endif
+-%}

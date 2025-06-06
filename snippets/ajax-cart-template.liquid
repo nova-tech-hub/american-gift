@@ -1,0 +1,204 @@
+	<script id="CartTemplate" type="text/template" data-no-instant>
+        {% raw %}
+        <form action="/cart" method="post" novalidate class="cartt ajaxcart">
+            <div class="ajaxcart__inner">
+                {{#items}}
+                <div class="ajaxcart__product">
+                    <div class="ajaxcart__row" data-line="{{line}}">
+                        <div class="grid">
+                            <div class="grid__item one-quarter">
+                                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+                            </div>
+                            <div class="grid__item three-quarters">
+                                <p>
+                                    <a href="{{url}}" class="ajaxcart__product-name">{{name}}</a>
+                                    {{#if variation}}
+
+                                    <span class="ajaxcart__product-meta">{{variation}}</span>
+                                    {{else}}
+                                    <span class="ajaxcart__product-meta"></span>
+                                    {{/if}}
+                                    {{#properties}}
+                                    {{#each this}}
+                                    {{#if this}}
+                                    <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                                    {{/if}}
+                                    {{/each}}
+                                    {{/properties}}
+                                    {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                                        <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                                    {% endraw %}{% endif %}{% raw %}
+                                    <a data-line="{{ line }}" href="/cart/change?line={{ line }}&amp;quantity=0"
+                                       class="ajaxcart_remove"><i class="fa fa-times"></i></a>
+                                </p>
+                                <div class="grid--full display-table">
+                                    <div class="grid__item display-table-cell one-half">
+                                        <div class="ajaxcart__qty">
+                                            <input type="text" name="updates[]" class="ajaxcart__qty-num"
+                                                   value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}"
+                                                   aria-label="quantity" pattern="[0-9]*">
+                                            <div class="ajaxcart__qty-btns">
+                                              <button type="button"
+                                                      class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text"
+                                                      data-id="{{key}}" data-line="{{line}}" {{itemInventoryQuantity}}
+                                                      data-qty="{{itemAdd}}">
+                                                  <span class="fallback-text" aria-hidden="true">+</span>
+                                                  <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+                                              </button>
+                                              <button type="button"
+                                                      class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text"
+                                                      data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}">
+                                                  <span class="fallback-text" aria-hidden="true">&minus;</span>
+                                                  <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+                                              </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid__item display-table-cell one-half text-right">
+                                        {{#if discountsApplied}}
+                                        <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
+                                        <br><span class="money">{{{linePrice}}}</span>
+                                        {{else}}
+                                        <span class="money">{{{linePrice}}}</span>
+                                        {{/if}}
+                                        {{#if discountsApplied}}
+                                        <div class="grid--full display-table">
+                                            <div class="grid__item text-right">
+                                                {{#each discounts}}
+                                                <small class="ajaxcart-item__discount">{{ this.title }}</small><br>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                {{/items}}
+            </div>
+            <div class="ajaxcart__footer">
+                <div class="grid--full">
+                    <div class="grid__item two-thirds text-right mar-bottom">
+                        <p><b>{% endraw %}{{ 'cart.general.total' | t }}{% raw %}</b> <b><span class="money">{{{totalPrice}}}</span></b>
+                        </p>
+                    </div>
+                    {% endraw %}{% if settings.showdiscountbox %}{% raw %}
+                        <p class="discuptitle">{% endraw %}{{ 'cart.general.couponappliedheading' | t }}{% raw %}</p>
+                        <input type="text" name="discount" placeholder="{% endraw %}{{ 'cart.general.placeholder' | t }}{% raw %}">
+                        <p class="discup">{% endraw %}{{ 'cart.general.couponappliedtext' | t }}{% raw %}</p>
+                    {% endraw %}{% endif %}{% raw %}
+                    <div class="grid__item one-third text-right">
+
+                    </div>
+                    {{#if totalCartDiscount}}
+                    <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
+                    {{/if}}
+                </div>
+
+                <a href="/cart" class="btn--secondary btn btn--full cart__cartview">
+                    {% endraw %}{{ 'cart.general.button' | t }}{% raw %}
+                </a>
+                {% endraw %}{% unless settings.showloginbuttons %}{% raw %}
+                    <button type="submit" class="btn btn--full cart__checkout Checkout" name="checkout">
+                    <span id="CheckoutText">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</span>
+                        </button>
+                    {% endraw %}{% if additional_checkout_buttons and settings.paypalbutton %}
+                        <div class="additional_checkout_buttons">
+                          <button name="goto_pp" type="submit" id="paypal-express-button" class="additional-checkout-button additional-checkout-button--paypal-express" value="paypal_express" data-strategy="cart">
+							<div class="paypal-button-label-container"><img class="paypal-button-logo paypal-button-logo-pp paypal-button-logo-gold" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAyNCAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0Ij4KICAgIDxwYXRoIGZpbGw9IiMwMDljZGUiIGQ9Ik0gMjAuOTA1IDkuNSBDIDIxLjE4NSA3LjQgMjAuOTA1IDYgMTkuNzgyIDQuNyBDIDE4LjU2NCAzLjMgMTYuNDExIDIuNiAxMy42OTcgMi42IEwgNS43MzkgMi42IEMgNS4yNzEgMi42IDQuNzEgMy4xIDQuNjE1IDMuNiBMIDEuMzM5IDI1LjggQyAxLjMzOSAyNi4yIDEuNjIgMjYuNyAyLjA4OCAyNi43IEwgNi45NTYgMjYuNyBMIDYuNjc1IDI4LjkgQyA2LjU4MSAyOS4zIDYuODYyIDI5LjYgNy4yMzYgMjkuNiBMIDExLjM1NiAyOS42IEMgMTEuODI1IDI5LjYgMTIuMjkyIDI5LjMgMTIuMzg2IDI4LjggTCAxMi4zODYgMjguNSBMIDEzLjIyOCAyMy4zIEwgMTMuMjI4IDIzLjEgQyAxMy4zMjIgMjIuNiAxMy43OSAyMi4yIDE0LjI1OCAyMi4yIEwgMTQuODIxIDIyLjIgQyAxOC44NDUgMjIuMiAyMS45MzUgMjAuNSAyMi44NzEgMTUuNSBDIDIzLjMzOSAxMy40IDIzLjE1MyAxMS43IDIyLjAyOSAxMC41IEMgMjEuNzQ4IDEwLjEgMjEuMjc5IDkuOCAyMC45MDUgOS41IEwgMjAuOTA1IDkuNSI+PC9wYXRoPgogICAgPHBhdGggZmlsbD0iIzAxMjE2OSIgZD0iTSAyMC45MDUgOS41IEMgMjEuMTg1IDcuNCAyMC45MDUgNiAxOS43ODIgNC43IEMgMTguNTY0IDMuMyAxNi40MTEgMi42IDEzLjY5NyAyLjYgTCA1LjczOSAyLjYgQyA1LjI3MSAyLjYgNC43MSAzLjEgNC42MTUgMy42IEwgMS4zMzkgMjUuOCBDIDEuMzM5IDI2LjIgMS42MiAyNi43IDIuMDg4IDI2LjcgTCA2Ljk1NiAyNi43IEwgOC4yNjcgMTguNCBMIDguMTczIDE4LjcgQyA4LjI2NyAxOC4xIDguNzM1IDE3LjcgOS4yOTYgMTcuNyBMIDExLjYzNiAxNy43IEMgMTYuMjI0IDE3LjcgMTkuNzgyIDE1LjcgMjAuOTA1IDEwLjEgQyAyMC44MTIgOS44IDIwLjkwNSA5LjcgMjAuOTA1IDkuNSI+PC9wYXRoPgogICAgPHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSA5LjQ4NSA5LjUgQyA5LjU3NyA5LjIgOS43NjUgOC45IDEwLjA0NiA4LjcgQyAxMC4yMzIgOC43IDEwLjMyNiA4LjYgMTAuNTEzIDguNiBMIDE2LjY5MiA4LjYgQyAxNy40NDIgOC42IDE4LjE4OSA4LjcgMTguNzUzIDguOCBDIDE4LjkzOSA4LjggMTkuMTI3IDguOCAxOS4zMTQgOC45IEMgMTkuNTAxIDkgMTkuNjg4IDkgMTkuNzgyIDkuMSBDIDE5Ljg3NSA5LjEgMTkuOTY4IDkuMSAyMC4wNjMgOS4xIEMgMjAuMzQzIDkuMiAyMC42MjQgOS40IDIwLjkwNSA5LjUgQyAyMS4xODUgNy40IDIwLjkwNSA2IDE5Ljc4MiA0LjYgQyAxOC42NTggMy4yIDE2LjUwNiAyLjYgMTMuNzkgMi42IEwgNS43MzkgMi42IEMgNS4yNzEgMi42IDQuNzEgMyA0LjYxNSAzLjYgTCAxLjMzOSAyNS44IEMgMS4zMzkgMjYuMiAxLjYyIDI2LjcgMi4wODggMjYuNyBMIDYuOTU2IDI2LjcgTCA4LjI2NyAxOC40IEwgOS40ODUgOS41IFoiPjwvcGF0aD4KPC9zdmc+Cg" alt="" aria-label="pp"> <img class="paypal-button-logo paypal-button-logo-paypal paypal-button-logo-gold" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMTAwIDMyIiB4bWxucz0iaHR0cDomI3gyRjsmI3gyRjt3d3cudzMub3JnJiN4MkY7MjAwMCYjeDJGO3N2ZyIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pbllNaW4gbWVldCI+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSAxMiA0LjkxNyBMIDQuMiA0LjkxNyBDIDMuNyA0LjkxNyAzLjIgNS4zMTcgMy4xIDUuODE3IEwgMCAyNS44MTcgQyAtMC4xIDI2LjIxNyAwLjIgMjYuNTE3IDAuNiAyNi41MTcgTCA0LjMgMjYuNTE3IEMgNC44IDI2LjUxNyA1LjMgMjYuMTE3IDUuNCAyNS42MTcgTCA2LjIgMjAuMjE3IEMgNi4zIDE5LjcxNyA2LjcgMTkuMzE3IDcuMyAxOS4zMTcgTCA5LjggMTkuMzE3IEMgMTQuOSAxOS4zMTcgMTcuOSAxNi44MTcgMTguNyAxMS45MTcgQyAxOSA5LjgxNyAxOC43IDguMTE3IDE3LjcgNi45MTcgQyAxNi42IDUuNjE3IDE0LjYgNC45MTcgMTIgNC45MTcgWiBNIDEyLjkgMTIuMjE3IEMgMTIuNSAxNS4wMTcgMTAuMyAxNS4wMTcgOC4zIDE1LjAxNyBMIDcuMSAxNS4wMTcgTCA3LjkgOS44MTcgQyA3LjkgOS41MTcgOC4yIDkuMzE3IDguNSA5LjMxNyBMIDkgOS4zMTcgQyAxMC40IDkuMzE3IDExLjcgOS4zMTcgMTIuNCAxMC4xMTcgQyAxMi45IDEwLjUxNyAxMy4xIDExLjIxNyAxMi45IDEyLjIxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSAzNS4yIDEyLjExNyBMIDMxLjUgMTIuMTE3IEMgMzEuMiAxMi4xMTcgMzAuOSAxMi4zMTcgMzAuOSAxMi42MTcgTCAzMC43IDEzLjYxNyBMIDMwLjQgMTMuMjE3IEMgMjkuNiAxMi4wMTcgMjcuOCAxMS42MTcgMjYgMTEuNjE3IEMgMjEuOSAxMS42MTcgMTguNCAxNC43MTcgMTcuNyAxOS4xMTcgQyAxNy4zIDIxLjMxNyAxNy44IDIzLjQxNyAxOS4xIDI0LjgxNyBDIDIwLjIgMjYuMTE3IDIxLjkgMjYuNzE3IDIzLjggMjYuNzE3IEMgMjcuMSAyNi43MTcgMjkgMjQuNjE3IDI5IDI0LjYxNyBMIDI4LjggMjUuNjE3IEMgMjguNyAyNi4wMTcgMjkgMjYuNDE3IDI5LjQgMjYuNDE3IEwgMzIuOCAyNi40MTcgQyAzMy4zIDI2LjQxNyAzMy44IDI2LjAxNyAzMy45IDI1LjUxNyBMIDM1LjkgMTIuNzE3IEMgMzYgMTIuNTE3IDM1LjYgMTIuMTE3IDM1LjIgMTIuMTE3IFogTSAzMC4xIDE5LjMxNyBDIDI5LjcgMjEuNDE3IDI4LjEgMjIuOTE3IDI1LjkgMjIuOTE3IEMgMjQuOCAyMi45MTcgMjQgMjIuNjE3IDIzLjQgMjEuOTE3IEMgMjIuOCAyMS4yMTcgMjIuNiAyMC4zMTcgMjIuOCAxOS4zMTcgQyAyMy4xIDE3LjIxNyAyNC45IDE1LjcxNyAyNyAxNS43MTcgQyAyOC4xIDE1LjcxNyAyOC45IDE2LjExNyAyOS41IDE2LjcxNyBDIDMwIDE3LjQxNyAzMC4yIDE4LjMxNyAzMC4xIDE5LjMxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwMzA4NyIgZD0iTSA1NS4xIDEyLjExNyBMIDUxLjQgMTIuMTE3IEMgNTEgMTIuMTE3IDUwLjcgMTIuMzE3IDUwLjUgMTIuNjE3IEwgNDUuMyAyMC4yMTcgTCA0My4xIDEyLjkxNyBDIDQzIDEyLjQxNyA0Mi41IDEyLjExNyA0Mi4xIDEyLjExNyBMIDM4LjQgMTIuMTE3IEMgMzggMTIuMTE3IDM3LjYgMTIuNTE3IDM3LjggMTMuMDE3IEwgNDEuOSAyNS4xMTcgTCAzOCAzMC41MTcgQyAzNy43IDMwLjkxNyAzOCAzMS41MTcgMzguNSAzMS41MTcgTCA0Mi4yIDMxLjUxNyBDIDQyLjYgMzEuNTE3IDQyLjkgMzEuMzE3IDQzLjEgMzEuMDE3IEwgNTUuNiAxMy4wMTcgQyA1NS45IDEyLjcxNyA1NS42IDEyLjExNyA1NS4xIDEyLjExNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA2Ny41IDQuOTE3IEwgNTkuNyA0LjkxNyBDIDU5LjIgNC45MTcgNTguNyA1LjMxNyA1OC42IDUuODE3IEwgNTUuNSAyNS43MTcgQyA1NS40IDI2LjExNyA1NS43IDI2LjQxNyA1Ni4xIDI2LjQxNyBMIDYwLjEgMjYuNDE3IEMgNjAuNSAyNi40MTcgNjAuOCAyNi4xMTcgNjAuOCAyNS44MTcgTCA2MS43IDIwLjExNyBDIDYxLjggMTkuNjE3IDYyLjIgMTkuMjE3IDYyLjggMTkuMjE3IEwgNjUuMyAxOS4yMTcgQyA3MC40IDE5LjIxNyA3My40IDE2LjcxNyA3NC4yIDExLjgxNyBDIDc0LjUgOS43MTcgNzQuMiA4LjAxNyA3My4yIDYuODE3IEMgNzIgNS42MTcgNzAuMSA0LjkxNyA2Ny41IDQuOTE3IFogTSA2OC40IDEyLjIxNyBDIDY4IDE1LjAxNyA2NS44IDE1LjAxNyA2My44IDE1LjAxNyBMIDYyLjYgMTUuMDE3IEwgNjMuNCA5LjgxNyBDIDYzLjQgOS41MTcgNjMuNyA5LjMxNyA2NCA5LjMxNyBMIDY0LjUgOS4zMTcgQyA2NS45IDkuMzE3IDY3LjIgOS4zMTcgNjcuOSAxMC4xMTcgQyA2OC40IDEwLjUxNyA2OC41IDExLjIxNyA2OC40IDEyLjIxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5MC43IDEyLjExNyBMIDg3IDEyLjExNyBDIDg2LjcgMTIuMTE3IDg2LjQgMTIuMzE3IDg2LjQgMTIuNjE3IEwgODYuMiAxMy42MTcgTCA4NS45IDEzLjIxNyBDIDg1LjEgMTIuMDE3IDgzLjMgMTEuNjE3IDgxLjUgMTEuNjE3IEMgNzcuNCAxMS42MTcgNzMuOSAxNC43MTcgNzMuMiAxOS4xMTcgQyA3Mi44IDIxLjMxNyA3My4zIDIzLjQxNyA3NC42IDI0LjgxNyBDIDc1LjcgMjYuMTE3IDc3LjQgMjYuNzE3IDc5LjMgMjYuNzE3IEMgODIuNiAyNi43MTcgODQuNSAyNC42MTcgODQuNSAyNC42MTcgTCA4NC4zIDI1LjYxNyBDIDg0LjIgMjYuMDE3IDg0LjUgMjYuNDE3IDg0LjkgMjYuNDE3IEwgODguMyAyNi40MTcgQyA4OC44IDI2LjQxNyA4OS4zIDI2LjAxNyA4OS40IDI1LjUxNyBMIDkxLjQgMTIuNzE3IEMgOTEuNCAxMi41MTcgOTEuMSAxMi4xMTcgOTAuNyAxMi4xMTcgWiBNIDg1LjUgMTkuMzE3IEMgODUuMSAyMS40MTcgODMuNSAyMi45MTcgODEuMyAyMi45MTcgQyA4MC4yIDIyLjkxNyA3OS40IDIyLjYxNyA3OC44IDIxLjkxNyBDIDc4LjIgMjEuMjE3IDc4IDIwLjMxNyA3OC4yIDE5LjMxNyBDIDc4LjUgMTcuMjE3IDgwLjMgMTUuNzE3IDgyLjQgMTUuNzE3IEMgODMuNSAxNS43MTcgODQuMyAxNi4xMTcgODQuOSAxNi43MTcgQyA4NS41IDE3LjQxNyA4NS43IDE4LjMxNyA4NS41IDE5LjMxNyBaIj48L3BhdGg+PHBhdGggZmlsbD0iIzAwOWNkZSIgZD0iTSA5NS4xIDUuNDE3IEwgOTEuOSAyNS43MTcgQyA5MS44IDI2LjExNyA5Mi4xIDI2LjQxNyA5Mi41IDI2LjQxNyBMIDk1LjcgMjYuNDE3IEMgOTYuMiAyNi40MTcgOTYuNyAyNi4wMTcgOTYuOCAyNS41MTcgTCAxMDAgNS42MTcgQyAxMDAuMSA1LjIxNyA5OS44IDQuOTE3IDk5LjQgNC45MTcgTCA5NS44IDQuOTE3IEMgOTUuNCA0LjkxNyA5NS4yIDUuMTE3IDk1LjEgNS40MTcgWiI+PC9wYXRoPjwvc3ZnPg" alt="" aria-label="paypal"></div>
+      					  </button>
+                        </div>
+                    {% endif %}
+                    {% raw %}
+                    {% endraw %}{% endunless %}{% raw %}
+                {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+                    <div>
+                    <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+                    </div>
+                {% endraw %}{% endif %}{% raw %}
+
+                {% endraw %}{% if settings.showloginbuttons %}{% raw %}
+                <div class="account-inline-cart">
+                    <form class="inline-cart-checkout-options">
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutGuest">{% endraw %}{{ 'cart.general.checkout_as_guest' | t }}{% raw %}</label>
+                            <input class="inline-checkout-btn" checked="" type="radio" id="checkoutGuest" value="guest"
+                                   name="checkout" data-checkout-guest-btn="">
+                        </div>
+                        <div class="inline-cart-checkout-row">
+                            <label for="checkoutAccount">
+                                {% endraw %}{{ 'cart.general.checkout_with_account' | t }}{% raw %}
+
+                            </label>
+                            <input class="inline-checkout-btn" type="radio" id="checkoutAccount" value="account"
+                                   name="checkout" data-checkout-account-btn="">
+                        </div>
+                        <button type="submit" name="checkout"
+                                class=" btn btn--full cart__checkout Checkout button gebutton button--green button--connect">
+                            <img src="{% endraw %}{{ 'checkout-button-icon.png' | asset_url }}{% raw %}"
+                                 alt="{% endraw %}{{ shop.name }}{% raw %}" itemprop="logo"
+                                 class="no-border ratina-img addIcon"/>
+                            {% endraw %}{{ 'cart.general.secure_checkout' | t }}{% raw %}</button>
+                    </form>
+
+                    <div class="account-inline-form account-login-form">
+                        <div class="account-inline-login-forms visible">
+                            <form method="post" action="/account/login" id="customer_login" accept-charset="UTF-8">
+                                <input type="hidden" name="checkout_url" value="/checkout"/>
+                                <input type="email" name="customer[email]"
+                                       placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                                <input type="password" name="customer[password]"
+                                       placeholder="{% endraw %}{{ 'cart.general.password' | t }}{% raw %}">
+                                <button type="submit"
+                                        class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.sign_in' | t }}{% raw %}</button>
+                                <div class="button account-inline-forgot">
+                                    <button type="button" class="swap-forgot" id="forgetpassword"
+                                            data-form-swap-btn="">{% endraw %}{{ 'cart.general.forget_password' | t }}{% raw %}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="account-inline-form account-password-form">
+                        <div class="account-inline-password-forms visible">
+                            <form method="post" action="/account/recover" accept-charset="UTF-8">
+                              <input type="hidden" name="form_type" value="recover_customer_password">
+                              <input type="hidden" name="utf8" value="✓">
+                              <input type="email" name="email" placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                              <button type="submit" class="btn btn--full cart__checkout Checkout gbut button button--connect button--green">{% endraw %}{{ 'cart.general.instructions' | t }}{% raw %}</button>
+                              <div class="button account-inline-forgot">
+                                <button type="button" class="swap-login" id="swapforgetpassword" data-form-swap-btn="">{% endraw %}{{ 'cart.general.login' | t }}{% raw %}</button>
+      						  </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="account-inline-form register-form">
+                        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">
+                            <input type="text" name="customer[first_name]" size="30"
+                                   placeholder="{% endraw %}{{ 'cart.general.name' | t }}{% raw %}">
+                            <input type="email" name="customer[email]"
+                                   placeholder="{% endraw %}{{ 'cart.general.email' | t }}{% raw %}">
+                            <input type="password" name="customer[password]"
+                                   placeholder="{% endraw %}{{ 'cart.general.create_password' | t }}{% raw %}">
+                            <button type="submit"
+                                    class="btn btn--full cart__checkout Checkout button button--green button--connect">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</button>
+                        </form>
+                    </div>
+                    <section class="social-logins-hull">
+                        <button type="button" id="button__returning"
+                                class="button button--returning button--white">{% endraw %}{{ 'cart.general.returning_customer' | t }}{% raw %}</button>
+                        <button type="button" id="button__black"
+                                class="button button--new button--black">{% endraw %}{{ 'cart.general.connect_with_email' | t }}{% raw %}</button>
+                    </section>
+                </div>
+            </div>
+            {% endraw %}{% endif %}
+        </form>
+    </script>

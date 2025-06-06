@@ -1,0 +1,211 @@
+{%- liquid
+	assign title = section.settings.title
+	assign hide_title = section.settings.hide_title
+	assign show_border = section.settings.show_border
+	assign collection_view = section.settings.collection_view
+	assign blocks = section.blocks
+-%}
+{%- capture items -%}
+	{%- for block in blocks -%}
+		{%- liquid
+			assign collection = collections[block.settings.collection]
+			assign image = collection.image
+			assign collection_title = collection.title
+			assign collection_url = collection.url
+			if collection.image
+				assign image = collection.image
+			elsif collection.products.first and collection.products.first.images != empty
+				assign image = collection.products.first.featured_image
+			else
+				assign image = blank
+			endif
+		-%}
+		{%- if collection != blank -%}
+			{% if collection_view == 'show_in_grid' %}
+				<div class="new-collection-list__grid-item">
+			{% endif %}
+
+			<div class="new-collection-list__item">
+				<a href="{{- collection_url -}}" class="new-collection-list__item-link">
+					{%- if image != blank -%}
+						<div class="new-collection-list__item-image-wrapper">
+							<img src="{{- image | img_url: '800x' -}}" width="800" height="800" class="new-collection-list__item-image" alt="{{- image.alt -}}" loading="lazy" />
+						</div>
+					{%- endif -%}
+
+					{%- if collection_title and hide_title != true -%}
+						<h3 class="new-collection-list__item-title">
+							{{- collection_title -}}
+						</h3>
+					{%- endif -%}
+				</a>
+			</div>
+
+			{% if collection_view == 'show_in_grid' %}
+				</div>
+			{% endif %}
+		{%- endif -%}
+	{%- endfor -%}
+{%- endcapture -%}
+
+{%- if blocks.size > 0 and items -%}
+	<div class="new-collection-list">
+		<div class="container">
+			{%- if title != blank -%}
+				<h2 class="section_title xza">
+					{{- title -}}
+				</h2>
+			{%- endif -%}
+
+			<div class="new-collection-list__wrapper{% if show_border %} new-collection-list__wrapper--no-border{% endif %}">
+				{% if items != blank %}
+					{% if collection_view == 'show_in_carousel' %}
+						<div class="new-collection-list__slider js-collection-products">
+							{{- items -}}
+						</div>
+
+						<div
+							class="new-collection-list__slider-arrow new-collection-list__slider-arrow--prev js-collection-products-prev">
+							<i class='shoptimized-064'></i>
+						</div>
+
+						<div
+							class="new-collection-list__slider-arrow new-collection-list__slider-arrow--next js-collection-products-next">
+							<i class='shoptimized-074'></i>
+						</div>
+					{% else %}
+						<div class="new-collection-list__grid">
+							{{- items -}}
+						</div>
+					{% endif %}
+				{% else %}
+					{% if collection_view == 'show_in_carousel' %}
+						<div class="new-collection-list__slider js-collection-products">
+							{% for i in (1..6) %}
+								<div class="new-collection-list__item">
+									<a href="#" class="new-collection-list__item-link">
+										<div class="new-collection-list__item-image-wrapper">
+											{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg blogs-row__image' }}
+										</div>
+
+										{%- if hide_title != true -%}
+											<h3 class="new-collection-list__item-title">
+												Collection
+											</h3>
+										{%- endif -%}
+									</a>
+								</div>
+							{% endfor %}
+						</div>
+
+						<div class="new-collection-list__slider-arrow new-collection-list__slider-arrow--prev js-collection-products-prev">
+							<i class='shoptimized-064'></i>
+						</div>
+
+						<div
+							class="new-collection-list__slider-arrow new-collection-list__slider-arrow--next js-collection-products-next">
+							<i class='shoptimized-074'></i>
+						</div>
+					{% else %}
+						<div class="new-collection-list__grid">
+							{% for i in (1..6) %}
+								<div class="new-collection-list__grid-item">
+									<div class="new-collection-list__item">
+										<a href="{{- collection_url -}}" class="new-collection-list__item-link">
+											<div class="new-collection-list__item-image-wrapper">
+												{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg blogs-row__image' }}
+											</div>
+
+											{%- if hide_title != true -%}
+												<h3 class="new-collection-list__item-title">
+													Collection
+												</h3>
+											{%- endif -%}
+										</a>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{%- endif -%}
+{% schema %}
+{
+	"name": "Collection list",
+	"class": "index-section cole",
+	"max_blocks": 12,
+	"settings": [
+		{
+			"type": "paragraph",
+			"content": "This section displays a row of collections in a carousel."
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Collection list"
+		},
+		{
+			"type": "checkbox",
+			"id": "hide_title",
+			"label": "Hide collection title",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "show_border",
+			"label": "Hide border-bottom on the section",
+			"default": false
+		},
+		{
+			"type": "select",
+			"id": "collection_view",
+			"label": "Collection listing View",
+			"options": [
+				{
+					"value": "show_in_carousel",
+					"label": "Show in Carousel"
+				},
+				{
+					"value": "show_in_grid",
+					"label": "Show in Grid view"
+				}
+			],
+			"default": "show_in_carousel"
+		}
+	],
+	"blocks": [
+		{
+			"type": "featured_collection",
+			"name": "Collection",
+			"settings": [
+				{
+					"label": "Collection",
+					"id": "collection",
+					"type": "collection"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection list",
+			"category": "Collection",
+			"blocks": [
+				{
+					"type": "featured_collection"
+				},
+				{
+					"type": "featured_collection"
+				},
+				{
+					"type": "featured_collection"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

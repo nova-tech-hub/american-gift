@@ -1,0 +1,34 @@
+<form action="/search" method="get" role="search" class="search_form">
+  <div class="button-search"></div>
+  <div class="form-group clearfix">
+    <input autocomplete="off" type="text" name="q" value="{{ search.terms | escape | replace: "*", "" }}"  class="input-block-level search-query form-control js-search-bar-input" id="search_query" placeholder="{{ settings.header_search_placeholder }}"  aria-label="{{ 'general.search.placeholder' | t }}"/>
+    <div id="autocomplete-results" class="results-box js-search-result-bar" data-load-image="{{ 'ajax-load.gif' | asset_url }}"></div>
+    {% if settings.searchonlyproduct %}
+      <input type="hidden" name="type" value="product" />
+    {% endif %}
+    {% assign right = "35px" %}
+    {% if settings.show_multiple_currencies %}
+      {% if settings.show_currency_in_search_mob %}
+        <ul class="search-currency">
+          <li class="dropdown">
+            {% render 'currencies-switcher' %}
+          </li>
+        </ul>
+        {% assign right = "110px" %}
+      {% endif %}
+    {% endif %}
+    {%- capture styles -%}
+      --search-right: {{- right -}};
+    {%- endcapture -%}
+    {%- assign styles = styles | strip_newlines -%}
+    <span class="top-search-close" style="{{- styles -}}"><i class="fa fa-times"></i></span>
+    <button type="submit" class="btn btn-success">
+      {% if settings.usesearchicon %}
+      	<img src="{{'searchicon.png' | asset_url}}" alt="Search" class="search_icon" width="55" height="55" loading="lazy" />
+      {% else %}
+      	<span class="fa fa-search"></span>
+      {% endif %}
+    </button>
+  </div>
+</form>
+<a href="javascript:;" class="search-close"><i class="fa fa-times"></i></a>

@@ -1,0 +1,272 @@
+<link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0652/6982/5751/t/3/assets/swiper.min.css"/>
+
+<script src="https://cdn.shopify.com/s/files/1/0652/6982/5751/t/3/assets/swiper.min.js"></script>
+
+<div class="corp-bg">
+<div class="container">
+
+<div class="crp">
+<h2>{{ section.settings.heading }}</h2>
+</div>
+  <div class="corp-bg-inr">
+
+     <div class="corp-bg-in">
+    <div class="u-partners-slide">
+
+ 
+  <div class="swiper-container s3">
+        <div class="swiper-wrapper">
+           
+  {%- for block in section.blocks -%} 
+
+            <div class="swiper-slide">
+              
+<div class="banner-section-blog">   
+              
+  <div class="inr-dv">
+  <img src="{{ block.settings.image | img_url: 'master' }}">
+        
+  </div>
+                  
+</div>
+             
+         
+          </div>
+          
+ {% endfor %} 
+          
+        </div>
+    <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+    
+   <!-- Add Pagination -->
+   
+</div>
+
+     </div>
+     <div class="corp-bg-in-imssd">
+ <div class="corp-img">
+
+
+       <a href="{{ section.settings.button_link1 }}">
+          <img src="{{ section.settings.cltn1 | img_url: 'master' }}">
+         
+<h3>{{ section.settings.ctn-ttl1 }}</h3>
+       </a>
+       
+ 
+
+ </div>
+        <div class="corp-img">
+
+
+       <a href="{{ section.settings.button_link2 }}">
+          <img src="{{ section.settings.cltn2 | img_url: 'master' }}">
+         
+<h3>{{ section.settings.ctn-ttl2 }}</h3>
+       </a>
+       
+ 
+
+ </div>
+        <div class="corp-img">
+
+
+       <a href="{{ section.settings.button_link3 }}">
+          <img src="{{ section.settings.cltn3 | img_url: 'master' }}">
+         
+<h3>{{ section.settings.ctn-ttl3 }}</h3>
+       </a>
+       
+ 
+
+ </div>
+        <div class="corp-img">
+
+
+       <a href="{{ section.settings.button_link4 }}">
+          <img src="{{ section.settings.cltn4 | img_url: 'master' }}">
+         
+<h3>{{ section.settings.ctn-ttl4 }}</h3>
+       </a>
+       
+ 
+
+ </div>
+     </div>
+    
+  </div>
+  
+</div>
+  
+</div>
+
+<script>
+      var swiper = new Swiper(".s3", {
+        spaceBetween: 30,
+       navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+        },
+      });
+    </script>
+
+
+
+
+
+
+{% schema %}
+{
+  "name": {
+    "en": "Corportae section"
+  },
+  "class": "index-section",
+  "settings": [
+  
+    
+    {
+      "type": "text",
+      "id": "heading",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Image with text"
+      }
+    },
+     {
+      "type": "url",
+      "id": "button_link1",
+      "label": {
+        "en": "Button link"
+     }
+    },
+     {
+      "type": "image_picker",
+      "id": "cltn1",
+      "label": {
+        "en": "Image"
+         }
+    },
+    {
+      "type": "text",
+      "id": "ctn-ttl1",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Image with text"
+      }
+    },
+      {
+      "type": "url",
+      "id": "button_link2",
+      "label": {
+        "en": "Button link"
+     }
+    },
+     {
+      "type": "image_picker",
+      "id": "cltn2",
+      "label": {
+        "en": "Image"
+         }
+    },
+    {
+      "type": "text",
+      "id": "ctn-ttl2",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Image with text"
+      }
+    },
+      {
+      "type": "url",
+      "id": "button_link3",
+      "label": {
+        "en": "Button link"
+     }
+    },
+     {
+      "type": "image_picker",
+      "id": "cltn3",
+      "label": {
+        "en": "Image"
+         }
+    },
+    {
+      "type": "text",
+      "id": "ctn-ttl3",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Image with text"
+      }
+    },
+      {
+      "type": "url",
+      "id": "button_link4",
+      "label": {
+        "en": "Button link"
+     }
+    },
+     {
+      "type": "image_picker",
+      "id": "cltn4",
+      "label": {
+        "en": "Image"
+         }
+    },
+    {
+      "type": "text",
+      "id": "ctn-ttl4",
+      "label": {
+        "en": "Heading"
+      },
+      "default": {
+        "en": "Image with text"
+      }
+    }
+   
+  
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": {
+        "en": "Data slide"
+      },
+      "settings": [
+
+ {
+      "type": "image_picker",
+      "id": "image",
+      "label": {
+        "en": "Image"
+         }
+    }
+	  ]
+    }
+  ],
+  
+  "presets": [
+    {
+      "name": {
+        "en": "Corportae section"
+      },
+      "category": {
+        "en": "Image"
+      }
+    }
+  ]
+}
+{% endschema %}

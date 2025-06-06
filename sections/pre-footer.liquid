@@ -1,0 +1,666 @@
+<style>
+  .footer__form-group.flexy-flex {
+      display: flex;
+      gap:10px;
+  }
+  .footer__form-group .button{
+    width: 44%;
+    font-size: 14px;
+    background-color: rgba(73,91,102,1);
+    color: #ffffff;
+    font-weight: 600;
+    transition: opacity .25s linear;
+    border: 3px solid #fff !important;
+      border-radius: 5px;
+  }
+    .footer__form-group .button:hover{
+          box-shadow: 0 3px 8px 0 rgb(0 0 0 / 17%);
+      filter: brightness(110%);
+      
+    }
+  .footer__form-group .input{
+    width: 100%;
+  }
+  button#Subscribe {
+      background: #424242;
+      padding: 11px 28px;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 0;
+      font-size: 13px;
+  }
+  #contact_form {
+    width:100%;
+  }
+  
+  
+  
+    
+    
+  </style>
+  {%- liquid
+    assign pre_footer_bg_color = section.settings.footer_first_row_bg_color
+    assign pre_footer_font_color = section.settings.footer_first_row_font_color
+    assign pre_footer_heading_font_size = section.settings.footer_first_row_font_size_heading
+    assign pre_footer_heading_font_style = section.settings.footer_first_row_font_style_heading
+    assign pre_footer_subheading_font_size = section.settings.footer_first_row_title_font_size
+    assign pre_footer_subheading_font_style = section.settings.footer_first_row_title_font_style
+    assign pre_footer_link_font_size = section.settings.footer_first_row_link_font_size
+    assign pre_footer_link_font_style = section.settings.footer_first_row_link_font_style
+    assign pre_footer_link_font_color = section.settings.footer_first_row_link_font_color
+    assign pre_footer_link_font_hover_color = section.settings.footer_first_row_link_font_color_hover
+  -%}
+  {% if section.settings.footer_first_row_display == true %}
+    {%- capture styles -%}
+      --pre-footer-bg-color: {{ pre_footer_bg_color }};
+      --pre-footer-font-color: {{ pre_footer_font_color }};
+      --pre-footer-heading-font-size: {{ pre_footer_heading_font_size }};
+      --pre-footer-heading-font-style: {{ pre_footer_heading_font_style }};
+      --pre-footer-subheading-font-size: {{ pre_footer_subheading_font_size }};
+      --pre-footer-subheading-font-style: {{ pre_footer_subheading_font_style }};
+      --pre-footer-link-font-size: {{ pre_footer_link_font_size }};
+      --pre-footer-link-font-style: {{ pre_footer_link_font_style }};
+      --pre-footer-link-font-color: {{ pre_footer_link_font_color }};
+      --pre-footer-link-font-hover-color: {{ pre_footer_link_font_hover_color }};
+    {%- endcapture -%}
+    {%- assign styles = styles | strip_newlines -%}
+      <footer class="pre-footer utd" style="{{- styles -}}">
+          <div class="pre-footer__container row{% if section.settings.footer_image_small == true %} pre-footer_small__images{% endif %}">
+              {% if section.blocks.size > 0 %}
+                  {%- liquid
+                    if section.blocks.size == 2
+                      assign column_grid = "col-md-6 col-12 pre-footer__block-wrapper--two"
+                    elsif section.blocks.size == 3
+                      assign column_grid = "col-md-4 col-12 pre-footer__block-wrapper--three"
+                    elsif section.blocks.size == 4
+                      assign column_grid = "col-md-3 col-6"
+                    else
+                      assign column_grid = "col-lg-12 col-sm-12 col-xs-12 pre-footer__block-wrapper--one"
+                    endif
+                  -%}
+                  {% for block in section.blocks %}
+                      <div class="{{ column_grid }} pre-footer__block-wrapper pre-footer__block-wrapper">
+                          <div class="pre-footer__block">
+                              <div class="pre-footer__image-wrapper {% if block.settings.image == " " %} hide-element {% endif %}">
+                                <img src="{{ block.settings.image | img_url: '480x' }}" width="480" height="480" alt="Image of footer-image" loading="lazy" />
+                              </div>
+  
+                              <div class="pre-footer__info">
+                                  {% if block.settings.heading != blank %}
+                                      <h3 class="pre-footer__title">{{ block.settings.heading }}</h3>
+                                  {% endif %}
+  
+                                  {% if block.settings.subheading != blank %}
+                                      <p class="pre-footer__description">{{ block.settings.subheading }}</p>
+                                  {% endif %}
+  
+                                  {% if block.settings.linktext != blank %}
+                                      <p class="pre-footer__link-wrapper">
+                                          {% if block.settings.linkurl != blank %}
+                                              <a class="pre-footer__link" href="{{ block.settings.linkurl }}">{{ block.settings.linktext }}</a>
+                                          {% else %}
+                                              <span class="pre-footer__link pre-footer__link--text">
+                                                  {{ block.settings.linktext }}
+                                              </span>
+                                          {% endif %}
+                                      </p>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              {% else %}
+                  <div class="col-md-3 col-6 pre-footer__block-wrapper">
+                      <div class="pre-footer__block">
+                          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                  </div>
+  
+                  <div class="col-md-3 col-6 pre-footer__block-wrapper">
+                      <div class="pre-footer__block">
+                          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                  </div>
+  
+                  <div class="col-md-3 col-6 pre-footer__block-wrapper">
+                      <div class="pre-footer__block">
+                          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                  </div>
+  
+                  <div class="col-md-3 col-6 pre-footer__block-wrapper">
+                      <div class="pre-footer__block">
+                          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                  </div>
+              {% endif %}
+          </div>
+      </footer>
+  {% endif %}
+{% assign collection_title = 'Specials' %}
+{% for collection in collections %}
+    {% if collection.title == collection_title %}
+      {% assign current_collection = collection %}
+     {% endif %}
+{% endfor %}
+{% for block in section.blocks %}
+  <div class="tody">
+    <div class="container">
+      <div class="tdybgn">
+  <!--       right section -->
+      {% if block.settings.spclproduct %}
+        {% capture index %}{{ 'now' | date: '%S' | times: current_collection.products.size | divided_by: 60 }}{% endcapture %}
+        {% for cproduct in current_collection.products offset:index limit: 1 %}
+          {% assign product = cproduct %}
+        {% endfor %} 
+        <div class="tody-bg">
+          <h2>{{ block.settings.mainheadingleft }}</h2>
+          <div class="main-product-box">
+            <div class="product-img">
+              <a href="{{ product.url | within: collection }}" class="product-grid-item__image {{ image_transition_class }}">
+                {%- if settings.lazyload -%}
+                <picture>
+                <img src="{{ product.featured_image | img_url: '120x' | default: '' }}" alt="{{ product.featured_image.alt }}" class="first--image {{ settings.product_transitionn }}" width="120" height="120" loading="lazy" />
+                </picture>
+                {%- else -%}
+                <picture>
+                <img src="{{ product.featured_image | img_url: '120x' | default: '' }}" alt="{{ product.featured_image.alt }}" class="first--image {{ settings.product_transitionn }}" width="120" height="120" loading="lazy" />
+                </picture>
+                {%- endif -%}
+              </a>
+            </div>
+            <div class="product-abt">
+              <h3>{{ product.title }}</h3>
+              <div class="product-grid-item__price">
+                <span class="money js-product-price">
+                {{ product.price }}
+                {{  }}
+                </span>
+              {% unless product_layout_option == "product_none" %}
+              <span class="money product-grid-item__compare-at-price{% unless on_sale and is_product_available %} hidden{% endunless %} js-product-compare-price">
+                {% if on_sale and is_product_available %}
+                  {{ product_variant_compare_at_price }}
+                {% endif %}
+              </span>
+          {% endunless %}
+              </div>
+            </div>
+          </div>
+        </div>
+            {% endif %}
+        
+  <!--       left section -->
+        
+        
+        <div class="tody-bg tsy-bg-lft right-section-ftr">
+          <h2 class="hdng">{{ block.settings.mainheadingright }}</h2>
+  
+          <div class="img-block">
+            <div class="img-block-in">
+              <img src="{{ block.settings.image1 | img_url: 'master' }}" />
+            </div>
+            <div class="img-block-in">
+              <img src="{{ block.settings.image2 | img_url: 'master' }}" />
+            </div>
+            <div class="img-block-in">
+              <img src="{{ block.settings.image3 | img_url: 'master' }}" />
+            </div>
+            <div class="img-block-in">
+              <img src="{{ block.settings.image4 | img_url: 'master' }}" />
+            </div>
+            <div class="img-block-in">
+              <img src="{{ block.settings.image5 | img_url: 'master' }}" />
+            </div>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+  <!--     Newsletter -->
+    {%- if block.settings.show_newsletter -%}
+      <div class="nws-bg">
+        <div class="container">
+          <div class="nws-bg-in row">
+            <div class="nws-bg-in-lft col-xl-4 col-md-4 col-sm-12 ">
+              <h2>{{ block.settings.newsletterheading }}</h2>
+            </div>
+            <div class="nws-bg-in-mid col-xl-5 col-md-5 col-sm-12 ">
+              <div class="footer__form-group flexy-flex globo-formbuilder foot-forms">      
+                {% form 'customer' %}
+                  {{ form.errors | default_errors }}
+                  {% if form.posted_successfully? %}
+                    <p class="form--success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                  {% else %}
+                    <div class="input-group password__input-group" style="display: flex;">
+                      <input type="hidden" name="contact[tags]" value="newsletter" required="">
+                      <input type="email" 
+                        name="contact[email]" 
+                        id="Email" 
+                        class="input-group__field newsletter__input" 
+                        value="{% if customer %}{{ customer.email }}{% endif %}" 
+                        placeholder="Enter Email address" 
+                        autocorrect="off" 
+                        autocapitalize="off" 
+                        required="" style="width: 100%;">
+                        <span class="input-group__btn">
+                          <button type="submit" class="btn btn-success" name="commit" id="Subscribe">
+                            SUBSCRIBE
+                          </button>
+                        </span>
+                      </div>
+                  {% endif %}
+                {% endform %}    
+              </div>
+            </div>
+            <div class="nws-bg-in-rht col-xl-3 col-md-3 col-sm-12 ">
+              <ul class="list-icons">
+                {% if settings.facebook_url != '' %}
+                  <li>
+                    <a href="{{ settings.facebook_url }}" target="_blank"><i class="fa fa-facebook-f"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.twitter_url != '' %}
+                  <li>
+                    <a href="{{ settings.twitter_url }}" target="_blank"><i class="fa fa-twitter"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.instagram_url != '' %}
+                  <li>
+                    <a href="{{ settings.instagram_url }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.pinterest_url != '' %}
+                  <li>
+                    <a href="{{ settings.pinterest_url }}" target="_blank"><i class="fa fa-pinterest-p"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.google_url != '' %}
+                  <li>
+                    <a href="{{ settings.google_url }}" target="_blank"><i class="fa fa-google-plus-g"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.tumblr_url != '' %}
+                  <li>
+                    <a href="{{ settings.tumblr_url }}" target="_blank"><i class="fa fa-tumblr"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.youtube_url != '' %}
+                  <li>
+                    <a href="{{ settings.youtube_url }}" target="_blank"><i class="fa fa-youtube"></i></a>
+                  </li>
+                {% endif %}
+                {% if settings.vimeo_url != '' %}
+                  <li>
+                    <a href="{{ settings.vimeo_url }}" target="_blank"><i class="fa fa-vimeo-v"></i></a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  
+  
+  {% schema %}
+  {
+    "name": "First Footer",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "footer_first_row_display",
+        "label": "Display Footer First Row?",
+        "default": true
+      },
+    {
+        "type": "checkbox",
+        "id": "footer_image_small",
+        "label": "Display Small Images",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Look And Feel"
+      },
+      {
+        "type": "color",
+        "id": "footer_first_row_bg_color",
+        "label": "Background Color",
+        "default": "#f1f4f5"
+      },
+      {
+        "type": "color",
+        "id": "footer_first_row_font_color",
+        "label": "Font Color",
+        "default": "#6e797a"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_font_size_heading",
+        "label": "Heading Font Size",
+        "options": [
+          {
+            "value": "10px",
+            "label": "10px"
+          },
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          },
+          {
+            "value": "24px",
+            "label": "24px"
+          },
+          {
+            "value": "26px",
+            "label": "26px"
+          },
+          {
+            "value": "28px",
+            "label": "28px"
+          }
+        ],
+        "default": "22px"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_font_style_heading",
+        "label": "Heading Font Style",
+        "options": [
+          {
+            "value": "300",
+            "label": "Lighter",
+            "group": "Font Style"
+          },
+          {
+            "value": "400",
+            "label": "Normal",
+            "group": "Font Style"
+          },
+          {
+            "value": "600",
+            "label": "Bold",
+            "group": "Font Style"
+          },
+          {
+            "value": "700",
+            "label": "Bolder",
+            "group": "Font Style"
+          }
+        ],
+        "default": "600"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_title_font_size",
+        "label": "Subheading Font Size",
+        "options": [
+          {
+            "value": "10px",
+            "label": "10px"
+          },
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          }
+        ],
+        "default": "16px"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_title_font_style",
+        "label": "Subheading Font Style",
+        "options": [
+          {
+            "value": "300",
+            "label": "Lighter",
+            "group": "Font Style"
+          },
+          {
+            "value": "400",
+            "label": "Normal",
+            "group": "Font Style"
+          },
+          {
+            "value": "600",
+            "label": "Bold",
+            "group": "Font Style"
+          },
+          {
+            "value": "700",
+            "label": "Bolder",
+            "group": "Font Style"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_link_font_size",
+        "label": "Link Font Size",
+        "options": [
+          {
+            "value": "10px",
+            "label": "10px"
+          },
+          {
+            "value": "12px",
+            "label": "12px"
+          },
+          {
+            "value": "14px",
+            "label": "14px"
+          },
+          {
+            "value": "16px",
+            "label": "16px"
+          },
+          {
+            "value": "18px",
+            "label": "18px"
+          },
+          {
+            "value": "20px",
+            "label": "20px"
+          },
+          {
+            "value": "22px",
+            "label": "22px"
+          },
+          {
+            "value": "24px",
+            "label": "24px"
+          },
+          {
+            "value": "26px",
+            "label": "26px"
+          },
+          {
+            "value": "28px",
+            "label": "28px"
+          }
+        ],
+        "default": "16px"
+      },
+      {
+        "type": "select",
+        "id": "footer_first_row_link_font_style",
+        "label": "link Font Style",
+        "options": [
+          {
+            "value": "300",
+            "label": "Lighter",
+            "group": "Font Style"
+          },
+          {
+            "value": "400",
+            "label": "Normal",
+            "group": "Font Style"
+          },
+          {
+            "value": "600",
+            "label": "Bold",
+            "group": "Font Style"
+          },
+          {
+            "value": "700",
+            "label": "Bolder",
+            "group": "Font Style"
+          }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "color",
+        "id": "footer_first_row_link_font_color",
+        "label": "Link Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "footer_first_row_link_font_color_hover",
+        "label": "Link Hover Color",
+        "default": "#cde480"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "footer columns",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Sub Heading"
+          },
+          {
+            "type": "text",
+            "id": "linktext",
+            "label": "Link Text"
+          },
+          {
+            "type": "url",
+            "id": "linkurl",
+            "label": "Link Url"
+          }
+        ]
+      },
+  
+      {
+        "type": "product",
+        "name": "Pre-Footer",
+        "settings": [
+          {
+            "type": "text",
+            "id": "mainheadingleft",
+            "label": "Heading-1",
+            "default": "Today's Special"
+          },
+          {
+            "type": "product",
+            "id": "spclproduct",
+            "label": "Today's Special Product"
+          },
+          {
+            "type": "text",
+            "id": "mainheadingright",
+            "label": "Heading-2",
+            "default": "Popular Brands"
+          },
+          {
+            "type": "image_picker",
+            "id": "image1",
+            "label": "Brand logo-1"
+          },
+          {
+            "type": "image_picker",
+            "id": "image2",
+            "label": "Brand logo-2"
+          },
+          {
+            "type": "image_picker",
+            "id": "image3",
+            "label": "Brand logo-3"
+          },
+          {
+            "type": "image_picker",
+            "id": "image4",
+            "label": "Brand logo-4"
+          },
+          {
+            "type": "image_picker",
+            "id": "image5",
+            "label": "Brand logo-5"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_newsletter",
+            "label": "Show Newsletter",
+            "default": true
+          },
+          {
+            "type": "richtext",
+            "id": "newsletterheading",
+            "label": "Newsletter Heading"
+          }
+        ]
+      }
+  
+      
+  
+      
+    ]
+  }
+  {% endschema %}

@@ -1,0 +1,154 @@
+{%- liquid
+    assign badge = false
+    assign badge_position = "topright"
+    for tag in product.tags
+        assign tag = tag | downcase
+        if tag contains "badge-"
+            assign badge = tag | replace: "badge-", ""
+        endif
+        if tag contains "badgestyle-"
+            assign badge_position = tag | replace: "badgestyle-", ""
+        endif
+    endfor
+    assign badge_free_shipping = settings.badge_shipping_free
+    assign badge_best_seller = settings.badge_best_seller
+    assign badge_new = settings.badge_new
+    assign badge_on_sale = settings.badge_onsale
+    assign badge_performance = settings.badge_performance
+    assign badge_save_now = settings.badge_save_now
+    assign badge_top_rated = settings.badge_top_rated
+    assign badge_pre_order = settings.badge_pre_order
+    assign badge_in_stock = settings.badge_instock
+    assign badge_sold_out = settings.badge_soldout
+    assign badge_custom_1 = settings.badge_custom_1
+    assign badge_custom_2 = settings.badge_custom_2
+-%}
+{% unless product.available %}
+  <div class="product-badges product-badges--topleft">
+    <div class="product-badges__badge">
+      <img src="{{ 'sold_out.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Sold Out" loading="lazy" />
+    </div>
+  </div>
+{% elsif badge %}
+  <div data-badge="{{ badge }}" class="product-badges product-badges--{{ badge_position }}">
+    {% if badge == "freeshipping" %}
+      <div class="product-badges__badge">
+        {% if badge_free_shipping != blank %}
+          <img src="{{ badge_free_shipping | img_url: '150x' }}" width="150" height="150" alt="Free shipping" loading="lazy" />
+        {% else %}
+          <img src="{{ 'shipping_free.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Free shipping" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "bestseller" %}
+      <div class="product-badges__badge">
+        {% if badge_best_seller != blank %}
+          <img src="{{ badge_best_seller | img_url: '150x' }}" width="150" height="150" alt="Best Seller" loading="lazy" />
+        {% else %}
+          <img src="{{ 'best_seller.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Best Seller" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "new" %}
+      <div class="product-badges__badge">
+        {% if badge_new != blank %}
+          <img src="{{ badge_new | img_url: '150x' }}" width="150" height="150" alt="New" loading="lazy" />
+        {% else %}
+          <img src="{{ 'new.png' | asset_img_url: '150x' }}" width="150" height="150" alt="New" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "onsale" %}
+      <div class="product-badges__badge">
+        {% if badge_on_sale != blank %}
+          <img src="{{ badge_on_sale | img_url: '150x' }}" width="150" height="150" alt="On sale" loading="lazy" />
+        {% else %}
+          <img src="{{ 'on_sale.png' | asset_img_url: '150x' }}" width="150" height="150" alt="On sale" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "performance" %}
+      <div class="product-badges__badge">
+        {% if badge_performance != blank %}
+          <img src="{{ badge_performance | img_url: '150x' }}" width="150" height="150" alt="Performance" loading="lazy" />
+        {% else %}
+          <img src="{{ 'performance.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Performance" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "savenow" %}
+      <div class="product-badges__badge">
+        {% if badge_save_now != blank %}
+          <img src="{{ badge_save_now | img_url: '150x' }}" width="150" height="150" alt="Save now" loading="lazy" />
+        {% else %}
+          <img src="{{ 'save_now.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Save now" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "toprated" %}
+      <div class="product-badges__badge">
+        {% if badge_top_rated != blank %}
+          <img src="{{ badge_top_rated | img_url: '150x' }}" width="150" height="150" alt="Top rated" loading="lazy" />
+        {% else %}
+          <img src="{{ 'top_rated.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Top rated" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "preorder" %}
+      <div class="product-badges__badge">
+        {% if badge_pre_order != blank %}
+          <img src="{{ badge_pre_order | img_url: '150x' }}" width="150" height="150" alt="Pre order" loading="lazy" />
+        {% else %}
+          <img src="{{ 'pre_order.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Pre order" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "instock" %}
+      <div class="product-badges__badge">
+        {% if badge_in_stock != blank %}
+          <img src="{{ badge_in_stock | img_url: '150x' }}" width="150" height="150" alt="In stock" loading="lazy" />
+        {% else %}
+          <img src="{{ 'in_stock.png' | asset_img_url: '150x' }}" width="150" height="150" alt="In stock" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "soldout" %}
+      <div class="product-badges__badge">
+        {% if badge_sold_out != blank %}
+          <img src="{{ badge_sold_out | img_url: '150x' }}" width="150" height="150" alt="Sold out" loading="lazy" />
+        {% else %}
+          <img src="{{ 'sold_out.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Sold out" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "custom1" %}
+      <div class="product-badges__badge">
+        {% if badge_custom_1 != blank %}
+          <img src="{{ badge_custom_1 | img_url: '150x' }}" width="150" height="150" alt="Badge 1" loading="lazy" />
+        {% else %}
+          <img src="{{ 'custom_1.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Badge 1" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if badge == "custom2" %}
+      <div class="product-badges__badge">
+        {% if badge_custom_2 != blank %}
+          <img src="{{ badge_custom_2 | img_url: '150x' }}" width="150" height="150" alt="Badge 2" loading="lazy" />
+        {% else %}
+          <img src="{{ 'custom_2.png' | asset_img_url: '150x' }}" width="150" height="150" alt="Badge 2" loading="lazy" />
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endunless %}

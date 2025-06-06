@@ -123,29 +123,6 @@
         "ctn-ttl4": "Congratulations"
       }
     },
-    "96bf9ad0-e837-4de7-9258-e43dc2ff285d": {
-      "type": "todays-special",
-      "disabled": true,
-      "settings": {
-        "button_link": "shopify://products/sweet-holidays-christmas-gift-tower",
-        "heading": "Special Offers",
-        "image-prdt": "shopify://shop_images/GC-5261__78968.jpg",
-        "paragraph": "<h5><a href=\"/products/sweet-holidays-christmas-gift-tower\" title=\"Sweet Holidays: Christmas Gift Tower\">Sweet Holidays: Christmas Gift Tower</a></h5>",
-        "prc": "$99.99",
-        "headings": "Popular Brands",
-        "image1": "shopify://shop_images/burts__logo-150x150.gif",
-        "image2": "shopify://shop_images/900x900_logos-Ghirardelli-5-150x150.png",
-        "image3": "shopify://shop_images/2232-150x150.png",
-        "image4": "shopify://shop_images/brand-150x150.gif",
-        "image5": "shopify://shop_images/26166402_134675360558707_4380285298417220487_n-150x150.jpg"
-      }
-    },
-    "5f4076fd-2c79-4a36-8583-2fde2c6b5816": {
-      "type": "news-letter-section",
-      "disabled": true,
-      "settings": {
-        "heading": "SIGN UP FOR EXCLUSIVE OFFERS<br>\n<i>Be the First to Know About Special Offers!</i>"
-      }
     },
     "c390e3cd-f2b4-4ca9-8070-af36e7ddebca": {
       "type": "footer-custom",
